@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 20:44:19 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/01/26 12:39:19 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/01/26 12:55:36 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,8 +280,8 @@ int	main(void)
 
 	load_textures(&g);
 
-	g.p.x = 2;
-	g.p.y = 2;
+	g.p.x = 1.5;
+	g.p.y = 1.5;
 	g.p.angle = -M_PI / 3;
 
 	render(&g);
