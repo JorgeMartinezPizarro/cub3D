@@ -6,7 +6,7 @@
 #    By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/01/20 14:46:14 by jomarti3         ###   ########.fr        #
+#    Updated: 2026/01/26 11:52:30 by jomarti3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,17 +41,19 @@ $(NAME): $(LIBFT) $(MLX) $(OBJECTS)
 		-o $(NAME)
 
 $(LIBFT):
-	make -C $(LIBFT_DIR)
+	@$(MAKE) -C $(LIBFT_DIR)
 
 $(MLX):
 	@$(MAKE) -C $(MLX_DIR)
 	
 clean:
-	make -C $(LIBFT_DIR) clean
+	@$(MAKE) -C $(LIBFT_DIR) clean
+	@$(MAKE) -C $(MLX_DIR) clean
 	rm -f $(OBJECTS)
 
 fclean: clean
-	make -C $(LIBFT_DIR) fclean
+	@$(MAKE) -C $(LIBFT_DIR) fclean
+	rm -f $(MLX_DIR)/Makefile.gen $(MLX_DIR)/test/Makefile.gen
 	rm -f $(NAME)
 
 re: fclean all

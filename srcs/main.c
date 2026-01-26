@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 20:44:19 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/01/22 16:44:36 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/01/26 11:53:33 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,81 +89,81 @@ int	get_tex_pixel(t_img *tex, int x, int y)
 
 /* cast_ray devuelve también side: 0=vertical, 1=horizontal */
 double  cast_ray(t_player *p, double angle,
-                 double *hitx, double *hity, int *side)
+				 double *hitx, double *hity, int *side)
 {
-    double  raydir_x = cos(angle);
-    double  raydir_y = sin(angle);
+	double  raydir_x = cos(angle);
+	double  raydir_y = sin(angle);
 
-    int map_x = (int)p->x;
-    int map_y = (int)p->y;
+	int map_x = (int)p->x;
+	int map_y = (int)p->y;
 
-    double  delta_dist_x = fabs(1.0 / raydir_x);
-    double  delta_dist_y = fabs(1.0 / raydir_y);
+	double  delta_dist_x = fabs(1.0 / raydir_x);
+	double  delta_dist_y = fabs(1.0 / raydir_y);
 
-    double  side_dist_x;
-    double  side_dist_y;
+	double  side_dist_x;
+	double  side_dist_y;
 
-    int step_x;
-    int step_y;
-    int hit = 0;
-    int dda_side; // 0 = vertical, 1 = horizontal
+	int step_x;
+	int step_y;
+	int hit = 0;
+	int dda_side; // 0 = vertical, 1 = horizontal
 
-    if (raydir_x < 0)
-    {
-        step_x = -1;
-        side_dist_x = (p->x - map_x) * delta_dist_x;
-    }
-    else
-    {
-        step_x = 1;
-        side_dist_x = (map_x + 1.0 - p->x) * delta_dist_x;
-    }
+	if (raydir_x < 0)
+	{
+		step_x = -1;
+		side_dist_x = (p->x - map_x) * delta_dist_x;
+	}
+	else
+	{
+		step_x = 1;
+		side_dist_x = (map_x + 1.0 - p->x) * delta_dist_x;
+	}
 
-    if (raydir_y < 0)
-    {
-        step_y = -1;
-        side_dist_y = (p->y - map_y) * delta_dist_y;
-    }
-    else
-    {
-        step_y = 1;
-        side_dist_y = (map_y + 1.0 - p->y) * delta_dist_y;
-    }
+	if (raydir_y < 0)
+	{
+		step_y = -1;
+		side_dist_y = (p->y - map_y) * delta_dist_y;
+	}
+	else
+	{
+		step_y = 1;
+		side_dist_y = (map_y + 1.0 - p->y) * delta_dist_y;
+	}
 
-    while (!hit)
-    {
-        if (side_dist_x < side_dist_y)
-        {
-            side_dist_x += delta_dist_x;
-            map_x += step_x;
-            dda_side = 0;
-        }
-        else
-        {
-            side_dist_y += delta_dist_y;
-            map_y += step_y;
-            dda_side = 1;
-        }
-        if (world[map_y][map_x] == 1)
-            hit = 1;
-    }
+	while (!hit)
+	{
+		if (side_dist_x < side_dist_y)
+		{
+			side_dist_x += delta_dist_x;
+			map_x += step_x;
+			dda_side = 0;
+		}
+		else
+		{
+			side_dist_y += delta_dist_y;
+			map_y += step_y;
+			dda_side = 1;
+		}
+		if (world[map_y][map_x] == 1)
+			hit = 1;
+	}
 
-    double perp_dist;
+	double perp_dist;
 
-    if (dda_side == 0)
-        perp_dist = (map_x - p->x + (1 - step_x) / 2) / raydir_x;
-    else
-        perp_dist = (map_y - p->y + (1 - step_y) / 2) / raydir_y;
+	if (dda_side == 0)
+		perp_dist = (map_x - p->x + (1 - step_x) / 2) / raydir_x;
+	else
+		perp_dist = (map_y - p->y + (1 - step_y) / 2) / raydir_y;
 
-    *hitx = p->x + perp_dist * raydir_x;
-    *hity = p->y + perp_dist * raydir_y;
+	*hitx = p->x + perp_dist * raydir_x;
+	*hity = p->y + perp_dist * raydir_y;
 
-    if (dda_side == 0)
-        *side = (raydir_x > 0) ? 2 : 3; // E / W
-    else
-        *side = (raydir_y > 0) ? 1 : 0; // S / N
+	if (dda_side == 0)
+		*side = (raydir_x > 0) ? 2 : 3; // E / W
+	else
+		*side = (raydir_y > 0) ? 1 : 0; // S / N
 
-    return (perp_dist);
+	return (perp_dist);
 }
 
 void	render(t_game *g)
@@ -182,7 +182,12 @@ void	render(t_game *g)
 
 		int	wall_h = (int)(HEIGHT / dist);
 		int	start = HEIGHT / 2 - wall_h / 2;
-		int	end = HEIGHT / 2 + wall_h / 2;
+		int	end   = HEIGHT / 2 + wall_h / 2;
+
+		if (start < 0)
+			start = 0;
+		if (end >= HEIGHT)
+			end = HEIGHT;
 
 		t_img *tex;
 		if (side == 0)
@@ -208,20 +213,22 @@ void	render(t_game *g)
 			tex_x = 0;
 		if (tex_x >= TEX)
 			tex_x = TEX - 1;
-		
+
+		/* ceiling */
+		for (int y = 0; y < start; y++)
+			put_pixel(&g->frame, x, y, CEILING_COLOR);
+
+		/* wall */
 		for (int y = start; y < end; y++)
 		{
-			int	tex_y = (y - start) * TEX / wall_h;
-			int	color = get_tex_pixel(tex, tex_x, tex_y);
+			int tex_y = (y - start) * TEX / wall_h;
+			int color = get_tex_pixel(tex, tex_x, tex_y);
 			put_pixel(&g->frame, x, y, color);
 		}
 
-		/* floor & ceiling */
+		/* floor */
 		for (int y = end; y < HEIGHT; y++)
-		{
 			put_pixel(&g->frame, x, y, FLOOR_COLOR);
-			put_pixel(&g->frame, x, HEIGHT - y, CEILING_COLOR);
-		}
 	}
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
 }
@@ -262,11 +269,13 @@ void	move_player(t_game *g, double dx, double dy)
 	double ny = g->p.y + dy;
 
 	/* eje X */
-	if (world[(int)g->p.y][(int)(nx + (dx > 0 ? PLAYER_RADIUS : -PLAYER_RADIUS))] == 0)
+	if (world[(int)g->p.y]
+		[(int)(nx + (dx > 0 ? PLAYER_RADIUS : -PLAYER_RADIUS))] == 0)
 		g->p.x = nx;
 
 	/* eje Y */
-	if (world[(int)(ny + (dy > 0 ? PLAYER_RADIUS : -PLAYER_RADIUS))][(int)g->p.x] == 0)
+	if (world[(int)(ny + (dy > 0 ? PLAYER_RADIUS : -PLAYER_RADIUS))]
+		[(int)g->p.x] == 0)
 		g->p.y = ny;
 }
 
@@ -350,5 +359,6 @@ TODO
 - add minimap
 - load map from file (validation from solong)
 - refactor norm
+- move defines to header
 
 */
