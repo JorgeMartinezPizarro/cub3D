@@ -4,6 +4,7 @@
 # include <mlx.h>
 # include <math.h>
 # include <stdlib.h>
+# include "libft.h"
 
 # define WIDTH 1800
 # define HEIGHT 900
