@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 20:44:19 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/01/26 12:55:36 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/01/26 13:28:45 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,67 +57,84 @@ int	get_tex_pixel(t_img *tex, int x, int y)
 	return (*(unsigned int *)(tex->addr + y * tex->line + x * 4));
 }
 
-double	cast_ray(t_player *p, double angle, double *hitx, double *hity, int *side)
+/* cast_ray devuelve también side: 0=vertical, 1=horizontal */
+double cast_ray(t_player *p, double angle,
+                double *hitx, double *hity, int *side)
 {
-	double	ray_x = cos(angle);
-	double	ray_y = sin(angle);
-	int		map_x = (int)p->x;
-	int		map_y = (int)p->y;
-	double	dx = fabs(1.0 / ray_x);
-	double	dy = fabs(1.0 / ray_y);
-	double	sx;
-	double	sy;
-	int		step_x;
-	int		step_y;
-	int		hit = 0;
-	int		dda_side;
+    double raydir_x = cos(angle);
+    double raydir_y = sin(angle);
 
-	if (ray_x < 0)
-	{
-		step_x = -1;
-		sx = (p->x - map_x) * dx;
-	}
-	else
-	{
-		step_x = 1;
-		sx = (map_x + 1.0 - p->x) * dx;
-	}
-	if (ray_y < 0)
-	{
-		step_y = -1;
-		sy = (p->y - map_y) * dy;
-	}
-	else
-	{
-		step_y = 1;
-		sy = (map_y + 1.0 - p->y) * dy;
-	}
-	while (!hit)
-	{
-		if (sx < sy)
-		{
-			sx += dx;
-			map_x += step_x;
-			dda_side = 0;
-		}
-		else
-		{
-			sy += dy;
-			map_y += step_y;
-			dda_side = 1;
-		}
-		if (world[map_y][map_x])
-			hit = 1;
-	}
-	double	perp;
-	if (dda_side == 0)
-		perp = (map_x - p->x + (1 - step_x) / 2) / ray_x;
-	else
-		perp = (map_y - p->y + (1 - step_y) / 2) / ray_y;
-	*hitx = p->x + perp * ray_x;
-	*hity = p->y + perp * ray_y;
-	*side = (dda_side == 0) ? (ray_x > 0 ? 2 : 3) : (ray_y > 0 ? 1 : 0);
-	return (perp);
+    int map_x = (int)p->x;
+    int map_y = (int)p->y;
+
+    double delta_dist_x = fabs(1.0 / raydir_x);
+    double delta_dist_y = fabs(1.0 / raydir_y);
+
+    double side_dist_x;
+    double side_dist_y;
+
+    int step_x;
+    int step_y;
+    int hit = 0;
+    int dda_side; // 0 = vertical, 1 = horizontal
+
+    if (raydir_x < 0)
+    {
+        step_x = -1;
+        side_dist_x = (p->x - map_x) * delta_dist_x;
+    }
+    else
+    {
+        step_x = 1;
+        side_dist_x = (map_x + 1.0 - p->x) * delta_dist_x;
+    }
+
+    if (raydir_y < 0)
+    {
+        step_y = -1;
+        side_dist_y = (p->y - map_y) * delta_dist_y;
+    }
+    else
+    {
+        step_y = 1;
+        side_dist_y = (map_y + 1.0 - p->y) * delta_dist_y;
+    }
+
+    while (!hit)
+    {
+        if (side_dist_x < side_dist_y)
+        {
+            side_dist_x += delta_dist_x;
+            map_x += step_x;
+            dda_side = 0;
+        }
+        else
+        {
+            side_dist_y += delta_dist_y;
+            map_y += step_y;
+            dda_side = 1;
+        }
+        if (world[map_y][map_x] == 1)
+            hit = 1;
+    }
+
+    double perp_dist;
+
+    if (dda_side == 0)
+        perp_dist = (map_x - p->x + (1 - step_x) / 2) / raydir_x;
+    else
+        perp_dist = (map_y - p->y + (1 - step_y) / 2) / raydir_y;
+
+    /* Coordenadas exactas del impacto */
+    *hitx = p->x + perp_dist * raydir_x;
+    *hity = p->y + perp_dist * raydir_y;
+
+    if (dda_side == 0)
+        *side = (raydir_x > 0) ? 2 : 3; // E / W
+    else
+        *side = (raydir_y > 0) ? 1 : 0; // S / N
+
+    return (perp_dist);
 }
 
 void	draw_column(t_game *g, int x, int start, int end, t_img *tex, double wall_x, int wall_h)
@@ -174,27 +191,31 @@ void	render(t_game *g)
 
 		t_img	*tex;
 		double	wall_x;
-		if (side == 0)
+
+		/* corregimos wall_x según side */
+		if (side == 0) // N
 		{
 			tex = &g->wall_north;
-			wall_x = hx;
+			wall_x = g->p.x + dist * cos(ray_angle);
 		}
-		else if (side == 1)
+		else if (side == 1) // S
 		{
 			tex = &g->wall_south;
-			wall_x = hx;
+			wall_x = g->p.x + dist * cos(ray_angle);
 		}
-		else if (side == 2)
+		else if (side == 2) // E
 		{
 			tex = &g->wall_east;
-			wall_x = hy;
+			wall_x = g->p.y + dist * sin(ray_angle);
 		}
-		else
+		else // W
 		{
 			tex = &g->wall_west;
-			wall_x = hy;
+			wall_x = g->p.y + dist * sin(ray_angle);
 		}
+
 		wall_x -= floor(wall_x);
+
 		draw_column(g, x, start, end, tex, wall_x, wall_h);
 		x++;
 	}
@@ -300,5 +321,7 @@ TODO
 - load map from file (validation from solong)
 - refactor norm
 - move defines to header
+- free on exit, check valgrind
+- fix mouse camera movement
 
 */
