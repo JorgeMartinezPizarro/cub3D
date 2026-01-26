@@ -6,62 +6,11 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 20:44:19 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/01/26 11:53:33 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/01/26 11:58:55 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include <math.h>
-#include <stdlib.h>
-
-#define WIDTH 800
-#define HEIGHT 600
-#define TEX 64
-
-#define KEY_W 119
-#define KEY_S 115
-#define KEY_A 100
-#define KEY_D 97
-#define KEY_LEFT 65361
-#define KEY_RIGHT 65363
-#define KEY_ESC 65307
-
-#define PLAYER_RADIUS 0.2
-#define MOVE_SPEED 0.2
-#define ROT_SPEED  0.1
-
-#define FLOOR_COLOR 0x444444   // gris oscuro
-#define CEILING_COLOR 0xAAAAAA // gris claro
-
-typedef struct s_img
-{
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line;
-	int		endian;
-	int		w;
-	int		h;
-}	t_img;
-
-typedef struct s_player
-{
-	double	x;
-	double	y;
-	double	angle;
-}	t_player;
-
-typedef struct s_game
-{
-	void		*mlx;
-	void		*win;
-	t_img		frame;
-	t_img		wall_north;
-	t_img		wall_south;
-	t_img		wall_east;
-	t_img		wall_west;
-	t_player	p;
-}	t_game;
+#include "cub3d.h"
 
 int world[9][9] = {
 	{1,1,1,1,1,1,1,1,1},
