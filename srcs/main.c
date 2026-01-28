@@ -6,13 +6,20 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 20:44:19 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/01/28 15:44:06 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/01/28 15:47:53 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 #include <stdlib.h>
+
+void free_map(int **map) {
+    for (int i = 0; i < 30; i++) {
+        free(map[i]);
+    }
+    free(map);
+}
 
 // Ejemplo hardcodeado de mapa. Reemplazar por leer de fichero.
 // Falta agregar a las variables globales:
@@ -286,18 +293,22 @@ void	move_player(t_game *g, double dx, double dy)
 int	key(int k, t_game *g)
 {
 	if (k == KEY_ESC)
+	{
+		// clean up all pointers here.
+		free_map(g->world);
 		exit(0);
+	}
 	if (k == KEY_LEFT)
 		g->p.angle -= ROT_SPEED;
-	if (k == KEY_RIGHT)
+	else if (k == KEY_RIGHT)
 		g->p.angle += ROT_SPEED;
-	if (k == KEY_W)
+	else if (k == KEY_W)
 		move_player(g, cos(g->p.angle) * MOVE_SPEED, sin(g->p.angle) * MOVE_SPEED);
-	if (k == KEY_S)
+	else if (k == KEY_S)
 		move_player(g, -cos(g->p.angle) * MOVE_SPEED, -sin(g->p.angle) * MOVE_SPEED);
-	if (k == KEY_A)
+	else if (k == KEY_A)
 		move_player(g, -sin(g->p.angle) * MOVE_SPEED, cos(g->p.angle) * MOVE_SPEED);
-	if (k == KEY_D)
+	else if (k == KEY_D)
 		move_player(g, sin(g->p.angle) * MOVE_SPEED, -cos(g->p.angle) * MOVE_SPEED);
 	render(g);
 	return (0);
@@ -348,6 +359,6 @@ TODO (BONUS)
 - load map from file (validation from solong)
 - refactor norm
 - free on exit, check valgrind
-- fix mouse camera movement
+- fix mouse camera movement (too fast, it beaks on fast movements)
 
 */
