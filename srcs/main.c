@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 20:44:19 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/01/28 15:47:53 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/01/28 15:50:29 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ double cast_ray(t_game *g, double angle,
     return (perp_dist);
 }
 
+// CEILING_COLOR and FLOOR_COLOR are load from map, add it to t_game structure.
 void	draw_column(t_game *g, int x, int start, int end, t_img *tex, double wall_x, int wall_h)
 {
 	int	y;
@@ -322,6 +323,7 @@ void	load_tex(t_game *g, t_img *t, char *path)
 
 void	load_textures(t_game *g)
 {
+	// Textures can be changed with the map file.
 	load_tex(g, &g->wall_north, "textures/wall_north.xpm");
 	load_tex(g, &g->wall_south, "textures/wall_south.xpm");
 	load_tex(g, &g->wall_east, "textures/wall_east.xpm");
@@ -339,6 +341,7 @@ int	main(void)
 	g.world = load_map();
 	load_textures(&g);
 
+	// The map loads x, y and angle (depending on NSW or E on the map)
 	g.p.x = 1.5;
 	g.p.y = 1.5;
 	g.p.angle = -M_PI / 3;
