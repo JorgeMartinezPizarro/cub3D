@@ -54,6 +54,8 @@ typedef struct s_game
 	t_img		wall_west;
 	t_player	p;
 	int			**world;
+	int			height;
+	int			width;
 }	t_game;
 
 # endif

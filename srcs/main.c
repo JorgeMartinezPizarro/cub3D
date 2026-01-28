@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 20:44:19 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/01/28 15:50:29 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/01/28 15:52:45 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,6 +338,7 @@ int	main(void)
 	g.win = mlx_new_window(g.mlx, WIDTH, HEIGHT, "Cub3D");
 	g.frame.img = mlx_new_image(g.mlx, WIDTH, HEIGHT);
 	g.frame.addr = mlx_get_data_addr(g.frame.img, &g.frame.bpp, &g.frame.line, &g.frame.endian);
+	// load_map put the result into t_game->world. if map is invalid, it ends with an exit.
 	g.world = load_map();
 	load_textures(&g);
 
