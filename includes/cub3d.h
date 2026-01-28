@@ -53,6 +53,7 @@ typedef struct s_game
 	t_img		wall_east;
 	t_img		wall_west;
 	t_player	p;
+	int			**world;
 }	t_game;
 
 # endif
