@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 20:44:19 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/01/28 15:41:38 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/01/28 15:44:06 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,14 +340,13 @@ int	main(void)
 
 /*
 
-TODO
+TODO (BONUS)
 
 - add doors
-- add animated sprite
+- add animated arms (sprite)
 - add minimap
 - load map from file (validation from solong)
 - refactor norm
-- move defines to header
 - free on exit, check valgrind
 - fix mouse camera movement
 
