@@ -6,11 +6,16 @@
 /*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 19:50:32 by guigonza          #+#    #+#             */
-/*   Updated: 2026/01/30 13:45:57 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/01/30 14:17:23 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int ft_isspace(int c)
+{
+	return ((c >= 9 && c <= 13) || c == 32);
+}
 
 int	ft_check_extension(char *filename)
 {
@@ -54,6 +59,32 @@ t_config	*ft_init_config(void)
 	config->f_flag = 0;
 	config->c_flag = 0;
 	return (config);
+}
+int	ft_parse_line(t_config *config, char *line)
+{
+    int	i;
+
+    i = 0;
+    while (line[i] && ft_isspace(line[i]))
+        i++;
+    if (line[i] == '\n' || line[i] == '\0')
+        return (0);
+    if (ft_strncmp(&line[i], "NO ", 3) == 0)
+        return (ft_parse_texture(&config->no_texture, &config->no_flag, line + i + 3));
+    if (ft_strncmp(&line[i], "SO ", 3) == 0)
+        return (ft_parse_texture(&config->so_texture, &config->so_flag, line + i + 3));
+    if (ft_strncmp(&line[i], "WE ", 3) == 0)
+        return (ft_parse_texture(&config->we_texture, &config->we_flag, line + i + 3));
+    if (ft_strncmp(&line[i], "EA ", 3) == 0)
+        return (ft_parse_texture(&config->ea_texture, &config->ea_flag, line + i + 3));
+    if (ft_strncmp(&line[i], "F ", 2) == 0)
+        return (ft_parse_color(config->floor, &config->f_flag, line + i + 2));
+    if (ft_strncmp(&line[i], "C ", 2) == 0)
+        return (ft_parse_color(config->sky, &config->c_flag, line + i + 2));
+    if (ft_check_all_flags(config) == 1)
+        return (ft_add_map_line(config, line));
+    ft_putstr_fd("Error\nInvalid line\n", 2);
+    return (1);
 }
 t_config *ft_parse_cub_file(char *filename)
 {
@@ -105,6 +136,7 @@ t_config *ft_parse_cub_file(char *filename)
 	}
 	if (config->map == NULL)
 	{
+		ft_putstr_fd("Error\nMap not found\n", 2);
 		free(config);
 		return(NULL);
 	}
