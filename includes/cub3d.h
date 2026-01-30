@@ -5,6 +5,9 @@
 # include <math.h>
 # include <stdlib.h>
 # include "libft.h"
+# include <unistd.h>
+# include <stdio.h>
+#include <fcntl.h>
 
 # define WIDTH 1800
 # define HEIGHT 900
@@ -24,6 +27,32 @@
 
 # define FLOOR_COLOR 0x444444
 # define CEILING_COLOR 0xAAAAAA
+
+typedef struct s_config
+{
+	char	*no_texture;
+	char	*so_texture;
+	char	*we_texture;
+	char	*ea_texture;
+	
+	/*colors*/
+	int		floor[3];
+	int		sky[3];
+	int		**map;
+	int		height;
+	int		width;
+	double	x_spawn;
+	double	y_spawn;
+	double	spawn_angle;
+	/*flags*/
+	int		no_flag;
+	int		so_flag;
+	int		we_flag;
+	int		ea_flag;
+	int		f_flag;
+	int		c_flag;
+
+} t_config;
 
 typedef struct s_img
 {
@@ -57,5 +86,7 @@ typedef struct s_game
 	int			height;
 	int			width;
 }	t_game;
+
+
 
 # endif
