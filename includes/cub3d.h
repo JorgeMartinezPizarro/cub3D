@@ -87,6 +87,10 @@ typedef struct s_game
 	int			width;
 }	t_game;
 
+<<<<<<< HEAD
 
+=======
+int	load_map(char *filename, t_game *game);
+>>>>>>> 1f80755b208eda9bfd2c0094185c88d7e8f6ade1
 
 # endif

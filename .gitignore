@@ -1,0 +1,5 @@
+*.a
+*.o
+mlx-test
+*.gen
+cub3D
