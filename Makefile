@@ -6,7 +6,7 @@
 #    By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/01/26 11:52:30 by jomarti3         ###   ########.fr        #
+#    Updated: 2026/01/30 13:02:28 by jomarti3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ MLX_DIR     = mlx_linux
 MLX      = $(MLX_DIR)/libmlx_Linux.a
 
 FILES = \
-	main
+	main load_map
 
 OBJECTS = $(addprefix srcs/, $(FILES:=.o))
 CC       = cc
