@@ -9,14 +9,14 @@
 # include <stdio.h>
 #include <fcntl.h>
 
-# define WIDTH 1800
-# define HEIGHT 900
+# define WIDTH 1024
+# define HEIGHT 786
 # define TEX 64
 
 # define KEY_W 119
 # define KEY_S 115
-# define KEY_A 100
-# define KEY_D 97
+# define KEY_A 97
+# define KEY_D 100
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
@@ -94,11 +94,12 @@ typedef struct s_game
 	int			**world;
 	int			height;
 	int			width;
-	double		mouse_dx;
+	double		mouse_x_diff;
 }	t_game;
 
 int		load_map(char *filename, t_game *game);
 void	render_minimap(t_game *g);
 void	put_pixel(t_img *img, int x, int y, int c);
+void	free_game(t_game *game);
 
 # endif
