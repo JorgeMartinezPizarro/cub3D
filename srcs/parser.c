@@ -6,7 +6,7 @@
 /*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 19:50:32 by guigonza          #+#    #+#             */
-/*   Updated: 2026/01/30 14:17:23 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/02/02 20:25:41 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,12 @@ int ft_isspace(int c)
 {
 	return ((c >= 9 && c <= 13) || c == 32);
 }
-
+void	ft_free_all(char **res, int i)
+{
+	while (i-- > 0)
+		free(res[i]);
+	free(res);
+}
 int	ft_check_extension(char *filename)
 {
 	int	len;
@@ -28,7 +33,16 @@ int	ft_check_extension(char *filename)
 		return (1);
 	return (0);
 }
-
+t_config	*ft_inicialize_up_down(t_config *config)
+{
+	config->floor[0] = -1;
+	config->floor[1] = -1;
+	config->floor[2] = -1;
+	config->sky[0] = -1;
+	config->sky[1] = -1;
+	config->sky[2] = -1;
+	return (config);
+}
 t_config	*ft_init_config(void)
 {
 	t_config	*config;
@@ -40,15 +54,10 @@ t_config	*ft_init_config(void)
 	config->so_texture = NULL;
 	config->ea_texture = NULL;
 	config->we_texture = NULL;
-	config->floor[0] = -1;
-	config->floor[1] = -1;
-	config->floor[2] = -1;
-	config->sky[0] = -1;
-	config->sky[1] = -1;
-	config->sky[2] = -1;
 	config->map = NULL;
 	config->height = 0;
 	config->width = 0;
+	ft_inicialize_up_down(config);
 	config->x_spawn = -1;
 	config->y_spawn = -1;
 	config->spawn_angle = -1;
@@ -143,3 +152,113 @@ t_config *ft_parse_cub_file(char *filename)
 	return(config);
 	
 }
+
+int	ft_parse_texture(char **texture, int *flag, char *line)
+{
+	int i;
+	int end;
+
+	i = 0;
+	if (*flag == 1)
+	{
+		ft_putstr_fd("Error\nDuplicate texture\n", 2);
+		return (1);
+	}
+	while(ft_isspace(line[i]))
+		i++;
+	if (line[i] == '\n' || line[i] == '\0')
+	{
+		ft_putstr_fd("Error\nLine cant be empty\n",2);
+		return (1);
+	}
+	end = i;
+	while(line[end] && line[end] != '\n')
+		end++;
+	*texture = ft_substr(line, i, end - i);
+	if (*texture == NULL)
+	{
+		ft_putstr_fd("Error\nMalloc failed\n", 2);
+		return (1);
+	}
+	*flag = 1;
+	return (0); 
+}
+int ft_is_valid_nummber(char *str)
+{
+	int i;
+
+	i = 0;
+	while (ft_isspace(str[i]))
+		i++;
+	if (str[i]  == '\0' || str[i] == '\n')
+		return(0);
+	while (str[i] && str[i] != '\n' && !ft_isspace(str[i]))
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+	
+}
+int ft_parse_color(int *color, int *flag, char *line)
+{
+	char **values;
+	int i;
+	int count;
+	int num;
+
+	i = 0;
+	if(*flag == 1)
+	{
+		ft_putstr_fd("Error\nDuplicate color\n", 2);
+		return (1);
+	}
+	while (ft_isspace(line[i]))
+		i++;
+	values = ft_split(line + i, ',');
+	if (!values || !*values)
+	{
+		ft_putstr_fd("Error\nMalloc failed\n", 2);
+		ft_free_all(values, i);
+		return (1);
+	}
+	count = 0;
+	while(values[count])
+		count++;
+	if (count != 3)
+	{
+		ft_putstr_fd("Error\nInvalid color value\n", 2);
+		ft_free_all(values, count - 1);
+		return (1);
+	}
+	i = 0;
+	while (i < 3)
+	{
+		if (!ft_is_valid_nummber(values[i]))
+		{
+			ft_putstr_fd("Error\nInvalid color value\n", 2);
+			ft_free_all(values, count - 1);
+			return (1);
+		}
+		num = ft_atoi(values[i]);
+		if (num < 0 || num > 255)
+		{
+			ft_putstr_fd("Error\nColor out of range\n", 2);
+			ft_free_all(values, i);
+			return (1);
+		}
+		color[i] = num;
+		i++;
+	}
+	ft_free_all(values, i);
+	*flag = 1;
+	return (0);
+}
+
+/*
+TODO: implementar ft_addmap_line
+TODO: implementar ft_validate_map
+TODO: ft_stract_spawn
+TODO: ft_free_config
+*/
