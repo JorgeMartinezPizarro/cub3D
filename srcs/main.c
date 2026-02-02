@@ -157,12 +157,15 @@ void    render(t_game *g)
 int mouse_move(int x, int y, t_game *g)
 {
     (void)y;
-    // IMPORTANTE: Calculamos la diferencia y la guardamos.
-    // No llamamos a mlx_mouse_move aquí dentro para evitar el bucle infinito.
-    if (x != WIDTH / 2)
+    // Si el ratón se escapa mucho del centro, lo ignoramos para no ver el cursor de resize
+    if (x < 10 || x > WIDTH - 10)
     {
-        g->mouse_x_diff = x - (WIDTH / 2);
+        mlx_mouse_move(g->mlx, g->win, WIDTH / 2, HEIGHT / 2);
+        return (0);
     }
+    
+    if (x != WIDTH / 2)
+        g->mouse_x_diff = x - (WIDTH / 2);
     return (0);
 }
 
@@ -208,25 +211,28 @@ int game_loop(t_game *g)
 {
     static long long last_time = 0;
     long long now = get_time();
-    int fps_limit = 1000 / 60;
 
-    if (now - last_time < fps_limit)
+    if (now - last_time < 1000 / 60)
         return (0);
     last_time = now;
 
-    // 1. Procesar Movimiento de Teclado (Permite W+A)
     apply_movement(g);
 
-    // 2. Procesar Ratón
+    // Gestión de ratón mejorada
     if (g->mouse_x_diff != 0)
     {
+        // Aplicamos la sensibilidad definida en tu .h
         g->p.angle += (double)g->mouse_x_diff * SENSIBILITY;
         normalize_angle(&g->p.angle);
+        
+        // Limpiamos el diferencial
         g->mouse_x_diff = 0;
+        
+        // Solo centramos si el ratón se ha alejado significativamente del centro
+        // para evitar que la MLX se colapse enviando eventos de "warp"
         mlx_mouse_move(g->mlx, g->win, WIDTH / 2, HEIGHT / 2);
     }
 
-    // 3. Dibujar
     render(g);
     return (0);
 }
@@ -264,6 +270,7 @@ int main(void)
 {
     t_game  g;
 
+	ft_memset(&g, 0, sizeof(t_game));
     g.mlx = mlx_init();
     g.win = mlx_new_window(g.mlx, WIDTH, HEIGHT, "Cub3D");
 
@@ -280,11 +287,11 @@ int main(void)
     load_tex(&g, &g.wall_east, "textures/wall_east.xpm");
     load_tex(&g, &g.wall_west, "textures/wall_west.xpm");
 
-    // Ocultar el ratón para mejor experiencia
-    mlx_mouse_hide(g.mlx, g.win);
     // Moverlo al centro antes de empezar
     mlx_mouse_move(g.mlx, g.win, WIDTH / 2, HEIGHT / 2);
-
+	// Ocultar el ratón para mejor experiencia
+    mlx_mouse_hide(g.mlx, g.win);
+    
     mlx_hook(g.win, 2, 1L << 0, key_press, &g);   // Detecta cuando pulsas
 	mlx_hook(g.win, 3, 1L << 1, key_release, &g); // Detecta cuando sueltas
     mlx_hook(g.win, 6, 1L << 6, mouse_move, &g); // MotionNotify hook
