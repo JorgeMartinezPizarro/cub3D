@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 13:00:45 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/01/30 13:03:47 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/02 14:52:03 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int	load_map(char *filename, t_game *game)
     }
 
 	game->world = world;
+	game->height = 30;
+	game->width = 30;
 	// Depende de NSWE
 	game->p.x = 1.5;
 	game->p.y = 1.5;

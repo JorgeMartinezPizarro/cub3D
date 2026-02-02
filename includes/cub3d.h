@@ -28,6 +28,14 @@
 # define FLOOR_COLOR 0x444444
 # define CEILING_COLOR 0xAAAAAA
 
+#define MM_SCALE 4      // tamaño de cada celda en píxeles
+#define MM_OFFSET_X 10  // margen desde la izquierda
+#define MM_OFFSET_Y 10  // margen desde arriba
+
+#define COLOR_WALL   0x00FFFFFF
+#define COLOR_EMPTY  0x00333333
+#define COLOR_PLAYER 0x00FF0000
+
 typedef struct s_config
 {
 	char	*no_texture;
@@ -41,6 +49,7 @@ typedef struct s_config
 	int		**map;
 	int		height;
 	int		width;
+	// Usamos t_game->t_player para estas variables
 	double	x_spawn;
 	double	y_spawn;
 	double	spawn_angle;
@@ -85,12 +94,11 @@ typedef struct s_game
 	int			**world;
 	int			height;
 	int			width;
+	double		mouse_dx;
 }	t_game;
 
-<<<<<<< HEAD
-
-=======
-int	load_map(char *filename, t_game *game);
->>>>>>> 1f80755b208eda9bfd2c0094185c88d7e8f6ade1
+int		load_map(char *filename, t_game *game);
+void	render_minimap(t_game *g);
+void	put_pixel(t_img *img, int x, int y, int c);
 
 # endif
