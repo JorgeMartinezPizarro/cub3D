@@ -116,6 +116,46 @@ void    draw_column(t_game *g, int x, int start, int end, t_img *tex, double wal
         put_pixel(&g->frame, x, y++, FLOOR_COLOR);
 }
 
+void draw_hand_frame(t_game *g, t_img *sheet, int frame_idx, int offset_y)
+{
+    int x;
+    int y;
+    int color;
+
+	// Dimensiones de un solo frame (un cuarto de la imagen total)
+    int f_w = 192; 
+    int f_h = 128;
+
+    // Calculamos la posición inicial en el XPM (Grid 2x2)
+    // frame_idx % 2 nos da la columna (0 o 1)
+    // frame_idx / 2 nos da la fila (0 o 1)
+    int tex_start_x = (frame_idx % 2) * f_w;
+    int tex_start_y = (frame_idx / 2) * f_h;
+    
+    // Posición en pantalla (centrado horizontal, abajo vertical)
+    int screen_x = (WIDTH / 2) - (f_w / 2);
+    int screen_y = HEIGHT - f_h + offset_y;
+
+    y = 0;
+    while (y < f_h) // Solo recorremos el ALTO de un frame
+    {
+        x = 0;
+        while (x < f_w) // Solo recorremos el ANCHO de un frame
+        {
+            // Leemos sumando los offsets de fila y columna
+            color = get_tex_pixel(sheet, tex_start_x + x, tex_start_y + y);
+            
+            // Dibujamos solo si no es transparente y está dentro de la pantalla
+            if (color != 0x000000 && color > 0)
+            {
+                put_pixel(&g->frame, screen_x + x, screen_y + y, color);
+            }
+            x++;
+        }
+        y++;
+    }
+}
+
 void    render(t_game *g)
 {
     int     x = 0;
@@ -148,8 +188,11 @@ void    render(t_game *g)
         draw_column(g, x, start, end, tex, wall_x, wall_h);
         x++;
     }
+	draw_hand_frame(g, &g->hand_sheet, g->current_hand_frame, 20);
     render_minimap(g);
-    mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
+	
+	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
+	
 }
 
 /* --- HANDLERS DE EVENTOS --- */
@@ -157,15 +200,17 @@ void    render(t_game *g)
 int mouse_move(int x, int y, t_game *g)
 {
     (void)y;
-    // Si el ratón se escapa mucho del centro, lo ignoramos para no ver el cursor de resize
-    if (x < 10 || x > WIDTH - 10)
-    {
-        mlx_mouse_move(g->mlx, g->win, WIDTH / 2, HEIGHT / 2);
+    // Si el ratón ya está en el centro, no calculamos movimiento.
+    // Esto evita que el mlx_mouse_move de abajo genere un ciclo infinito.
+    if (x == WIDTH / 2)
         return (0);
-    }
+
+    // Calculamos la diferencia respecto al centro
+    g->mouse_x_diff = x - (WIDTH / 2);
+
+    // Teletransportamos el ratón de vuelta al centro inmediatamente
+    mlx_mouse_move(g->mlx, g->win, WIDTH / 2, HEIGHT / 2);
     
-    if (x != WIDTH / 2)
-        g->mouse_x_diff = x - (WIDTH / 2);
     return (0);
 }
 
@@ -174,6 +219,8 @@ void	move_player(t_game *g, double dx, double dy)
 	double	margin_x;
 	double	margin_y;
 
+	if (get_time() % 10 == 0)
+		g->current_hand_frame = (g->current_hand_frame + 1) % 4;
 	if (dx > 0)
 		margin_x = PLAYER_RADIUS;
 	else
@@ -228,32 +275,10 @@ int game_loop(t_game *g)
         // Limpiamos el diferencial
         g->mouse_x_diff = 0;
         
-        // Solo centramos si el ratón se ha alejado significativamente del centro
-        // para evitar que la MLX se colapse enviando eventos de "warp"
-        mlx_mouse_move(g->mlx, g->win, WIDTH / 2, HEIGHT / 2);
+        
     }
 
     render(g);
-    return (0);
-}
-
-int key(int k, t_game *g)
-{
-	if (k == KEY_ESC)
-        exit(0);
-    if (k == KEY_LEFT)
-        g->p.angle -= ROT_SPEED;
-    else if (k == KEY_RIGHT)
-        g->p.angle += ROT_SPEED;
-    else if (k == KEY_W)
-        move_player(g, cos(g->p.angle) * MOVE_SPEED, sin(g->p.angle) * MOVE_SPEED);
-    else if (k == KEY_S)
-        move_player(g, -cos(g->p.angle) * MOVE_SPEED, -sin(g->p.angle) * MOVE_SPEED);
-    else if (k == KEY_A)
-        move_player(g, sin(g->p.angle) * MOVE_SPEED, -cos(g->p.angle) * MOVE_SPEED);
-    else if (k == KEY_D)
-        move_player(g, -sin(g->p.angle) * MOVE_SPEED, cos(g->p.angle) * MOVE_SPEED);
-    normalize_angle(&g->p.angle);
     return (0);
 }
 
@@ -276,7 +301,7 @@ int main(void)
 
 	g.p.mouse_x = WIDTH / 2;
     g.p.mouse_y = HEIGHT / 2;
-
+	g.current_hand_frame = 0;
     g.frame.img = mlx_new_image(g.mlx, WIDTH, HEIGHT);
     g.frame.addr = mlx_get_data_addr(g.frame.img, &g.frame.bpp, &g.frame.line, &g.frame.endian);
 	
@@ -286,6 +311,7 @@ int main(void)
     load_tex(&g, &g.wall_south, "textures/wall_south.xpm");
     load_tex(&g, &g.wall_east, "textures/wall_east.xpm");
     load_tex(&g, &g.wall_west, "textures/wall_west.xpm");
+	load_tex(&g, &g.hand_sheet, "textures/arms.xpm");
 
     // Moverlo al centro antes de empezar
     mlx_mouse_move(g.mlx, g.win, WIDTH / 2, HEIGHT / 2);

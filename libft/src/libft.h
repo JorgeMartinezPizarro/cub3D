@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 13:26:55 by jomarti3          #+#    #+#             */
-/*   Updated: 2025/12/29 14:45:40 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/02 22:52:52 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,5 @@ int				ft_printf(const char *format, ...);
 char			*get_next_line(int fd);
 char			*ft_strreplace(const char *s, const char *a, const char *b);
 int				ft_valid_int(const char *str);
+int				ft_isspace(char c);
 #endif

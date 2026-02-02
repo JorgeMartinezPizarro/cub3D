@@ -6,23 +6,12 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/28 18:23:46 by jomarti3          #+#    #+#             */
-/*   Updated: 2025/12/04 20:45:10 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/02 23:41:17 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <limits.h>
-
-static int	ft_isspace(char c)
-{
-	return (c == ' '
-		|| c == '\t'
-		|| c == '\n'
-		|| c == '\f'
-		|| c == '\r'
-		|| c == '\v'
-	);
-}
 
 int	ft_valid_int(const char *str)
 {

@@ -3,25 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 19:50:32 by guigonza          #+#    #+#             */
-/*   Updated: 2026/02/02 20:25:41 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/02/02 22:57:21 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int ft_isspace(int c)
-{
-	return ((c >= 9 && c <= 13) || c == 32);
-}
-void	ft_free_all(char **res, int i)
-{
-	while (i-- > 0)
-		free(res[i]);
-	free(res);
-}
 int	ft_check_extension(char *filename)
 {
 	int	len;
@@ -220,7 +210,7 @@ int ft_parse_color(int *color, int *flag, char *line)
 	if (!values || !*values)
 	{
 		ft_putstr_fd("Error\nMalloc failed\n", 2);
-		ft_free_all(values, i);
+		free_strarr(values, i);
 		return (1);
 	}
 	count = 0;
@@ -229,7 +219,7 @@ int ft_parse_color(int *color, int *flag, char *line)
 	if (count != 3)
 	{
 		ft_putstr_fd("Error\nInvalid color value\n", 2);
-		ft_free_all(values, count - 1);
+		free_strarr(values, count - 1);
 		return (1);
 	}
 	i = 0;
@@ -238,20 +228,20 @@ int ft_parse_color(int *color, int *flag, char *line)
 		if (!ft_is_valid_nummber(values[i]))
 		{
 			ft_putstr_fd("Error\nInvalid color value\n", 2);
-			ft_free_all(values, count - 1);
+			free_strarr(values, count - 1);
 			return (1);
 		}
 		num = ft_atoi(values[i]);
 		if (num < 0 || num > 255)
 		{
 			ft_putstr_fd("Error\nColor out of range\n", 2);
-			ft_free_all(values, i);
+			free_strarr(values, i);
 			return (1);
 		}
 		color[i] = num;
 		i++;
 	}
-	ft_free_all(values, i);
+	free_strarr(values, i);
 	*flag = 1;
 	return (0);
 }

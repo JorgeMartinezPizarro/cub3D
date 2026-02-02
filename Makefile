@@ -6,7 +6,7 @@
 #    By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/02/02 16:05:12 by jomarti3         ###   ########.fr        #
+#    Updated: 2026/02/02 22:58:18 by jomarti3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,10 @@ MLX_DIR		= mlx_linux
 MLX			= $(MLX_DIR)/libmlx_Linux.a
 
 FILES		= \
-	main load_map \
+	main \
+	parser/load_map \
 	render/render_minimap render/put_pixel \
-	utils/free_game 
+	utils/free_functions 
 
 OBJECTS		= $(addprefix srcs/, $(FILES:=.o))
 

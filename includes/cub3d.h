@@ -67,20 +67,20 @@ typedef struct s_config
 
 typedef struct s_img
 {
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line;
-	int		endian;
-	int		w;
-	int		h;
+	void		*img;
+	char		*addr;
+	int			bpp;
+	int			line;
+	int			endian;
+	int			w;
+	int			h;
 }	t_img;
 
 typedef struct s_player
 {
-	double	x;
-	double	y;
-	double	angle;
+	double		x;
+	double		y;
+	double		angle;
 	double		mouse_x;
 	double		mouse_y;
 }	t_player;
@@ -89,6 +89,7 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
+	t_img		hand_sheet;
 	t_img		frame;
 	t_img		wall_north;
 	t_img		wall_south;
@@ -98,7 +99,8 @@ typedef struct s_game
 	int			**world;
 	int			height;
 	int			width;
-	int			keys[65536]; // Array para estados de teclas
+	int			current_hand_frame;
+	int			keys[65536];
 	double		mouse_x_diff;
 }	t_game;
 
@@ -106,5 +108,6 @@ int		load_map(char *filename, t_game *game);
 void	render_minimap(t_game *g);
 void	put_pixel(t_img *img, int x, int y, int c);
 void	free_game(t_game *game);
+void	free_strarr(char **res, int i);
 
 # endif
