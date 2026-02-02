@@ -153,12 +153,23 @@ int game_loop(t_game *g)
     return (0);
 }
 
-void    move_player(t_game *g, double dx, double dy)
+void	move_player(t_game *g, double dx, double dy)
 {
-    if (g->world[(int)g->p.y][(int)(g->p.x + dx)] == 0)
-        g->p.x += dx;
-    if (g->world[(int)(g->p.y + dy)][(int)g->p.x] == 0)
-        g->p.y += dy;
+	double	margin_x;
+	double	margin_y;
+
+	if (dx > 0)
+		margin_x = PLAYER_RADIUS;
+	else
+		margin_x = -PLAYER_RADIUS;
+	if (dy > 0)
+		margin_y = PLAYER_RADIUS;
+	else
+		margin_y = -PLAYER_RADIUS;
+	if (g->world[(int)g->p.y][(int)(g->p.x + dx + margin_x)] == 0)
+		g->p.x += dx;
+	if (g->world[(int)(g->p.y + dy + margin_y)][(int)g->p.x] == 0)
+		g->p.y += dy;
 }
 
 int key(int k, t_game *g)
