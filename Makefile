@@ -6,27 +6,30 @@
 #    By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/02/02 14:54:55 by jomarti3         ###   ########.fr        #
+#    Updated: 2026/02/02 16:05:12 by jomarti3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3D
+NAME		= cub3D
 
-LIBFT_DIR = libft
+LIBFT_DIR	= libft
 
-LIBFT=$(LIBFT_DIR)/libft.a
+LIBFT		= $(LIBFT_DIR)/libft.a
 
-MLX_DIR     = mlx_linux
+MLX_DIR		= mlx_linux
 
-MLX      = $(MLX_DIR)/libmlx_Linux.a
+MLX			= $(MLX_DIR)/libmlx_Linux.a
 
-FILES = \
-	main load_map render/render_minimap render/put_pixel
+FILES		= \
+	main load_map \
+	render/render_minimap render/put_pixel \
+	utils/free_game 
 
-OBJECTS = $(addprefix srcs/, $(FILES:=.o))
-CC       = cc
+OBJECTS		= $(addprefix srcs/, $(FILES:=.o))
 
-CFLAGS   = -Wall -Wextra -Werror \
+CC			= cc
+
+CFLAGS		= -Wall -Wextra -Werror \
 	-I./includes -I./$(LIBFT_DIR)/src -I./$(MLX_DIR)
 
 all: $(NAME)

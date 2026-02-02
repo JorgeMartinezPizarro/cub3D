@@ -9,21 +9,22 @@
 # include <stdio.h>
 #include <fcntl.h>
 
-# define WIDTH 1800
-# define HEIGHT 900
+# define WIDTH 800
+# define HEIGHT 600
 # define TEX 64
 
 # define KEY_W 119
 # define KEY_S 115
-# define KEY_A 100
-# define KEY_D 97
+# define KEY_A 97
+# define KEY_D 100
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
 
 # define PLAYER_RADIUS 0.2
-# define MOVE_SPEED 0.2
-# define ROT_SPEED  0.1
+# define MOVE_SPEED 0.029
+# define ROT_SPEED  0.039
+# define SENSIBILITY 0.0003
 
 # define FLOOR_COLOR 0x444444
 # define CEILING_COLOR 0xAAAAAA
@@ -79,6 +80,8 @@ typedef struct s_player
 	double	x;
 	double	y;
 	double	angle;
+	double		mouse_x;
+	double		mouse_y;
 }	t_player;
 
 typedef struct s_game
@@ -94,11 +97,13 @@ typedef struct s_game
 	int			**world;
 	int			height;
 	int			width;
-	double		mouse_dx;
+	int			keys[65536]; // Array para estados de teclas
+	double		mouse_x_diff;
 }	t_game;
 
 int		load_map(char *filename, t_game *game);
 void	render_minimap(t_game *g);
 void	put_pixel(t_img *img, int x, int y, int c);
+void	free_game(t_game *game);
 
 # endif
