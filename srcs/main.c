@@ -219,7 +219,7 @@ void	move_player(t_game *g, double dx, double dy)
 	double	margin_x;
 	double	margin_y;
 
-	if (get_time() % 10 == 0)
+	if (get_time() % 7 == 0)
 		g->current_hand_frame = (g->current_hand_frame + 1) % 4;
 	if (dx > 0)
 		margin_x = PLAYER_RADIUS;
