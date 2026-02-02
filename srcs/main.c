@@ -1,8 +1,31 @@
 #include "cub3d.h"
 #include <math.h>
 #include <stdlib.h>
+#include <sys/time.h>
 
 /* --- FUNCIONES DE APOYO --- */
+
+
+int key_press(int k, t_game *g)
+{
+    if (k == KEY_ESC) exit(0);
+    if (k < 65536) g->keys[k] = 1;
+    return (0);
+}
+
+int key_release(int k, t_game *g)
+{
+    if (k < 65536) g->keys[k] = 0;
+    return (0);
+}
+
+long long	get_time(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
 
 void    normalize_angle(double *angle)
 {
@@ -134,22 +157,12 @@ void    render(t_game *g)
 int mouse_move(int x, int y, t_game *g)
 {
     (void)y;
-    if (x == WIDTH / 2)
-        return (0);
-    g->mouse_x_diff = x - (WIDTH / 2);
-    return (0);
-}
-
-int game_loop(t_game *g)
-{
-    if (g->mouse_x_diff != 0)
+    // IMPORTANTE: Calculamos la diferencia y la guardamos.
+    // No llamamos a mlx_mouse_move aquí dentro para evitar el bucle infinito.
+    if (x != WIDTH / 2)
     {
-        g->p.angle += g->mouse_x_diff * 0.002;
-        normalize_angle(&g->p.angle);
-        g->mouse_x_diff = 0;
-        mlx_mouse_move(g->mlx, g->win, WIDTH / 2, HEIGHT / 2);
+        g->mouse_x_diff = x - (WIDTH / 2);
     }
-    render(g);
     return (0);
 }
 
@@ -170,6 +183,52 @@ void	move_player(t_game *g, double dx, double dy)
 		g->p.x += dx;
 	if (g->world[(int)(g->p.y + dy + margin_y)][(int)g->p.x] == 0)
 		g->p.y += dy;
+}
+
+void apply_movement(t_game *g)
+{
+    if (g->keys[KEY_W])
+        move_player(g, cos(g->p.angle) * MOVE_SPEED, sin(g->p.angle) * MOVE_SPEED);
+    if (g->keys[KEY_S])
+        move_player(g, -cos(g->p.angle) * MOVE_SPEED, -sin(g->p.angle) * MOVE_SPEED);
+    if (g->keys[KEY_A])
+        move_player(g, sin(g->p.angle) * MOVE_SPEED, -cos(g->p.angle) * MOVE_SPEED);
+    if (g->keys[KEY_D])
+        move_player(g, -sin(g->p.angle) * MOVE_SPEED, cos(g->p.angle) * MOVE_SPEED);
+    if (g->keys[KEY_LEFT])
+        g->p.angle -= ROT_SPEED;
+    if (g->keys[KEY_RIGHT])
+        g->p.angle += ROT_SPEED;
+    normalize_angle(&g->p.angle);
+}
+
+/* --- LOOP PRINCIPAL ACTUALIZADO --- */
+
+int game_loop(t_game *g)
+{
+    static long long last_time = 0;
+    long long now = get_time();
+    int fps_limit = 1000 / 60;
+
+    if (now - last_time < fps_limit)
+        return (0);
+    last_time = now;
+
+    // 1. Procesar Movimiento de Teclado (Permite W+A)
+    apply_movement(g);
+
+    // 2. Procesar Ratón
+    if (g->mouse_x_diff != 0)
+    {
+        g->p.angle += (double)g->mouse_x_diff * SENSIBILITY;
+        normalize_angle(&g->p.angle);
+        g->mouse_x_diff = 0;
+        mlx_mouse_move(g->mlx, g->win, WIDTH / 2, HEIGHT / 2);
+    }
+
+    // 3. Dibujar
+    render(g);
+    return (0);
 }
 
 int key(int k, t_game *g)
@@ -207,10 +266,14 @@ int main(void)
 
     g.mlx = mlx_init();
     g.win = mlx_new_window(g.mlx, WIDTH, HEIGHT, "Cub3D");
+
+	g.p.mouse_x = WIDTH / 2;
+    g.p.mouse_y = HEIGHT / 2;
+
     g.frame.img = mlx_new_image(g.mlx, WIDTH, HEIGHT);
     g.frame.addr = mlx_get_data_addr(g.frame.img, &g.frame.bpp, &g.frame.line, &g.frame.endian);
-	g.mouse_x_diff = 0;
-    if (!load_map("", &g)) return (1);
+	
+	if (!load_map("", &g)) return (1);
     
     load_tex(&g, &g.wall_north, "textures/wall_north.xpm");
     load_tex(&g, &g.wall_south, "textures/wall_south.xpm");
@@ -222,7 +285,8 @@ int main(void)
     // Moverlo al centro antes de empezar
     mlx_mouse_move(g.mlx, g.win, WIDTH / 2, HEIGHT / 2);
 
-    mlx_hook(g.win, 2, 1L << 0, key, &g);
+    mlx_hook(g.win, 2, 1L << 0, key_press, &g);   // Detecta cuando pulsas
+	mlx_hook(g.win, 3, 1L << 1, key_release, &g); // Detecta cuando sueltas
     mlx_hook(g.win, 6, 1L << 6, mouse_move, &g); // MotionNotify hook
     mlx_loop_hook(g.mlx, game_loop, &g);
     

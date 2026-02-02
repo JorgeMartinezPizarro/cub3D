@@ -9,8 +9,8 @@
 # include <stdio.h>
 #include <fcntl.h>
 
-# define WIDTH 1024
-# define HEIGHT 786
+# define WIDTH 800
+# define HEIGHT 600
 # define TEX 64
 
 # define KEY_W 119
@@ -22,8 +22,9 @@
 # define KEY_ESC 65307
 
 # define PLAYER_RADIUS 0.2
-# define MOVE_SPEED 0.2
-# define ROT_SPEED  0.1
+# define MOVE_SPEED 0.029
+# define ROT_SPEED  0.039
+# define SENSIBILITY 0.0003
 
 # define FLOOR_COLOR 0x444444
 # define CEILING_COLOR 0xAAAAAA
@@ -79,6 +80,8 @@ typedef struct s_player
 	double	x;
 	double	y;
 	double	angle;
+	double		mouse_x;
+	double		mouse_y;
 }	t_player;
 
 typedef struct s_game
@@ -94,6 +97,7 @@ typedef struct s_game
 	int			**world;
 	int			height;
 	int			width;
+	int			keys[65536]; // Array para estados de teclas
 	double		mouse_x_diff;
 }	t_game;
 
