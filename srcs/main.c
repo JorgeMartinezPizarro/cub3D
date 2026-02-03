@@ -200,17 +200,7 @@ void    render(t_game *g)
 int mouse_move(int x, int y, t_game *g)
 {
     (void)y;
-    // Si el ratón ya está en el centro, no calculamos movimiento.
-    // Esto evita que el mlx_mouse_move de abajo genere un ciclo infinito.
-    if (x == WIDTH / 2)
-        return (0);
-
-    // Calculamos la diferencia respecto al centro
-    g->mouse_x_diff = x - (WIDTH / 2);
-
-    // Teletransportamos el ratón de vuelta al centro inmediatamente
-    mlx_mouse_move(g->mlx, g->win, WIDTH / 2, HEIGHT / 2);
-    
+    g->mouse_x = x;
     return (0);
 }
 
@@ -259,29 +249,35 @@ int game_loop(t_game *g)
     static long long last_time = 0;
     long long now = get_time();
 
-    if (now - last_time < 1000 / 60)
-        return (0);
+    if (now - last_time < 1000 / 60) return (0);
     last_time = now;
 
     apply_movement(g);
 
-    // Gestión de ratón mejorada
-    if (g->mouse_x_diff != 0)
+    // --- LÓGICA DE MOVIMIENTO RELATIVO ---
+    // Si es la primera vez que entramos, inicializamos old_mouse_x
+    if (g->old_mouse_x == 0) 
+        g->old_mouse_x = g->mouse_x;
+
+    if (g->mouse_x != g->old_mouse_x)
     {
-        // Aplicamos la sensibilidad definida en tu .h
-        g->p.angle += (double)g->mouse_x_diff * SENSIBILITY;
-        normalize_angle(&g->p.angle);
+        int delta_x = g->mouse_x - g->old_mouse_x;
+
+        // Si el salto es demasiado grande (ej: el ratón entra/sale de la ventana)
+        // lo ignoramos para evitar que la cámara dé un latigazo.
+        if (abs(delta_x) < 200) 
+        {
+            g->p.angle += delta_x * SENSIBILITY;
+            normalize_angle(&g->p.angle);
+        }
         
-        // Limpiamos el diferencial
-        g->mouse_x_diff = 0;
-        
-        
+        // Guardamos la posición actual para el próximo frame
+        g->old_mouse_x = g->mouse_x;
     }
 
     render(g);
     return (0);
 }
-
 /* --- MAIN Y CARGA --- */
 
 void    load_tex(t_game *g, t_img *t, char *path)
@@ -291,6 +287,13 @@ void    load_tex(t_game *g, t_img *t, char *path)
     t->addr = mlx_get_data_addr(t->img, &t->bpp, &t->line, &t->endian);
 }
 
+int	exit_program(t_game *g)
+{
+	mlx_destroy_window(g->mlx, g->win);
+	free_game(g);
+	exit(0);
+	return (0);
+}
 int main(void)
 {
     t_game  g;
@@ -316,11 +319,13 @@ int main(void)
     // Moverlo al centro antes de empezar
     mlx_mouse_move(g.mlx, g.win, WIDTH / 2, HEIGHT / 2);
 	// Ocultar el ratón para mejor experiencia
-    mlx_mouse_hide(g.mlx, g.win);
-    
+    //mlx_mouse_hide(g.mlx, g.win);
     mlx_hook(g.win, 2, 1L << 0, key_press, &g);   // Detecta cuando pulsas
 	mlx_hook(g.win, 3, 1L << 1, key_release, &g); // Detecta cuando sueltas
     mlx_hook(g.win, 6, 1L << 6, mouse_move, &g); // MotionNotify hook
+
+	mlx_hook(g.win, 17, 0, exit_program, &g);
+
     mlx_loop_hook(g.mlx, game_loop, &g);
     
     mlx_loop(g.mlx);

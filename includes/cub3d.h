@@ -24,7 +24,7 @@
 # define PLAYER_RADIUS 0.2
 # define MOVE_SPEED 0.029
 # define ROT_SPEED  0.039
-# define SENSIBILITY 0.0003
+# define SENSIBILITY 0.0092
 # define MINIMAP_RADIUS 15
 
 # define FLOOR_COLOR 0x444444
@@ -101,7 +101,11 @@ typedef struct s_game
 	int			width;
 	int			current_hand_frame;
 	int			keys[65536];
-	double		mouse_x_diff;
+	int			mouse_x_diff;
+	int			mouse_lock;
+	int			mouse_x;
+	int			mouse_y;
+	int			old_mouse_x;
 }	t_game;
 
 int		load_map(char *filename, t_game *game);
