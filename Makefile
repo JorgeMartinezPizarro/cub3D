@@ -6,7 +6,7 @@
 #    By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/02/02 22:58:18 by jomarti3         ###   ########.fr        #
+#    Updated: 2026/02/03 02:00:21 by jomarti3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,3 +63,20 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re bonus
+
+###############################################################################
+## Basic code metrics.
+###############################################################################
+stats:
+	@lines=$$( \
+		{ \
+			find srcs includes -type f \( -name '*.c' -o -name '*.h' -o -name '*.sh' \) -exec cat {} +; \
+		} | grep -Ev '^[[:space:]]*(#|//|$$)' | wc -l \
+	); \
+	echo ""; \
+	echo "  - Total of lines: \033[0;32m$$lines\033[0m"; \
+	files=$$( \
+		find srcs includes -type f \( -name '*.c' -o -name '*.h' -o -name '*.sh' \) | wc -l \
+	); \
+	echo "  - Total of files: \033[0;32m$$files\033[0m"; \
+	echo ""
