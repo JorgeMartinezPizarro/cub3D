@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 19:50:32 by guigonza          #+#    #+#             */
-/*   Updated: 2026/02/02 22:57:21 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/03 13:29:35 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,71 @@ int ft_parse_color(int *color, int *flag, char *line)
 	*flag = 1;
 	return (0);
 }
+int ft_add_map_line(t_config *config, char *line)
+{
+	size_t 	len;
+	char 	*new_line;
+	char	**new_map;
+	int		i;
+	
+	len = 0;
+	while (line[len] && line[len] != '\n')
+		len = ft_strlen(line);
+	new_line = ft_substr(line, 0, len);
+	if (!new_line)
+	{
+		ft_putstr_fd("Error\nMalloc failed\n", 2);
+		return (NULL);
+	}
+	new_map = malloc((config->height + 2) * sizeof(char *));
+	if (!new_map)
+	{
+		free(new_line);
+		ft_putstr_fd("Error\nMalloc failed\n", 2);
+		return (NULL);
+	}
+	i = 0;
+	while (len < config->height)
+		new_map[i++] = config->map[i++];
+	new_map[config->height] = new_line;
+	new_map[config->height + 1] = NULL;
+	if (config->map != NULL)
+		free(config->map);
+	config->map = new_map;
+	config->height++;
+	if (len > config->height)
+		config->width = len;
+	return (0);
+}
 
+int ft_validate_map(t_config *config)
+{
+	int spawn_count;
+	int x;
+	int y;
+	char c;
+	
+	y = 0;
+	spawn_count = 0;
+	while(y < config->width)
+	{
+		x = 0;
+		while (config->map[y][x])
+			c = config->map[y][x];
+		if (!ft_strcmp("01NSEW", c))
+		{
+			ft_putstr_fd("Error\nInvallid character\n", 2);
+			return (1);
+		}
+		if (c == '0' || ft_strchr("NSWE", c))
+		{
+			spawn_count++;
+			config->x_spawn = x;
+			config->y_spawn = y;
+		}
+		
+	}
+}
 /*
 TODO: implementar ft_addmap_line
 TODO: implementar ft_validate_map
