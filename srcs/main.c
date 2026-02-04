@@ -249,7 +249,7 @@ int game_loop(t_game *g)
     static long long last_time = 0;
     long long now = get_time();
 
-    if (now - last_time < 1000 / 60) return (0);
+    if (now - last_time < 1000 / FPS) return (0);
     last_time = now;
 
     apply_movement(g);
@@ -319,7 +319,7 @@ int main(void)
     // Moverlo al centro antes de empezar
     mlx_mouse_move(g.mlx, g.win, WIDTH / 2, HEIGHT / 2);
 	// Ocultar el ratón para mejor experiencia
-    //mlx_mouse_hide(g.mlx, g.win);
+    mlx_mouse_hide(g.mlx, g.win);
     mlx_hook(g.win, 2, 1L << 0, key_press, &g);   // Detecta cuando pulsas
 	mlx_hook(g.win, 3, 1L << 1, key_release, &g); // Detecta cuando sueltas
     mlx_hook(g.win, 6, 1L << 6, mouse_move, &g); // MotionNotify hook

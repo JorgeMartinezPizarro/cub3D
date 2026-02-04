@@ -2,6 +2,15 @@
 
 My first ray casting 2.5D wolfestein-like maze.
 
+### USAGE
+
+To compile and run the game:
+
+```bash
+make
+./cub3d
+```
+
 ### IDEAS
 
 From the solong code, an example of map validation:

@@ -22,18 +22,19 @@
 # define KEY_ESC 65307
 
 # define PLAYER_RADIUS 0.2
-# define MOVE_SPEED 0.029
-# define ROT_SPEED  0.039
-# define SENSIBILITY 0.0092
+# define MOVE_SPEED 0.031
+# define ROT_SPEED  0.029
+# define SENSIBILITY 0.0009
 # define MINIMAP_RADIUS 15
 
 # define FLOOR_COLOR 0x444444
 # define CEILING_COLOR 0xAAAAAA
 
-#define MM_SCALE 4      // tamaño de cada celda en píxeles
-#define MM_OFFSET_X 10  // margen desde la izquierda
-#define MM_OFFSET_Y 10  // margen desde arriba
+# define MM_SCALE 4      // tamaño de cada celda en píxeles
+# define MM_OFFSET_X 10  // margen desde la izquierda
+# define MM_OFFSET_Y 10  // margen desde arriba
 
+# define FPS 60
 #define COLOR_WALL   0x00FFFFFF
 #define COLOR_EMPTY  0x00333333
 #define COLOR_PLAYER 0x00FF0000
