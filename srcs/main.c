@@ -294,10 +294,21 @@ int	exit_program(t_game *g)
 	exit(0);
 	return (0);
 }
-int main(void)
+int main(int argc, char **argv)
 {
     t_game  g;
+    t_config *config;
 
+    if (argc != 2)
+    {
+        ft_putstr_fd("Error\nUsage: ./cub3d <map.cub>\n", 2);
+        return (1);
+    }
+    config = ft_parse_cub_file(argv[1]);
+    if (!config)
+    {
+        return (1);
+    }
 	ft_memset(&g, 0, sizeof(t_game));
     g.mlx = mlx_init();
     g.win = mlx_new_window(g.mlx, WIDTH, HEIGHT, "Cub3D");
@@ -308,14 +319,19 @@ int main(void)
     g.frame.img = mlx_new_image(g.mlx, WIDTH, HEIGHT);
     g.frame.addr = mlx_get_data_addr(g.frame.img, &g.frame.bpp, &g.frame.line, &g.frame.endian);
 	
-	if (!load_map("", &g)) return (1);
+	// if (!load_map("", &g)) return (1);
     
-    load_tex(&g, &g.wall_north, "textures/wall_north.xpm");
-    load_tex(&g, &g.wall_south, "textures/wall_south.xpm");
-    load_tex(&g, &g.wall_east, "textures/wall_east.xpm");
-    load_tex(&g, &g.wall_west, "textures/wall_west.xpm");
+    load_tex(&g, &g.wall_north, config->no_texture);
+    load_tex(&g, &g.wall_south, config->so_texture);
+    load_tex(&g, &g.wall_east, config->ea_texture);
+    load_tex(&g, &g.wall_west, config->we_texture);
 	load_tex(&g, &g.hand_sheet, "textures/arms.xpm");
-
+    if (!ft_config_to_game(config, &g))
+    {
+        ft_free_config(config);
+        return (1);
+    }
+    ft_free_config(config);
     // Moverlo al centro antes de empezar
     mlx_mouse_move(g.mlx, g.win, WIDTH / 2, HEIGHT / 2);
 	// Ocultar el ratón para mejor experiencia

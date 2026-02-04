@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 13:00:45 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/02 14:52:03 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/04 21:07:16 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // Falta agregar a las variables globales:
 // - height, width, leer el angulo y la posicion inicial del player.
 // Load map from file. Move to separate file. Validate the map.
-int	load_map(char *filename, t_game *game)
+/*int	load_map(char *filename, t_game *game)
 {
 	(void)filename;
     int template[30][30] = {
@@ -77,5 +77,5 @@ int	load_map(char *filename, t_game *game)
 	game->p.angle = -M_PI / 3;
 
 	return 1;
-}
+}*/
 

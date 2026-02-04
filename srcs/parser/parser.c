@@ -6,7 +6,7 @@
 /*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 19:50:32 by guigonza          #+#    #+#             */
-/*   Updated: 2026/02/03 13:29:35 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/02/04 21:17:24 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@ int	ft_check_extension(char *filename)
 		return (1);
 	return (0);
 }
+int	ft_check_all_flags(t_config *config)
+{
+    if (config->no_flag && config->so_flag && config->we_flag
+        && config->ea_flag && config->f_flag && config->c_flag)
+        return (1);
+    return (0);
+}
+
 t_config	*ft_inicialize_up_down(t_config *config)
 {
 	config->floor[0] = -1;
@@ -133,7 +141,7 @@ t_config *ft_parse_cub_file(char *filename)
 		free(config);
 		return (NULL);
 	}
-	if (config->map == NULL)
+	if (config->map == NULL || ft_validate_map(config) == 1)
 	{
 		ft_putstr_fd("Error\nMap not found\n", 2);
 		free(config);
@@ -247,38 +255,62 @@ int ft_parse_color(int *color, int *flag, char *line)
 }
 int ft_add_map_line(t_config *config, char *line)
 {
-	size_t 	len;
+	int 	len;
 	char 	*new_line;
 	char	**new_map;
 	int		i;
 	
 	len = 0;
 	while (line[len] && line[len] != '\n')
-		len = ft_strlen(line);
+		len++;
 	new_line = ft_substr(line, 0, len);
 	if (!new_line)
 	{
 		ft_putstr_fd("Error\nMalloc failed\n", 2);
-		return (NULL);
+		return (1);
 	}
 	new_map = malloc((config->height + 2) * sizeof(char *));
 	if (!new_map)
 	{
 		free(new_line);
 		ft_putstr_fd("Error\nMalloc failed\n", 2);
-		return (NULL);
+		return (1);
 	}
 	i = 0;
-	while (len < config->height)
-		new_map[i++] = config->map[i++];
-	new_map[config->height] = new_line;
-	new_map[config->height + 1] = NULL;
+	while (i < config->height)
+	{
+		new_map[i] = config->map[i];
+		i++;
+	}
+	new_map[i] = new_line;
+	new_map[i+ 1] = NULL;
 	if (config->map != NULL)
 		free(config->map);
 	config->map = new_map;
 	config->height++;
-	if (len > config->height)
+	if (len > config->width)
 		config->width = len;
+	return (0);
+}
+int ft_is_border_or_space(t_config *config, int x, int y)
+{
+	int len;
+	
+	if (x == 0 || y == 0)
+		return (1);
+	if (y >= config->height -1)
+		return (1);
+	len = ft_strlen(config->map[y]);
+	if (x >= len - 1)
+		return (1);
+	if (config->map[y][x + 1] == '\0' || config->map[y][x + 1] == ' ')
+		return (1);
+	if (config->map[y][x - 1] == ' ')
+		return (1);
+	if ((int)ft_strlen(config->map[y - 1]) <= x || config->map[y - 1][x] == ' ')
+		return (1);
+	if ((int)ft_strlen(config->map[y + 1]) <= x || config->map[y + 1][x] == ' ')
+		return (1);
 	return (0);
 }
 
@@ -291,28 +323,87 @@ int ft_validate_map(t_config *config)
 	
 	y = 0;
 	spawn_count = 0;
-	while(y < config->width)
+	while(y < config->height)
 	{
 		x = 0;
 		while (config->map[y][x])
+		{
 			c = config->map[y][x];
-		if (!ft_strcmp("01NSEW", c))
-		{
-			ft_putstr_fd("Error\nInvallid character\n", 2);
-			return (1);
+			if (!ft_strchr("01NSEW ", c))
+			{
+				ft_putstr_fd("Error\nInvallid character\n", 2);
+				return (1);
+			}
+			if (c == '0' || ft_strchr("NSWE", c))
+			{
+				if (ft_is_border_or_space(config, x, y))
+				{
+					ft_putstr_fd("Error\nMap not closed\n", 2);
+					return (1);
+				}
+				if (ft_strchr("NSEW", c))
+				{
+					
+					spawn_count++;
+					config->x_spawn = x;
+					config->y_spawn = y;
+					if (c == 'N')
+						config->spawn_angle = -M_PI / 2;
+					else if (c == 'S')
+						config->spawn_angle = M_PI / 2;
+					else if (c == 'E')
+						config->spawn_angle = 0;
+					else if (c == 'W')
+						config->spawn_angle = M_PI;
+				}
+			}
+			x++;
 		}
-		if (c == '0' || ft_strchr("NSWE", c))
-		{
-			spawn_count++;
-			config->x_spawn = x;
-			config->y_spawn = y;
-		}
-		
+		y++;
 	}
+	if (spawn_count != 1)
+	{
+		ft_putstr_fd("Error\nInvalid spawn angle\n", 2);
+		return (1);
+	}
+	return (0);
 }
-/*
-TODO: implementar ft_addmap_line
-TODO: implementar ft_validate_map
-TODO: ft_stract_spawn
-TODO: ft_free_config
-*/
+
+int	ft_config_to_game(t_config *config, t_game *game)
+{
+	int y;
+	int x;
+	int len;
+
+	game->width = config->width;
+	game->height = config->height;
+	game->world = malloc(sizeof(int *) * config->height);
+	if (!game->world)
+		return (0);
+	y = 0;
+	while (y < config->height)
+	{
+		game->world[y] = malloc(sizeof(int) * config->width);
+		if (!game->world[y])
+		{
+			game->height = y;
+			free_game(game);
+			return (0);
+		}
+		x = 0;
+		 len = ft_strlen(config->map[y]);
+		while (x < config->width)
+		{
+			if (x < len && config->map[y][x] == '1')
+				game->world[y][x] = 1;
+			else
+				game->world[y][x] = 0;
+			x++;
+		}
+		y++;
+	}
+	game->p.x = config->x_spawn + 0.5;
+	game->p.y = config->y_spawn + 0.5;
+	game->p.angle = config->spawn_angle;
+	return (1);
+}

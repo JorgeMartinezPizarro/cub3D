@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+         #
+#    By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/02/03 02:00:21 by jomarti3         ###   ########.fr        #
+#    Updated: 2026/02/04 21:13:56 by guigonza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ FILES		= \
 	main \
 	parser/load_map \
 	render/render_minimap render/put_pixel \
-	utils/free_functions 
+	utils/free_functions \
+	parser/parser \
 
 OBJECTS		= $(addprefix srcs/, $(FILES:=.o))
 

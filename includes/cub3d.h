@@ -49,7 +49,7 @@ typedef struct s_config
 	/*colors*/
 	int		floor[3];
 	int		sky[3];
-	int		**map;
+	char	**map;
 	int		height;
 	int		width;
 	// Usamos t_game->t_player para estas variables
@@ -109,10 +109,21 @@ typedef struct s_game
 	int			old_mouse_x;
 }	t_game;
 
-int		load_map(char *filename, t_game *game);
-void	render_minimap(t_game *g);
-void	put_pixel(t_img *img, int x, int y, int c);
-void	free_game(t_game *game);
-void	free_strarr(char **res, int i);
+/*int			load_map(char *filename, t_game *game);*/
+void		render_minimap(t_game *g);
+void		put_pixel(t_img *img, int x, int y, int c);
+void		free_game(t_game *game);
+void		free_strarr(char **res, int i);
+int 		ft_config_to_game(t_config *config, t_game *game);
+void		ft_free_config(t_config *config);
+t_config	*ft_parse_cub_file(char *filename);
+int			ft_parse_texture(char **texture, int *flag, char *line);
+int			ft_add_map_line(t_config *config, char *line);
+int			ft_parse_color(int *color, int *flag, char *line);
+int			ft_validate_map(t_config *config);
+
+
+
+
 
 # endif
