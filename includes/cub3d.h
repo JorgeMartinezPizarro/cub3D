@@ -39,6 +39,27 @@
 #define COLOR_EMPTY  0x00333333
 #define COLOR_PLAYER 0x00FF0000
 
+
+typedef enum e_error
+{
+	ERR_MALLOC,
+    ERR_EXTENSION,
+    ERR_OPEN_FILE,
+    ERR_DUP_TEXTURE,
+    ERR_EMPTY_LINE,
+    ERR_DUP_COLOR,
+    ERR_INVALID_COLOR,
+    ERR_COLOR_RANGE,
+    ERR_MISSING_ELEMENT,
+    ERR_INVALID_CHAR,
+    ERR_MAP_NOT_CLOSED,
+    ERR_INVALID_SPAWN,
+    ERR_MAP_NOT_FOUND,
+    ERR_INVALID_LINE,
+	ERR_COUNT
+
+}t_error;
+
 typedef struct s_config
 {
 	char	*no_texture;
