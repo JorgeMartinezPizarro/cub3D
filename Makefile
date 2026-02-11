@@ -6,7 +6,7 @@
 #    By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/02/10 20:39:34 by guigonza         ###   ########.fr        #
+#    Updated: 2026/02/11 18:30:20 by guigonza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ MLX			= $(MLX_DIR)/libmlx_Linux.a
 FILES		= \
 	main \
 	parser/load_map \
-	render/render_minimap render/put_pixel \
+	render/render_minimap render/put_pixel render/animations \
 	utils/free_functions \
 	parser/parser \
 	parser/parser_init \

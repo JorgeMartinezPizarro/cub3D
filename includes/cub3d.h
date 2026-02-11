@@ -39,9 +39,11 @@
 #define COLOR_EMPTY  0x00333333
 #define COLOR_PLAYER 0x00FF0000
 
-# define TILE_EMPTY  0
-# define TILE_WALL   1
-# define TILE_DOOR   2
+# define TILE_EMPTY			0
+# define TILE_WALL			1
+# define TILE_DOOR			2
+# define TILE_DOOR_OPEN   	3
+# define KEY_E				101
 
 typedef enum e_error
 {
@@ -120,6 +122,9 @@ typedef struct s_game
 	t_img		wall_south;
 	t_img		wall_east;
 	t_img		wall_west;
+	t_img		door_open;
+	t_img		door_half;
+	t_img		door_closed;
 	t_player	p;
 	int			**world;
 	int			height;
@@ -154,6 +159,7 @@ int			ft_check_extension(char *filename);
 int			ft_validate_config(t_config *config);
 t_config	*ft_parse_cub_file(char *filename);
 int			ft_print_errors(t_error err);
+void		ft_toggle_door(t_game *g);
 
 
 
