@@ -6,7 +6,7 @@
 /*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 19:21:01 by guigonza          #+#    #+#             */
-/*   Updated: 2026/02/10 19:39:06 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/02/11 17:28:00 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	ft_check_extension(char *filename)
 		return (1);
 	return (0);
 }
+
 int	ft_check_all_flags(t_config *config)
 {
 	if (config->no_flag && config->so_flag && config->we_flag && config->ea_flag
@@ -52,9 +53,10 @@ static t_config	*ft_inicialize_up_down(t_config *config)
 	config->sky[2] = -1;
 	return (config);
 }
+
 t_config	*ft_init_config(void)
 {
-	t_config *config;
+	t_config	*config;
 
 	config = malloc(sizeof(t_config));
 	if (!config)

@@ -6,7 +6,7 @@
 /*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 19:50:32 by guigonza          #+#    #+#             */
-/*   Updated: 2026/02/10 20:26:46 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/02/11 17:26:01 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,22 @@
 int	ft_print_errors(t_error err)
 {
 	static char	*msg[] = {"Error\nMalloc Failed\n",
-			"Error\nInvalid file extension\n", "Error\nFile can't be open\n",
-			"Error\nDuplicate texture\n", "Error\nLine can't be empty\n",
-			"Error\nDuplicate color\n", "Error\nInvalid color value\n",
-			"Error\nColor out of range (0-255)\n", "Error\nMissing element\n",
-			"Error\nInvalid character in map\n",
-			"Error\nInvalid spawn (need exactly one N/S/E/W)\n",
-			"Error\nMap not found\n", "Error\nMap not closed\n",
-			"Error\nInvalid line in file\n"};
+		"Error\nInvalid file extension\n", "Error\nFile can't be open\n",
+		"Error\nDuplicate texture\n", "Error\nLine can't be empty\n",
+		"Error\nDuplicate color\n", "Error\nInvalid color value\n",
+		"Error\nColor out of range (0-255)\n", "Error\nMissing element\n",
+		"Error\nInvalid character in map\n",
+		"Error\nInvalid spawn (need exactly one N/S/E/W)\n",
+		"Error\nMap not found\n", "Error\nMap not closed\n",
+		"Error\nInvalid line in file\n"};
 
 	if (err >= 0 && err < ERR_COUNT)
 		ft_putstr_fd(msg[err], 2);
 	return (1);
 }
 
-static int	ft_parse_line(t_config *config, char *line)
+static int	ft_compare_symbols(t_config *config, char *line, int i)
 {
-	int	i;
-
-	i = 0;
-	while (line[i] && ft_isspace(line[i]))
-		i++;
-	if (line[i] == '\n' || line[i] == '\0')
-		return (0);
 	if (ft_strncmp(&line[i], "NO ", 3) == 0)
 		return (ft_parse_texture(&config->no_texture, &config->no_flag, line + i
 				+ 3));
@@ -54,10 +47,25 @@ static int	ft_parse_line(t_config *config, char *line)
 		return (ft_parse_color(config->floor, &config->f_flag, line + i + 2));
 	if (ft_strncmp(&line[i], "C ", 2) == 0)
 		return (ft_parse_color(config->sky, &config->c_flag, line + i + 2));
+	return (-1);
+}
+
+static int	ft_parse_line(t_config *config, char *line)
+{
+	int	i;
+	int	result;
+
+	i = 0;
+	while (line[i] && ft_isspace(line[i]))
+		i++;
+	if (line[i] == '\n' || line[i] == '\0')
+		return (0);
+	result = ft_compare_symbols(config, line, i);
+	if (result != -1)
+		return (result);
 	if (ft_check_all_flags(config) == 1)
 		return (ft_add_map_line(config, line));
-	ft_print_errors(ERR_INVALID_LINE);
-	return (1);
+	return (ft_print_errors(ERR_INVALID_LINE));
 }
 
 static int	ft_process_file(int fd, t_config *config)
@@ -103,6 +111,3 @@ t_config	*ft_parse_cub_file(char *filename)
 		return (ft_free_config(config), NULL);
 	return (config);
 }
-
-
-

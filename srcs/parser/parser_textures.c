@@ -6,14 +6,13 @@
 /*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 19:33:54 by guigonza          #+#    #+#             */
-/*   Updated: 2026/02/10 20:31:57 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/02/11 17:27:47 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-static int	ft_is_valid_nummber(char *str)
+static	int	ft_is_valid_nummber(char *str)
 {
 	int	i;
 
@@ -30,7 +29,8 @@ static int	ft_is_valid_nummber(char *str)
 	}
 	return (1);
 }
-static int	ft_validate_color_values(char **values, int *color, int count)
+
+static	int	ft_validate_color_values(char **values, int *color, int count)
 {
 	int	i;
 	int	num;
@@ -49,6 +49,7 @@ static int	ft_validate_color_values(char **values, int *color, int count)
 	free_strarr(values, count - 1);
 	return (0);
 }
+
 int	ft_parse_texture(char **texture, int *flag, char *line)
 {
 	int	i;

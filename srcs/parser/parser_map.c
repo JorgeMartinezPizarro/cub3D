@@ -6,12 +6,11 @@
 /*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 19:44:09 by guigonza          #+#    #+#             */
-/*   Updated: 2026/02/10 20:40:30 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/02/11 17:24:48 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 void	ft_set_spawn(t_config *config, int x, int y, char c)
 {
@@ -26,6 +25,7 @@ void	ft_set_spawn(t_config *config, int x, int y, char c)
 	else if (c == 'W')
 		config->spawn_angle = M_PI;
 }
+
 static void	ft_fill_row(t_config *config, t_game *game, int y)
 {
 	int	x;
@@ -67,6 +67,7 @@ static int	ft_create_world(t_config *config, t_game *game)
 	}
 	return (1);
 }
+
 int	ft_config_to_game(t_config *config, t_game *game)
 {
 	game->width = config->width;

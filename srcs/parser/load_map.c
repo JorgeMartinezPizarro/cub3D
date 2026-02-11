@@ -6,7 +6,7 @@
 /*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 13:00:45 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/10 20:34:19 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/02/11 17:28:18 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int	ft_is_border_or_space(t_config *config, int x, int y)
 		return (1);
 	return (0);
 }
+
 static char	**ft_create_new_map(t_config *config, char *new_line)
 {
 	char	**new_map;
@@ -71,6 +72,7 @@ int	ft_check_cell(t_config *config, int x, int y, int *spawn_count)
 	}
 	return (0);
 }
+
 int	ft_validate_map(t_config *config)
 {
 	int	spawn_count;
