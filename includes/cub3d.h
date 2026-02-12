@@ -139,7 +139,16 @@ typedef struct s_game
 	int			mouse_x;
 	int			mouse_y;
 	int			old_mouse_x;
+	long long	last_time;
 }	t_game;
+
+typedef struct s_charview
+{
+	int tex_x;
+	int tex_y;
+	int screen_x;
+	int screen_y;
+} t_charview;
 
 /*int			load_map(char *filename, t_game *game);*/
 void		render_minimap(t_game *g);
