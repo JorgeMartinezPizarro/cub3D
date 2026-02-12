@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:05:00 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/12 16:14:01 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:44:13 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,9 +332,13 @@ int main(int argc, char **argv)
 	return (0);
 }
 
-/*TODO: 
+/*
+
+TODO: 
+
 - Después del testeo hemos visto que se gestina el error de textura, pero se abre la ventana, no debería
 - Revisar si todos los mensajes de error corresponden
 - Mejorar las animaciones de las puertas
 - Revisar interaccion de mouse.
+
 */
