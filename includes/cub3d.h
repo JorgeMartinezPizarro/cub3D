@@ -13,6 +13,9 @@
 # define HEIGHT 600
 # define TEX 64
 
+# define HAND_WIDTH 192
+# define HAND_HEIGHT 128
+
 # define KEY_W 119
 # define KEY_S 115
 # define KEY_A 97
@@ -162,5 +165,10 @@ int			ft_print_errors(t_error err);
 void		ft_toggle_door(t_game *g);
 
 
+int key_press(int k, t_game *g);
+int key_release(int k, t_game *g);
+long long	get_time(void);
+void    normalize_angle(double *angle);
+int get_tex_pixel(t_img *tex, int x, int y);
 
 # endif

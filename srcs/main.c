@@ -1,48 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/12 16:05:00 by jomarti3          #+#    #+#             */
+/*   Updated: 2026/02/12 16:14:01 by jomarti3         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 #include <math.h>
 #include <stdlib.h>
 #include <sys/time.h>
 
 /* --- FUNCIONES DE APOYO --- */
-
-
-int key_press(int k, t_game *g)
-{
-	if (k == KEY_ESC) exit(0);
-	if (k == KEY_E)
-		ft_toggle_door(g);
-	if (k < 65536) g->keys[k] = 1;
-	return (0);
-}
-
-int key_release(int k, t_game *g)
-{
-	if (k < 65536) g->keys[k] = 0;
-	return (0);
-}
-
-long long	get_time(void)
-{
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
-}
-
-void    normalize_angle(double *angle)
-{
-	while (*angle < 0)
-		*angle += 2 * M_PI;
-	while (*angle >= 2 * M_PI)
-		*angle -= 2 * M_PI;
-}
-
-int get_tex_pixel(t_img *tex, int x, int y)
-{
-	if (x < 0 || x >= tex->w || y < 0 || y >= tex->h)
-		return (0);
-	return (*(unsigned int *)(tex->addr + y * tex->line + x * (tex->bpp / 8)));
-}
 
 /* --- RAYCASTING Y RENDER --- */
 
@@ -127,40 +100,25 @@ void    draw_column(t_game *g, int x, int start, int end, t_img *tex, double wal
 		put_pixel(&g->frame, x, y++, FLOOR_COLOR);
 }
 
-void draw_hand_frame(t_game *g, t_img *sheet, int frame_idx, int offset_y)
+void draw_hand_frame(t_game *g, t_img *sheet, int frame_idx)
 {
 	int x;
 	int y;
 	int color;
-
-	// Dimensiones de un solo frame (un cuarto de la imagen total)
-	int f_w = 192; 
-	int f_h = 128;
-
-	// Calculamos la posición inicial en el XPM (Grid 2x2)
-	// frame_idx % 2 nos da la columna (0 o 1)
-	// frame_idx / 2 nos da la fila (0 o 1)
-	int tex_start_x = (frame_idx % 2) * f_w;
-	int tex_start_y = (frame_idx / 2) * f_h;
-	
-	// Posición en pantalla (centrado horizontal, abajo vertical)
-	int screen_x = (WIDTH / 2) - (f_w / 2);
-	int screen_y = HEIGHT - f_h + offset_y;
+	int tex_start_x = (frame_idx % 2) * HAND_WIDTH;
+	int tex_start_y = (frame_idx / 2) * HAND_HEIGHT;
+	int screen_x = (WIDTH / 2) - (HAND_WIDTH / 2);
+	int screen_y = HEIGHT - HAND_HEIGHT + 20;
 
 	y = 0;
-	while (y < f_h) // Solo recorremos el ALTO de un frame
+	while (y < HAND_HEIGHT)
 	{
 		x = 0;
-		while (x < f_w) // Solo recorremos el ANCHO de un frame
+		while (x < HAND_WIDTH)
 		{
-			// Leemos sumando los offsets de fila y columna
 			color = get_tex_pixel(sheet, tex_start_x + x, tex_start_y + y);
-			
-			// Dibujamos solo si no es transparente y está dentro de la pantalla
 			if (color != 0x000000 && color > 0)
-			{
 				put_pixel(&g->frame, screen_x + x, screen_y + y, color);
-			}
 			x++;
 		}
 		y++;
@@ -202,7 +160,7 @@ void    render(t_game *g)
 		draw_column(g, x, start, end, tex, wall_x, wall_h);
 		x++;
 	}
-	draw_hand_frame(g, &g->hand_sheet, g->current_hand_frame, 20);
+	draw_hand_frame(g, &g->hand_sheet, g->current_hand_frame);
 	render_minimap(g);
 	
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
@@ -261,6 +219,7 @@ void apply_movement(t_game *g)
 
 /* --- LOOP PRINCIPAL ACTUALIZADO --- */
 
+// TODO: Revisar el uso de variable estatica.
 int game_loop(t_game *g)
 {
 	static long long last_time = 0;
@@ -309,60 +268,67 @@ int	exit_program(t_game *g)
 	exit(0);
 	return (0);
 }
+
+void	load_textures(t_game *g, t_config *config)
+{
+	load_tex(g, &g->wall_north, config->no_texture);
+	load_tex(g, &g->wall_south, config->so_texture);
+	load_tex(g, &g->wall_east, config->ea_texture);
+	load_tex(g, &g->wall_west, config->we_texture);
+	load_tex(g, &g->hand_sheet, "textures/arms.xpm");
+	load_tex(g, &g->door_closed, "textures/door_closed.xpm");
+	load_tex(g, &g->door_half, "textures/door_half.xpm");
+	load_tex(g, &g->door_open, "textures/door_open.xpm");
+}
+
+int		load_game(char *filename, t_game *g, t_config *config)
+{
+	config = ft_parse_cub_file(filename);
+	if (!config)
+		return (0);
+	if (!ft_config_to_game(config, g))
+	{
+		ft_free_config(config);
+		exit_program(g);
+		return (0);
+	}
+	g->mlx = mlx_init();
+	g->win = mlx_new_window(g->mlx, WIDTH, HEIGHT, "Cub3D");
+	g->p.mouse_x = WIDTH / 2;
+	g->p.mouse_y = HEIGHT / 2;
+	g->current_hand_frame = 0;
+	g->frame.img = mlx_new_image(g->mlx, WIDTH, HEIGHT);
+	g->frame.addr = mlx_get_data_addr(g->frame.img, &g->frame.bpp,
+		&g->frame.line, &g->frame.endian);
+	load_textures(g, config);
+	return (1);
+}
+
+void	load_handlers(t_game *g)
+{
+	mlx_mouse_move(g->mlx, g->win, WIDTH / 2, HEIGHT / 2);
+	mlx_mouse_hide(g->mlx, g->win);
+	mlx_hook(g->win, 2, 1L << 0, key_press, g);
+	mlx_hook(g->win, 3, 1L << 1, key_release, g);
+	mlx_hook(g->win, 6, 1L << 6, mouse_move, g);
+	mlx_hook(g->win, 17, 0, exit_program, g);
+	mlx_loop_hook(g->mlx, game_loop, g);
+	mlx_loop(g->mlx);
+}
 int main(int argc, char **argv)
 {
-	t_game  g;
-	t_config *config;
+	t_game  game;
+	t_config config;
 
 	if (argc != 2)
 	{
 		ft_putstr_fd("Error\nUsage: ./cub3d <map.cub>\n", 2);
 		return (1);
 	}
-	config = ft_parse_cub_file(argv[1]);
-	if (!config)
-	{
+	if (!load_game(argv[1], &game, &config))
 		return (1);
-	}
-	if (!ft_config_to_game(config, &g))
-	{
-		ft_free_config(config);
-		exit_program(&g);
-		return (1);
-	}
-	g.mlx = mlx_init();
-	g.win = mlx_new_window(g.mlx, WIDTH, HEIGHT, "Cub3D");
-	
-	g.p.mouse_x = WIDTH / 2;
-	g.p.mouse_y = HEIGHT / 2;
-	g.current_hand_frame = 0;
-	g.frame.img = mlx_new_image(g.mlx, WIDTH, HEIGHT);
-	g.frame.addr = mlx_get_data_addr(g.frame.img, &g.frame.bpp, &g.frame.line, &g.frame.endian);
-	
-	// if (!load_map("", &g)) return (1);
-	
-	load_tex(&g, &g.wall_north, config->no_texture);
-	load_tex(&g, &g.wall_south, config->so_texture);
-	load_tex(&g, &g.wall_east, config->ea_texture);
-	load_tex(&g, &g.wall_west, config->we_texture);
-	load_tex(&g, &g.hand_sheet, "textures/arms.xpm");
-	load_tex(&g, &g.door_closed, "textures/door_closed.xpm");
-	load_tex(&g, &g.door_half, "textures/door_half.xpm");
-	load_tex(&g, &g.door_open, "textures/door_open.xpm");
-	ft_free_config(config);
-	// Moverlo al centro antes de empezar
-	mlx_mouse_move(g.mlx, g.win, WIDTH / 2, HEIGHT / 2);
-	// Ocultar el ratón para mejor experiencia
-	mlx_mouse_hide(g.mlx, g.win);
-	mlx_hook(g.win, 2, 1L << 0, key_press, &g);   // Detecta cuando pulsas
-	mlx_hook(g.win, 3, 1L << 1, key_release, &g); // Detecta cuando sueltas
-	mlx_hook(g.win, 6, 1L << 6, mouse_move, &g); // MotionNotify hook
-
-	mlx_hook(g.win, 17, 0, exit_program, &g);
-
-	mlx_loop_hook(g.mlx, game_loop, &g);
-	
-	mlx_loop(g.mlx);
+	load_handlers(&game);
+	ft_free_config(&config);
 	return (0);
 }
 
