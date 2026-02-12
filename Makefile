@@ -6,7 +6,7 @@
 #    By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/02/12 16:06:50 by jomarti3         ###   ########.fr        #
+#    Updated: 2026/02/12 19:31:03 by jomarti3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,15 +23,12 @@ MLX			= $(MLX_DIR)/libmlx_Linux.a
 FILES		= \
 	main \
 	parser/load_map \
-	render/render_minimap render/put_pixel render/animations \
+	render/render_minimap render/put_pixel \
+	render/animations \
 	utils/free_functions utils/utils \
-	parser/parser \
-	parser/parser_init \
-	parser/parser_textures \
-	parser/parser_map \
-
-
-
+	utils/cast_ray \
+	parser/parser parser/parser_init \
+	parser/parser_textures parser/parser_map
 
 OBJECTS		= $(addprefix srcs/, $(FILES:=.o))
 

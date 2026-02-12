@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 18:28:07 by guigonza          #+#    #+#             */
-/*   Updated: 2026/02/12 15:59:50 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/12 19:21:07 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_toggle_door(t_game *g)
 {
 	int	map_x;
 	int	map_y;
-	
+
 	map_x = (int)(g->p.x + cos(g->p.angle) * 0.5);
 	map_y = (int)(g->p.y + sin(g->p.angle) * 0.5);
 	if (map_x < 0 || map_x >= g->width || map_y < 0 || map_y >= g->height)
@@ -24,5 +24,5 @@ void	ft_toggle_door(t_game *g)
 	if (g->world[map_y][map_x] == TILE_DOOR)
 		g->world[map_y][map_x] = TILE_DOOR_OPEN;
 	else if (g->world[map_y][map_x] == TILE_DOOR_OPEN)
-		g->world[map_y][map_x] = TILE_DOOR; 
+		g->world[map_y][map_x] = TILE_DOOR;
 }

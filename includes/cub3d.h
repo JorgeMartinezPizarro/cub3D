@@ -150,13 +150,11 @@ typedef struct s_charview
 	int screen_y;
 } t_charview;
 
-/*int			load_map(char *filename, t_game *game);*/
 void		render_minimap(t_game *g);
 void		put_pixel(t_img *img, int x, int y, int c);
 void		free_game(t_game *game);
 void		free_strarr(char **res, int i);
 void		ft_free_config(t_config *config);
-
 
 int			ft_add_map_line(t_config *config, char *line);
 int			ft_parse_texture(char **texture, int *flag, char *line);
@@ -173,11 +171,13 @@ t_config	*ft_parse_cub_file(char *filename);
 int			ft_print_errors(t_error err);
 void		ft_toggle_door(t_game *g);
 
-
-int key_press(int k, t_game *g);
-int key_release(int k, t_game *g);
+int			key_press(int k, t_game *g);
+int			key_release(int k, t_game *g);
 long long	get_time(void);
-void    normalize_angle(double *angle);
-int get_tex_pixel(t_img *tex, int x, int y);
+void		normalize_angle(double *angle);
+int			get_tex_pixel(t_img *tex, int x, int y);
+
+double	cast_ray(t_game *g, double angle, double *hitx, double *hity,
+	int *side, int *hit_type);
 
 # endif
