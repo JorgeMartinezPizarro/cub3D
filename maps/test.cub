@@ -1,5 +1,5 @@
 NO ./textures/wall_north.xpm
-SO .
+SO ./textures/wall_south.xpm
 
 F 100,100,100
 C 50,50,80
