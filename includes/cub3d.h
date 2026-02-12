@@ -39,6 +39,11 @@
 #define COLOR_EMPTY  0x00333333
 #define COLOR_PLAYER 0x00FF0000
 
+# define TILE_EMPTY			0
+# define TILE_WALL			1
+# define TILE_DOOR			2
+# define TILE_DOOR_OPEN   	3
+# define KEY_E				101
 
 typedef enum e_error
 {
@@ -48,13 +53,13 @@ typedef enum e_error
     ERR_DUP_TEXTURE,
     ERR_EMPTY_LINE,
     ERR_DUP_COLOR,
-    ERR_INVALID_COLOR,
+    ERR_BAD_COLOR,
     ERR_COLOR_RANGE,
     ERR_MISSING_ELEMENT,
     ERR_INVALID_CHAR,
-    ERR_MAP_NOT_CLOSED,
     ERR_INVALID_SPAWN,
     ERR_MAP_NOT_FOUND,
+    ERR_MAP_NOT_CLOSED,
     ERR_INVALID_LINE,
 	ERR_COUNT
 
@@ -117,6 +122,9 @@ typedef struct s_game
 	t_img		wall_south;
 	t_img		wall_east;
 	t_img		wall_west;
+	t_img		door_open;
+	t_img		door_half;
+	t_img		door_closed;
 	t_player	p;
 	int			**world;
 	int			height;
@@ -135,15 +143,23 @@ void		render_minimap(t_game *g);
 void		put_pixel(t_img *img, int x, int y, int c);
 void		free_game(t_game *game);
 void		free_strarr(char **res, int i);
-int 		ft_config_to_game(t_config *config, t_game *game);
 void		ft_free_config(t_config *config);
-t_config	*ft_parse_cub_file(char *filename);
-int			ft_parse_texture(char **texture, int *flag, char *line);
+
+
 int			ft_add_map_line(t_config *config, char *line);
+int			ft_parse_texture(char **texture, int *flag, char *line);
 int			ft_parse_color(int *color, int *flag, char *line);
+int			ft_check_cell(t_config *config, int x, int y, int *spawn_count);
 int			ft_validate_map(t_config *config);
-
-
+int			ft_config_to_game(t_config *config, t_game *game);
+void		ft_set_spawn(t_config *config, int x, int y, char c);
+t_config	*ft_init_config(void);
+int			ft_check_all_flags(t_config *config);
+int			ft_check_extension(char *filename);
+int			ft_validate_config(t_config *config);
+t_config	*ft_parse_cub_file(char *filename);
+int			ft_print_errors(t_error err);
+void		ft_toggle_door(t_game *g);
 
 
 

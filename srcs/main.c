@@ -9,6 +9,8 @@
 int key_press(int k, t_game *g)
 {
     if (k == KEY_ESC) exit(0);
+    if (k == KEY_E)
+        ft_toggle_door(g);
     if (k < 65536) g->keys[k] = 1;
     return (0);
 }
@@ -44,7 +46,7 @@ int get_tex_pixel(t_img *tex, int x, int y)
 
 /* --- RAYCASTING Y RENDER --- */
 
-double cast_ray(t_game *g, double angle, double *hitx, double *hity, int *side)
+double cast_ray(t_game *g, double angle, double *hitx, double *hity, int *side, int *hit_type)
 {
     double raydir_x = cos(angle);
     double raydir_y = sin(angle);
@@ -73,6 +75,7 @@ double cast_ray(t_game *g, double angle, double *hitx, double *hity, int *side)
         step_y = 1;
         side_dist_y = (map_y + 1.0 - g->p.y) * delta_dist_y;
     }
+    *hit_type = TILE_WALL;
     while (!hit) {
         if (side_dist_x < side_dist_y) {
             side_dist_x += delta_dist_x;
@@ -83,8 +86,16 @@ double cast_ray(t_game *g, double angle, double *hitx, double *hity, int *side)
             map_y += step_y;
             dda_side = 1;
         }
-        if (g->world[map_y][map_x] == 1)
+        if (g->world[map_y][map_x] == TILE_WALL)
+        {
             hit = 1;
+            *hit_type = TILE_WALL;
+        }
+        else if (g->world[map_y][map_x] == TILE_DOOR)
+        {
+            hit = 1;
+            *hit_type = TILE_DOOR;
+        }
     }
     double perp_dist;
     if (dda_side == 0)
@@ -166,7 +177,8 @@ void    render(t_game *g)
         double ray_angle = g->p.angle - fov / 2 + (double)x / WIDTH * fov;
         double hx, hy;
         int side;
-        double ray_dist = cast_ray(g, ray_angle, &hx, &hy, &side);
+        int hit_type;
+        double ray_dist = cast_ray(g, ray_angle, &hx, &hy, &side, &hit_type);
         double cam_dist = ray_dist * cos(ray_angle - g->p.angle);
         
         if (cam_dist <= 0.1) cam_dist = 0.1;
@@ -179,7 +191,9 @@ void    render(t_game *g)
 
         t_img *tex;
         double wall_x = (side == 0 || side == 1) ? hx : hy;
-        if (side == 0) tex = &g->wall_north;
+        if (hit_type == TILE_DOOR)
+            tex = &g->door_closed;
+        else if (side == 0) tex = &g->wall_north;
         else if (side == 1) tex = &g->wall_south;
         else if (side == 2) tex = &g->wall_east;
         else tex = &g->wall_west;
@@ -208,6 +222,7 @@ void	move_player(t_game *g, double dx, double dy)
 {
 	double	margin_x;
 	double	margin_y;
+    int     tile;
 
 	if (get_time() % 7 == 0)
 		g->current_hand_frame = (g->current_hand_frame + 1) % 4;
@@ -219,10 +234,12 @@ void	move_player(t_game *g, double dx, double dy)
 		margin_y = PLAYER_RADIUS;
 	else
 		margin_y = -PLAYER_RADIUS;
-	if (g->world[(int)g->p.y][(int)(g->p.x + dx + margin_x)] == 0)
+    tile = g->world[(int)g->p.y][(int)(g->p.x + dx + margin_x)];
+	if (tile == TILE_EMPTY || tile == TILE_DOOR_OPEN)
 		g->p.x += dx;
-	if (g->world[(int)(g->p.y + dy + margin_y)][(int)g->p.x] == 0)
-		g->p.y += dy;
+    tile = g->world[(int)(g->p.y + dy + margin_y)][(int)g->p.x];
+    if (tile == TILE_EMPTY || tile == TILE_DOOR_OPEN)
+        g->p.y += dy;
 }
 
 void apply_movement(t_game *g)
@@ -309,10 +326,16 @@ int main(int argc, char **argv)
     {
         return (1);
     }
+    if (!ft_config_to_game(config, &g))
+    {
+        ft_free_config(config);
+        exit_program(&g);
+        return (1);
+    }
 	ft_memset(&g, 0, sizeof(t_game));
     g.mlx = mlx_init();
     g.win = mlx_new_window(g.mlx, WIDTH, HEIGHT, "Cub3D");
-
+    
 	g.p.mouse_x = WIDTH / 2;
     g.p.mouse_y = HEIGHT / 2;
 	g.current_hand_frame = 0;
@@ -326,11 +349,9 @@ int main(int argc, char **argv)
     load_tex(&g, &g.wall_east, config->ea_texture);
     load_tex(&g, &g.wall_west, config->we_texture);
 	load_tex(&g, &g.hand_sheet, "textures/arms.xpm");
-    if (!ft_config_to_game(config, &g))
-    {
-        ft_free_config(config);
-        return (1);
-    }
+    load_tex(&g, &g.door_closed, "textures/door_closed.xpm");
+    load_tex(&g, &g.door_half, "textures/door_half.xpm");
+    load_tex(&g, &g.door_open, "textures/door_open.xpm");
     ft_free_config(config);
     // Moverlo al centro antes de empezar
     mlx_mouse_move(g.mlx, g.win, WIDTH / 2, HEIGHT / 2);
@@ -347,3 +368,9 @@ int main(int argc, char **argv)
     mlx_loop(g.mlx);
     return (0);
 }
+
+/*TODO: 
+- Después del testeo hemos visto que se gestina el error de textura, pero se abre la ventana, no debería
+- Revisar si todos los mensajes de error corresponden
+- Mejorar las animaciones de las puertas
+*/
