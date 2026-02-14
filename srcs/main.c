@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:05:00 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/12 19:47:55 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/14 13:41:30 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void    draw_column(t_game *g, int x, int start, int end, t_img *tex,
 	int tex_x = (int)(wall_x * tex->w);
 	y = 0;
 	while (y < start)
-		put_pixel(&g->frame, x, y++, CEILING_COLOR);
+		put_pixel(&g->frame, x, y++, g->ceiling_color);
 	while (y < end)
 	{
 		int tex_y = (y - (HEIGHT / 2 - wall_h / 2)) * tex->h / wall_h;
 		put_pixel(&g->frame, x, y++, get_tex_pixel(tex, tex_x, tex_y));
 	}
 	while (y < HEIGHT)
-		put_pixel(&g->frame, x, y++, FLOOR_COLOR);
+		put_pixel(&g->frame, x, y++, g->floor_color);
 }
 
 void	draw_hand_frame(t_game *g, t_img *sheet, int frame_idx)

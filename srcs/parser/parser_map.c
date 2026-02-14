@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 19:44:09 by guigonza          #+#    #+#             */
-/*   Updated: 2026/02/11 17:24:48 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/02/14 13:47:19 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ static int	ft_create_world(t_config *config, t_game *game)
 	return (1);
 }
 
+int rgb_to_hex(int *rgb)
+{
+    return (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+}
+
 int	ft_config_to_game(t_config *config, t_game *game)
 {
 	game->width = config->width;
@@ -77,5 +82,7 @@ int	ft_config_to_game(t_config *config, t_game *game)
 	game->p.x = config->x_spawn + 0.5;
 	game->p.y = config->y_spawn + 0.5;
 	game->p.angle = config->spawn_angle;
+	game->floor_color = rgb_to_hex(config->floor);
+	game->ceiling_color = rgb_to_hex(config->sky);
 	return (1);
 }

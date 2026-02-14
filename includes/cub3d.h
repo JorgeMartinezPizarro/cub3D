@@ -7,15 +7,19 @@
 # include "libft.h"
 # include <unistd.h>
 # include <stdio.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
+// WINDOW
 # define WIDTH 800
 # define HEIGHT 600
 # define TEX 64
 
+// PLAYER
 # define HAND_WIDTH 192
 # define HAND_HEIGHT 128
+# define PLAYER_RADIUS 0.2
 
+// KEYS
 # define KEY_W 119
 # define KEY_S 115
 # define KEY_A 97
@@ -23,30 +27,29 @@
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
+# define KEY_E 101
 
-# define PLAYER_RADIUS 0.2
-# define MOVE_SPEED 0.031
-# define ROT_SPEED  0.029
-# define SENSIBILITY 0.0009
-# define MINIMAP_RADIUS 15
+// GAME SPEED
+# define MOVE_SPEED 0.07
+# define ROT_SPEED  0.051
+# define SENSIBILITY 0.002
+# define FPS 30
 
-# define FLOOR_COLOR 0x444444
-# define CEILING_COLOR 0xAAAAAA
+// MINIMAPA
+# define MM_SCALE 4
+# define MM_OFFSET_X 10
+# define MM_OFFSET_Y 10
+# define MINIMAP_RADIUS 16
+# define COLOR_WALL   0x00FFFFFF
+# define COLOR_EMPTY  0x00333333
+# define COLOR_PLAYER 0x00FF0000
 
-# define MM_SCALE 4      // tamaño de cada celda en píxeles
-# define MM_OFFSET_X 10  // margen desde la izquierda
-# define MM_OFFSET_Y 10  // margen desde arriba
-
-# define FPS 60
-#define COLOR_WALL   0x00FFFFFF
-#define COLOR_EMPTY  0x00333333
-#define COLOR_PLAYER 0x00FF0000
-
+// ENUM FOR MAP
 # define TILE_EMPTY			0
 # define TILE_WALL			1
 # define TILE_DOOR			2
 # define TILE_DOOR_OPEN   	3
-# define KEY_E				101
+
 
 typedef enum e_error
 {
@@ -74,18 +77,14 @@ typedef struct s_config
 	char	*so_texture;
 	char	*we_texture;
 	char	*ea_texture;
-	
-	/*colors*/
 	int		floor[3];
 	int		sky[3];
 	char	**map;
 	int		height;
 	int		width;
-	// Usamos t_game->t_player para estas variables
 	double	x_spawn;
 	double	y_spawn;
 	double	spawn_angle;
-	/*flags*/
 	int		no_flag;
 	int		so_flag;
 	int		we_flag;
@@ -140,6 +139,8 @@ typedef struct s_game
 	int			mouse_y;
 	int			old_mouse_x;
 	long long	last_time;
+	int			ceiling_color;
+	int			floor_color;
 }	t_game;
 
 typedef struct s_charview
