@@ -32,7 +32,7 @@
 // GAME SPEED
 # define MOVE_SPEED 0.07
 # define ROT_SPEED  0.051
-# define SENSIBILITY 0.002
+# define SENSIBILITY 0.008
 # define FPS 30
 
 // MINIMAPA
@@ -177,8 +177,16 @@ int			key_release(int k, t_game *g);
 long long	get_time(void);
 void		normalize_angle(double *angle);
 int			get_tex_pixel(t_img *tex, int x, int y);
+int			rgb_to_hex(int *rgb);
+int			exit_program(t_game *g);
 
 double	cast_ray(t_game *g, double angle, double *hitx, double *hity,
 	int *side, int *hit_type);
+void	draw_hand_frame(t_game *g, t_img *sheet, int frame_idx);
 
+void	load_handlers(t_game *g);
+int		load_game(char *filename, t_game *g, t_config *config);
+
+int		game_loop(t_game *g);
+void	render(t_game *g);
 # endif

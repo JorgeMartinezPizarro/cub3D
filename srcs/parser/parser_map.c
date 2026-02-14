@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 19:44:09 by guigonza          #+#    #+#             */
-/*   Updated: 2026/02/14 13:47:19 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/14 14:35:43 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,6 @@ static int	ft_create_world(t_config *config, t_game *game)
 		y++;
 	}
 	return (1);
-}
-
-int rgb_to_hex(int *rgb)
-{
-    return (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
 }
 
 int	ft_config_to_game(t_config *config, t_game *game)
