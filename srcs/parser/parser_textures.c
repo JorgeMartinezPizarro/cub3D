@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_textures.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 19:33:54 by guigonza          #+#    #+#             */
-/*   Updated: 2026/02/11 17:27:47 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/02/14 19:12:10 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ static	int	ft_validate_color_values(char **values, int *color, int count)
 	while (i < 3)
 	{
 		if (!ft_is_valid_nummber(values[i]))
-			return (free_strarr(values, count - 1), 1);
+			return (free_strarr(values, count), 1);
 		num = ft_atoi(values[i]);
 		if (num < 0 || num > 255)
 			return (free_strarr(values, i), 2);
 		color[i] = num;
 		i++;
 	}
-	free_strarr(values, count - 1);
+	free_strarr(values, count);
 	return (0);
 }
 
@@ -91,7 +91,7 @@ int	ft_parse_color(int *color, int *flag, char *line)
 	while (values[count])
 		count++;
 	if (count != 3)
-		return (free_strarr(values, count - 1), ft_print_errors(ERR_BAD_COLOR));
+		return (free_strarr(values, count), ft_print_errors(ERR_BAD_COLOR));
 	num = ft_validate_color_values(values, color, count);
 	if (num == 1)
 		return (ft_print_errors(ERR_BAD_COLOR));

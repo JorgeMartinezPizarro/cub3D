@@ -6,7 +6,7 @@
 #    By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/02/14 18:46:08 by jomarti3         ###   ########.fr        #
+#    Updated: 2026/02/14 19:08:35 by jomarti3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ CC			= cc
 
 CFLAGS		= \
 	-Wall -Wextra -Werror \
-	-I./includes -I./$(LIBFT_DIR)/src -I./$(MLX_DIR)
+	-I./includes -I./$(LIBFT_DIR)/src -I./$(MLX_DIR) \
+	-g
 
 LIBFT_DIR	= libft
 
@@ -90,8 +91,4 @@ stats:
 	echo ""
 
 test: all
-	@./${NAME} maps/invalid1.cub || true
-	@./${NAME} maps/invalid2.cub || true
-	@./${NAME} maps/invalid3.cub || true
-	@./${NAME} maps/invalid4.cub || true
-	@./${NAME} maps/invalid5.cub || true
+	@./tests/test.sh
