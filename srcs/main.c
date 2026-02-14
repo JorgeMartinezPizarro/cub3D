@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:05:00 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/14 15:31:51 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/14 16:41:44 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ int	main(int argc, char **argv)
 
 TODO: 
 
-- Después del testeo hemos visto que se gestina el error de textura,
-	pero se abre la ventana, no debería.
-- Revisar si todos los mensajes de error corresponden
-- Mejorar las animaciones de las puertas
+- Revisar que la ventana no se carga al fallar el mapa.
+- Revisar los mensajes de error.
+- Mejorar las animaciones de las puertas.
 - Revisar interaccion de mouse.
+- Finalizar free_game y free_config.
 
 */

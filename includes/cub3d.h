@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
+/*   Updated: 2026/02/14 16:39:56 by jomarti3         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -50,26 +62,24 @@
 # define TILE_DOOR			2
 # define TILE_DOOR_OPEN   	3
 
-
 typedef enum e_error
 {
 	ERR_MALLOC,
-    ERR_EXTENSION,
-    ERR_OPEN_FILE,
-    ERR_DUP_TEXTURE,
-    ERR_EMPTY_LINE,
-    ERR_DUP_COLOR,
-    ERR_BAD_COLOR,
-    ERR_COLOR_RANGE,
-    ERR_MISSING_ELEMENT,
-    ERR_INVALID_CHAR,
-    ERR_INVALID_SPAWN,
-    ERR_MAP_NOT_FOUND,
-    ERR_MAP_NOT_CLOSED,
-    ERR_INVALID_LINE,
+	ERR_EXTENSION,
+	ERR_OPEN_FILE,
+	ERR_DUP_TEXTURE,
+	ERR_EMPTY_LINE,
+	ERR_DUP_COLOR,
+	ERR_BAD_COLOR,
+	ERR_COLOR_RANGE,
+	ERR_MISSING_ELEMENT,
+	ERR_INVALID_CHAR,
+	ERR_INVALID_SPAWN,
+	ERR_MAP_NOT_FOUND,
+	ERR_MAP_NOT_CLOSED,
+	ERR_INVALID_LINE,
 	ERR_COUNT
-
-}t_error;
+}	t_error;
 
 typedef struct s_config
 {
@@ -91,8 +101,7 @@ typedef struct s_config
 	int		ea_flag;
 	int		f_flag;
 	int		c_flag;
-
-} t_config;
+}	t_config;
 
 typedef struct s_img
 {
@@ -145,11 +154,42 @@ typedef struct s_game
 
 typedef struct s_charview
 {
-	int tex_x;
-	int tex_y;
-	int screen_x;
-	int screen_y;
-} t_charview;
+	int	tex_x;
+	int	tex_y;
+	int	screen_x;
+	int	screen_y;
+}	t_charview;
+
+typedef struct s_ray
+{
+	double	cam_dist;
+	double	angle;
+	double	dir_x;
+	double	dir_y;
+	double	side_x;
+	double	side_y;
+	double	delta_x;
+	double	delta_y;
+	double	dist;
+	double	hit_x;
+	double	hit_y;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	int		side;
+	int		hit_type;
+}	t_ray;
+
+typedef struct s_column
+{
+	int		x;
+	int		start;
+	int		end;
+	int		wall_h;
+	double	wall_x;
+	t_img	*tex;
+}	t_column;
 
 void		render_minimap(t_game *g);
 void		put_pixel(t_img *img, int x, int y, int c);
@@ -180,13 +220,13 @@ int			get_tex_pixel(t_img *tex, int x, int y);
 int			rgb_to_hex(int *rgb);
 int			exit_program(t_game *g);
 
-double	cast_ray(t_game *g, double angle, double *hitx, double *hity,
-	int *side, int *hit_type);
-void	draw_hand_frame(t_game *g, t_img *sheet, int frame_idx);
+double		cast_ray(t_game *g, t_ray *ray);
+void		draw_hand_frame(t_game *g, t_img *sheet, int frame_idx);
 
-void	load_handlers(t_game *g);
-int		load_game(char *filename, t_game *g, t_config *config);
+void		load_handlers(t_game *g);
+int			load_game(char *filename, t_game *g, t_config *config);
 
-int		game_loop(t_game *g);
-void	render(t_game *g);
-# endif
+int			game_loop(t_game *g);
+void		render(t_game *g);
+
+#endif

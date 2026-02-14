@@ -6,78 +6,105 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 19:26:24 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/12 19:26:36 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/14 16:36:15 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "cub3d.h"
 #include <math.h>
-#include <stdlib.h>
-#include <sys/time.h>
 
-double	cast_ray(t_game *g, double angle, double *hitx, double *hity,
-	int *side, int *hit_type)
+static void	ray_init(t_game *g, t_ray *r)
 {
-	double raydir_x = cos(angle);
-	double raydir_y = sin(angle);
-	int map_x = (int)g->p.x;
-	int map_y = (int)g->p.y;
-	double delta_dist_x = fabs(1.0 / raydir_x);
-	double delta_dist_y = fabs(1.0 / raydir_y);
-	double side_dist_x;
-	double side_dist_y;
-	int step_x;
-	int step_y;
-	int hit = 0;
-	int dda_side;
+	r->dir_x = cos(r->angle);
+	r->dir_y = sin(r->angle);
+	r->map_x = (int)g->p.x;
+	r->map_y = (int)g->p.y;
+	r->delta_x = fabs(1.0 / r->dir_x);
+	r->delta_y = fabs(1.0 / r->dir_y);
+	r->hit_type = TILE_WALL;
+}
 
-	if (raydir_x < 0) {
-		step_x = -1;
-		side_dist_x = (g->p.x - map_x) * delta_dist_x;
-	} else {
-		step_x = 1;
-		side_dist_x = (map_x + 1.0 - g->p.x) * delta_dist_x;
+static void	ray_steps(t_game *g, t_ray *r)
+{
+	if (r->dir_x < 0)
+	{
+		r->step_x = -1;
+		r->side_x = (g->p.x - r->map_x) * r->delta_x;
 	}
-	if (raydir_y < 0) {
-		step_y = -1;
-		side_dist_y = (g->p.y - map_y) * delta_dist_y;
-	} else {
-		step_y = 1;
-		side_dist_y = (map_y + 1.0 - g->p.y) * delta_dist_y;
-	}
-	*hit_type = TILE_WALL;
-	while (!hit) {
-		if (side_dist_x < side_dist_y) {
-			side_dist_x += delta_dist_x;
-			map_x += step_x;
-			dda_side = 0;
-		} else {
-			side_dist_y += delta_dist_y;
-			map_y += step_y;
-			dda_side = 1;
-		}
-		if (g->world[map_y][map_x] == TILE_WALL)
-		{
-			hit = 1;
-			*hit_type = TILE_WALL;
-		}
-		else if (g->world[map_y][map_x] == TILE_DOOR)
-		{
-			hit = 1;
-			*hit_type = TILE_DOOR;
-		}
-	}
-	double perp_dist;
-	if (dda_side == 0)
-		perp_dist = (map_x - g->p.x + (1 - step_x) / 2) / raydir_x;
 	else
-		perp_dist = (map_y - g->p.y + (1 - step_y) / 2) / raydir_y;
-	*hitx = g->p.x + perp_dist * raydir_x;
-	*hity = g->p.y + perp_dist * raydir_y;
-	if (dda_side == 0)
-		*side = (raydir_x > 0) ? 2 : 3;
+	{
+		r->step_x = 1;
+		r->side_x = (r->map_x + 1.0 - g->p.x) * r->delta_x;
+	}
+	if (r->dir_y < 0)
+	{
+		r->step_y = -1;
+		r->side_y = (g->p.y - r->map_y) * r->delta_y;
+	}
 	else
-		*side = (raydir_y > 0) ? 1 : 0;
-	return (perp_dist);
+	{
+		r->step_y = 1;
+		r->side_y = (r->map_y + 1.0 - g->p.y) * r->delta_y;
+	}
+}
+
+static int	ray_dda(t_game *g, t_ray *r)
+{
+	int	side;
+
+	side = 0;
+	while (1)
+	{
+		if (r->side_x < r->side_y)
+		{
+			r->side_x += r->delta_x;
+			r->map_x += r->step_x;
+			side = 0;
+		}
+		else
+		{
+			r->side_y += r->delta_y;
+			r->map_y += r->step_y;
+			side = 1;
+		}
+		if (g->world[r->map_y][r->map_x] == TILE_WALL
+			|| g->world[r->map_y][r->map_x] == TILE_DOOR)
+		{
+			r->hit_type = g->world[r->map_y][r->map_x];
+			return (side);
+		}
+	}
+}
+
+static void	ray_hit(t_game *g, t_ray *r, int side)
+{
+	if (side == 0)
+	{
+		r->dist = (r->map_x - g->p.x + (1 - r->step_x) / 2) / r->dir_x;
+		if (r->dir_x > 0)
+			r->side = 2;
+		else
+			r->side = 3;
+	}
+	else
+	{
+		r->dist = (r->map_y - g->p.y + (1 - r->step_y) / 2) / r->dir_y;
+		if (r->dir_y > 0)
+			r->side = 1;
+		else
+			r->side = 0;
+	}
+	r->hit_x = g->p.x + r->dist * r->dir_x;
+	r->hit_y = g->p.y + r->dist * r->dir_y;
+}
+
+double	cast_ray(t_game *g, t_ray *r)
+{
+	int	side;
+
+	ray_init(g, r);
+	ray_steps(g, r);
+	side = ray_dda(g, r);
+	ray_hit(g, r, side);
+	return (r->dist);
 }
