@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:25:41 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/14 15:31:05 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/14 17:13:54 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ static void	move_player(t_game *g, double dx, double dy)
 	double	margin_y;
 	int		tile;
 
-	if (get_time() % 7 == 0)
+	if (get_time() - g->last_hand_time >= 100)
+	{
 		g->current_hand_frame = (g->current_hand_frame + 1) % 4;
+		g->last_hand_time = get_time();
+	}
 	if (dx > 0)
 		margin_x = PLAYER_RADIUS;
 	else

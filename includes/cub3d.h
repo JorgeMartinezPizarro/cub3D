@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/14 16:39:56 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/14 17:11:35 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ typedef struct s_game
 	long long	last_time;
 	int			ceiling_color;
 	int			floor_color;
+	long long	last_hand_time;
 }	t_game;
 
 typedef struct s_charview
