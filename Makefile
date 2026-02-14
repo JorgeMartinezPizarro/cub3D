@@ -6,11 +6,17 @@
 #    By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/02/14 15:34:48 by jomarti3         ###   ########.fr        #
+#    Updated: 2026/02/14 18:46:08 by jomarti3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= cub3D
+
+CC			= cc
+
+CFLAGS		= \
+	-Wall -Wextra -Werror \
+	-I./includes -I./$(LIBFT_DIR)/src -I./$(MLX_DIR)
 
 LIBFT_DIR	= libft
 
@@ -34,11 +40,6 @@ FILES		= \
 	parser/load_game parser/load_handlers
 
 OBJECTS		= $(addprefix srcs/, $(FILES:=.o))
-
-CC			= cc
-
-CFLAGS		= -Wall -Wextra -Werror \
-	-I./includes -I./$(LIBFT_DIR)/src -I./$(MLX_DIR)
 
 all: $(NAME)
 
@@ -87,3 +88,10 @@ stats:
 	); \
 	echo "  - Total of files: \033[0;32m$$files\033[0m"; \
 	echo ""
+
+test: all
+	@./${NAME} maps/invalid1.cub || true
+	@./${NAME} maps/invalid2.cub || true
+	@./${NAME} maps/invalid3.cub || true
+	@./${NAME} maps/invalid4.cub || true
+	@./${NAME} maps/invalid5.cub || true
