@@ -4,6 +4,8 @@ VALGRIND="valgrind \
   --show-leak-kinds=all \
   --track-origins=yes \
   --num-callers=30 \
+  --track-fds=yes \
+  --quiet \
 "
 ${VALGRIND} ./${NAME} maps/invalid1.cub || true
 ${VALGRIND} ./${NAME} maps/invalid2.cub || true

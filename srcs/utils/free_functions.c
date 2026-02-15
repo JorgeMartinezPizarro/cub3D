@@ -6,32 +6,37 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:00:20 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/15 14:24:00 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/15 15:55:26 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	free_images(t_game *game)
+static void	free_image(t_game *game, t_img *img)
+{
+	mlx_destroy_image(game->mlx, img->img);
+}
+
+static void	free_images(t_game *game)
 {
 	if (game->hand_sheet.img)
-		mlx_destroy_image(game->mlx, game->hand_sheet.img);
+		free_image(game, &game->hand_sheet);
 	if (game->frame.img)
-		mlx_destroy_image(game->mlx, game->frame.img);
+		free_image(game, &game->frame);
 	if (game->wall_north.img)
-		mlx_destroy_image(game->mlx, game->wall_north.img);
+		free_image(game, &game->wall_north);
 	if (game->wall_south.img)
-		mlx_destroy_image(game->mlx, game->wall_south.img);
+		free_image(game, &game->wall_south);
 	if (game->wall_east.img)
-		mlx_destroy_image(game->mlx, game->wall_east.img);
+		free_image(game, &game->wall_east);
 	if (game->wall_west.img)
-		mlx_destroy_image(game->mlx, game->wall_west.img);
+		free_image(game, &game->wall_west);
 	if (game->door_open.img)
-		mlx_destroy_image(game->mlx, game->door_open.img);
+		free_image(game, &game->door_open);
 	if (game->door_half.img)
-		mlx_destroy_image(game->mlx, game->door_half.img);
+		free_image(game, &game->door_half);
 	if (game->door_closed.img)
-		mlx_destroy_image(game->mlx, game->door_closed.img);
+		free_image(game, &game->door_closed);
 }
 
 void	free_game(t_game *game)
@@ -90,16 +95,4 @@ void	ft_free_config(t_config *config)
 		free(config->ea_texture);
 	free_strarr(config->map, config->height);
 	free(config);
-}
-
-void	drain_fd(int fd)
-{
-	char	*line;
-
-	line = get_next_line(fd);
-	while (line)
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
 }

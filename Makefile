@@ -6,7 +6,7 @@
 #    By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/02/15 14:28:14 by jomarti3         ###   ########.fr        #
+#    Updated: 2026/02/15 15:42:13 by jomarti3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,4 +94,4 @@ test: all
 	@./tests/test.sh
 
 debug: all
-	valgrind --suppressions=./tests/mlx.supp --gen-suppressions=all --leak-check=full --show-leak-kinds=all --track-origins=yes ./cub3D maps/level1.cub
+	@./tests/debug.sh
