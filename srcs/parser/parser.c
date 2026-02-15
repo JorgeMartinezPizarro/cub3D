@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 19:50:32 by guigonza          #+#    #+#             */
-/*   Updated: 2026/02/14 19:20:06 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/14 19:59:54 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	ft_process_file(int fd, t_config *config)
 		res = ft_parse_line(config, line);
 		free(line);
 		if (res == 1)
-			return (1);
+			return (drain_fd(fd), 1);
 		line = get_next_line(fd);
 	}
 	free(line);

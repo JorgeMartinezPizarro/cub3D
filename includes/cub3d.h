@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/14 17:11:35 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/15 14:33:59 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ void		put_pixel(t_img *img, int x, int y, int c);
 void		free_game(t_game *game);
 void		free_strarr(char **res, int i);
 void		ft_free_config(t_config *config);
+void		drain_fd(int fd);
 
 int			ft_add_map_line(t_config *config, char *line);
 int			ft_parse_texture(char **texture, int *flag, char *line);
@@ -225,7 +226,7 @@ double		cast_ray(t_game *g, t_ray *ray);
 void		draw_hand_frame(t_game *g, t_img *sheet, int frame_idx);
 
 void		load_handlers(t_game *g);
-int			load_game(char *filename, t_game *g, t_config *config);
+int			load_game(char *filename, t_game *g);
 
 int			game_loop(t_game *g);
 void		render(t_game *g);

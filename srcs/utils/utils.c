@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:08:26 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/12 16:11:07 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/15 00:29:29 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 int	key_press(int k, t_game *g)
 {
 	if (k == KEY_ESC)
-		exit(0);
+		exit_program(g);
 	if (k == KEY_E)
 		ft_toggle_door(g);
 	if (k < 65536)

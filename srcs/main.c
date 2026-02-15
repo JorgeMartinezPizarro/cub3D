@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:05:00 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/14 16:41:44 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/15 14:14:46 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,26 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-/* --- HANDLERS DE EVENTOS --- */
-
 int	main(int argc, char **argv)
 {
-	t_game		game;
-	t_config	config;
+	t_game	game;
 
+	ft_memset(&game, 0, sizeof(t_game));
 	if (argc != 2)
 	{
 		ft_putstr_fd("Error\nUsage: ./cub3d <map.cub>\n", 2);
 		return (1);
 	}
-	if (!load_game(argv[1], &game, &config))
+	if (!load_game(argv[1], &game))
+	{
+		exit_program(&game);
 		return (1);
+	}
 	load_handlers(&game);
-	ft_free_config(&config);
+	mlx_loop(game.mlx);
+	exit_program(&game);
 	return (0);
 }
-
 /*
 
 TODO: 

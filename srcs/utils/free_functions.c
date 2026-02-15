@@ -6,20 +6,61 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:00:20 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/14 19:20:28 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/15 14:24:00 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	free_images(t_game *game)
+{
+	if (game->hand_sheet.img)
+		mlx_destroy_image(game->mlx, game->hand_sheet.img);
+	if (game->frame.img)
+		mlx_destroy_image(game->mlx, game->frame.img);
+	if (game->wall_north.img)
+		mlx_destroy_image(game->mlx, game->wall_north.img);
+	if (game->wall_south.img)
+		mlx_destroy_image(game->mlx, game->wall_south.img);
+	if (game->wall_east.img)
+		mlx_destroy_image(game->mlx, game->wall_east.img);
+	if (game->wall_west.img)
+		mlx_destroy_image(game->mlx, game->wall_west.img);
+	if (game->door_open.img)
+		mlx_destroy_image(game->mlx, game->door_open.img);
+	if (game->door_half.img)
+		mlx_destroy_image(game->mlx, game->door_half.img);
+	if (game->door_closed.img)
+		mlx_destroy_image(game->mlx, game->door_closed.img);
+}
+
 void	free_game(t_game *game)
 {
 	int	i;
 
-	i = 0;
-	while (i < game->height)
-		free(game->world[i++]);
-	free(game->world);
+	if (!game)
+		return ;
+	if (game->world)
+	{
+		i = 0;
+		while (i < game->height)
+			free(game->world[i++]);
+		free(game->world);
+	}
+	if (game->mlx)
+		free_images(game);
+	if (game->mlx && game->win)
+	{
+		mlx_clear_window(game->mlx, game->win);
+		mlx_destroy_window(game->mlx, game->win);
+		game->win = NULL;
+	}
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+		game->mlx = NULL;
+	}
 }
 
 void	free_strarr(char **res, int i)
@@ -36,6 +77,7 @@ void	free_strarr(char **res, int i)
 
 void	ft_free_config(t_config *config)
 {
+	ft_printf("Clean up config.\n");
 	if (!config)
 		return ;
 	if (config->no_texture)
@@ -43,10 +85,21 @@ void	ft_free_config(t_config *config)
 	if (config->so_texture)
 		free(config->so_texture);
 	if (config->we_texture)
-		free (config->we_texture);
+		free(config->we_texture);
 	if (config->ea_texture)
-		free (config->ea_texture);
-	if (config->map)
-		free_strarr(config->map, 0);
-	free (config);
+		free(config->ea_texture);
+	free_strarr(config->map, config->height);
+	free(config);
+}
+
+void	drain_fd(int fd)
+{
+	char	*line;
+
+	line = get_next_line(fd);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
 }
