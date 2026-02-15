@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/15 14:33:59 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/15 18:13:49 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 // PLAYER
 # define HAND_WIDTH 192
 # define HAND_HEIGHT 128
-# define PLAYER_RADIUS 0.2
+# define PLAYER_RADIUS 0.1
 
 // KEYS
 # define KEY_W 119
