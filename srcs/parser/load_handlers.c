@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_handlers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:26:51 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/15 14:01:59 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/16 19:47:21 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,38 @@
 
 static int	mouse_move(int x, int y, t_game *g)
 {
-	(void)y;
-	g->mouse_x = x;
+	int	center_x;
+	int	center_y;
+
+	center_x = WIDTH / 2;
+	center_y = HEIGHT / 2;
+	if (x == center_x && y == center_y)
+		return (0);
+	g->mouse_x_diff = x - center_x;
+	g->p.angle += g->mouse_x_diff * MOUSE_SENS;
+	normalize_angle(&g->p.angle);
+	mlx_mouse_move(g->mlx, g->win, center_x, HEIGHT / 2);
 	return (0);
+}
+
+void	ft_draw_crosshair(t_game *g)
+{
+	int	cx;
+	int	cy;
+	int	i;
+
+	cx = WIDTH / 2;
+	cy = HEIGHT / 2;
+	put_pixel(&g->frame, cx, cy, COLOR_WALL);
+	i = 3;
+	while (i <= 10)
+	{
+		put_pixel(&g->frame, cx - i, cy, COLOR_WALL);
+		put_pixel(&g->frame, cx + i, cy, COLOR_WALL);
+		put_pixel(&g->frame, cx, cy - i, COLOR_WALL);
+		put_pixel(&g->frame, cx, cy + i, COLOR_WALL);
+		i++;
+	}
 }
 
 void	load_handlers(t_game *g)

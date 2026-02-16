@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:31:55 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/14 16:37:09 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/16 20:10:47 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static void	setup_column(t_game *g, t_ray *ray, t_column *col)
 	col->wall_x -= floor(col->wall_x);
 	if (ray->hit_type == TILE_DOOR)
 		col->tex = &g->door_closed;
+	else if (ray->hit_type == TILE_DOOR_HALF)
+		col->tex = &g->door_half;
 	else if (ray->side == 0)
 		col->tex = &g->wall_north;
 	else if (ray->side == 1)
@@ -105,6 +107,7 @@ void	render(t_game *g)
 		x++;
 	}
 	draw_hand_frame(g, &g->hand_sheet, g->current_hand_frame);
+	ft_draw_crosshair(g);
 	render_minimap(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
 }

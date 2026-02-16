@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/15 18:13:49 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/16 20:33:01 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 # define ROT_SPEED  0.051
 # define SENSIBILITY 0.008
 # define FPS 30
+# define MOUSE_SENS 0.002
 
 // MINIMAPA
 # define MM_SCALE 4
@@ -61,6 +62,10 @@
 # define TILE_WALL			1
 # define TILE_DOOR			2
 # define TILE_DOOR_OPEN   	3
+# define TILE_DOOR_HALF		4
+
+
+
 
 typedef enum e_error
 {
@@ -151,6 +156,10 @@ typedef struct s_game
 	int			ceiling_color;
 	int			floor_color;
 	long long	last_hand_time;
+	int			door_x;
+	int			door_y;
+	int			door_opening;
+	long long	door_time;
 }	t_game;
 
 typedef struct s_charview
@@ -230,5 +239,9 @@ int			load_game(char *filename, t_game *g);
 
 int			game_loop(t_game *g);
 void		render(t_game *g);
+void		ft_draw_crosshair(t_game *g);
+void		ft_update_doors(t_game *g);
+
+
 
 #endif

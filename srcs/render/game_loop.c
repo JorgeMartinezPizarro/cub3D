@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:25:41 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/14 17:13:54 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/16 20:20:40 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	game_loop(t_game *g)
 		return (0);
 	g->last_time = now;
 	apply_movement(g);
+	ft_update_doors(g);
 	if (g->old_mouse_x == 0)
 		g->old_mouse_x = g->mouse_x;
 	if (g->mouse_x != g->old_mouse_x)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 19:26:24 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/14 16:36:15 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/16 20:08:55 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ static int	ray_dda(t_game *g, t_ray *r)
 			side = 1;
 		}
 		if (g->world[r->map_y][r->map_x] == TILE_WALL
-			|| g->world[r->map_y][r->map_x] == TILE_DOOR)
+			|| g->world[r->map_y][r->map_x] == TILE_DOOR
+			|| g->world[r->map_y][r->map_x] == TILE_DOOR_HALF)
 		{
 			r->hit_type = g->world[r->map_y][r->map_x];
 			return (side);
