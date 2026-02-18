@@ -6,11 +6,11 @@
 #    By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/02/16 17:14:25 by guigonza         ###   ########.fr        #
+#    Updated: 2026/02/18 18:47:15 by guigonza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= cub3d
+NAME		= cub3D
 
 CC			= cc
 

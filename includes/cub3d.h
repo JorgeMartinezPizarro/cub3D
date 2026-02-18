@@ -6,7 +6,7 @@
 /*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/16 20:33:01 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/02/18 18:57:24 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define WIDTH 800
 # define HEIGHT 600
 # define TEX 64
+# define MAX_MAP_SIZE 100
 
 // PLAYER
 # define HAND_WIDTH 192
@@ -46,7 +47,7 @@
 # define ROT_SPEED  0.051
 # define SENSIBILITY 0.008
 # define FPS 30
-# define MOUSE_SENS 0.002
+# define MOUSE_SENS 0.005
 
 // MINIMAPA
 # define MM_SCALE 4
@@ -83,6 +84,7 @@ typedef enum e_error
 	ERR_MAP_NOT_FOUND,
 	ERR_MAP_NOT_CLOSED,
 	ERR_INVALID_LINE,
+	ERR_MAP_TOO_LONG,
 	ERR_COUNT
 }	t_error;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 19:44:09 by guigonza          #+#    #+#             */
-/*   Updated: 2026/02/15 14:17:38 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/18 19:16:52 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ static int	ft_create_world(t_config *config, t_game *game)
 
 int	ft_config_to_game(t_config *config, t_game *game)
 {
+	if (config->width > MAX_MAP_SIZE || config->height > MAX_MAP_SIZE)
+	{
+		ft_print_errors(ERR_MAP_TOO_LONG);
+		return (0);
+	}
 	game->width = config->width;
 	game->height = config->height;
 	if (!ft_create_world(config, game))

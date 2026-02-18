@@ -1,0 +1,13 @@
+NO ./textures/wall_north.xpm
+BADLINE something
+SO ./textures/wall_south.xpm
+WE ./textures/wall_west.xpm
+EA ./textures/wall_east.xpm
+F 100,100,100
+C 50,50,80
+
+111111
+100001
+10N001
+100001
+111111

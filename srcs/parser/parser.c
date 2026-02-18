@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 19:50:32 by guigonza          #+#    #+#             */
-/*   Updated: 2026/02/14 19:59:54 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/18 19:21:48 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	ft_print_errors(t_error err)
 		"Error\nInvalid character in map\n",
 		"Error\nInvalid spawn (need exactly one N/S/E/W)\n",
 		"Error\nMap not found\n", "Error\nMap not closed\n",
-		"Error\nInvalid line in file\n"};
+		"Error\nInvalid line in file\n",
+		"Error\nMap too large (max 100x100)\n"};
 
 	if (err >= 0 && err < ERR_COUNT)
 		ft_putstr_fd(msg[err], 2);
