@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_textures.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 19:33:54 by guigonza          #+#    #+#             */
-/*   Updated: 2026/02/14 19:12:10 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:53:58 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,11 @@ int	ft_parse_texture(char **texture, int *flag, char *line)
 		return (ft_print_errors(ERR_DUP_TEXTURE));
 	while (ft_isspace(line[i]))
 		i++;
-	if (line[i] == '\n' || line[i] == '\0')
-		return (ft_print_errors(ERR_EMPTY_LINE));
+	if (line[i] == '\n' || (line[i] == '\0' && line[0] == '.'))
+	{
+		ft_print_errors(ERR_EMPTY_LINE);
+		return (0);
+	}
 	end = i;
 	while (line[end] && line[end] != '\n')
 		end++;
