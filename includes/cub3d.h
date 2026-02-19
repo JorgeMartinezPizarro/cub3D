@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/19 13:59:48 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/19 14:02:06 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,6 @@
 # define TILE_DOOR			2
 # define TILE_DOOR_OPEN   	3
 # define TILE_DOOR_HALF		4
-
-
-
 
 typedef enum e_error
 {
@@ -242,7 +239,5 @@ int			game_loop(t_game *g);
 void		render(t_game *g);
 void		ft_draw_crosshair(t_game *g);
 void		ft_update_doors(t_game *g);
-
-
 
 #endif
