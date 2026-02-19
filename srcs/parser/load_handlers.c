@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_handlers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:26:51 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/16 19:47:21 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:59:36 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,8 @@
 
 static int	mouse_move(int x, int y, t_game *g)
 {
-	int	center_x;
-	int	center_y;
-
-	center_x = WIDTH / 2;
-	center_y = HEIGHT / 2;
-	if (x == center_x && y == center_y)
-		return (0);
-	g->mouse_x_diff = x - center_x;
-	g->p.angle += g->mouse_x_diff * MOUSE_SENS;
-	normalize_angle(&g->p.angle);
-	mlx_mouse_move(g->mlx, g->win, center_x, HEIGHT / 2);
+	g->mouse_x = x;
+	g->mouse_y = y;
 	return (0);
 }
 

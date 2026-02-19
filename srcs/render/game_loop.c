@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:25:41 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/16 20:20:40 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:59:00 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	game_loop(t_game *g)
 		delta_x = g->mouse_x - g->old_mouse_x;
 		if (abs(delta_x) < 200)
 		{
-			g->p.angle += delta_x * SENSIBILITY;
+			g->p.angle += delta_x * MOUSE_SENS;
 			normalize_angle(&g->p.angle);
 		}
 		g->old_mouse_x = g->mouse_x;
