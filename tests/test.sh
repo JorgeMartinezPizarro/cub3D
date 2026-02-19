@@ -20,3 +20,4 @@ ${VALGRIND} ./${NAME} maps/invalid10.cub || true
 ${VALGRIND} ./${NAME} maps/invalid11.cub || true
 ${VALGRIND} ./${NAME} maps/invalid12.cube || true
 ${VALGRIND} ./${NAME} maps/invalid13_101x101.cub || true
+${VALGRIND} ./${NAME} maps/invalid14.cub || true
