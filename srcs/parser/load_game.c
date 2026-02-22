@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 14:15:26 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/19 14:10:56 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/02/22 14:26:40 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static int	init_mlx(t_game *g)
 	g->frame.img = mlx_new_image(g->mlx, WIDTH, HEIGHT);
 	if (!g->frame.img)
 		return (0);
+	g->frame.w = WIDTH;
+	g->frame.h = HEIGHT;
 	g->frame.addr = mlx_get_data_addr(g->frame.img,
 			&g->frame.bpp, &g->frame.line, &g->frame.endian);
 	return (1);
