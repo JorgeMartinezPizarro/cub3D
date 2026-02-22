@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:31:55 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/16 20:10:47 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/02/22 15:18:51 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	draw_column(t_game *g, t_column *c)
 		tex_y = (y - (HEIGHT / 2 - c->wall_h / 2))
 			* c->tex->h / c->wall_h;
 		put_pixel(&g->frame, c->x, y++,
-			get_tex_pixel(c->tex, tex_x, tex_y));
+			get_pixel(c->tex, tex_x, tex_y));
 	}
 	while (y < HEIGHT)
 		put_pixel(&g->frame, c->x, y++, g->floor_color);

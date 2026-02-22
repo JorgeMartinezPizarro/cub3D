@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_hand_frame.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:01:50 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/16 19:56:26 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/02/22 15:18:51 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	draw_hand_frame(t_game *g, t_img *sheet, int frame_idx)
 		x = 0;
 		while (x < HAND_WIDTH)
 		{
-			color = get_tex_pixel(sheet, cv.tex_x + x, cv.tex_y + y);
+			color = get_pixel(sheet, cv.tex_x + x, cv.tex_y + y);
 			if (color != 0x000000 && color > 0)
 				put_pixel(&g->frame, cv.screen_x + x, cv.screen_y + y, color);
 			x++;

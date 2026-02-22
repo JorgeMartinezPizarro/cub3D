@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/19 14:02:06 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/22 15:22:31 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ int			key_press(int k, t_game *g);
 int			key_release(int k, t_game *g);
 long long	get_time(void);
 void		normalize_angle(double *angle);
-int			get_tex_pixel(t_img *tex, int x, int y);
+int			get_pixel(t_img *tex, int x, int y);
 int			rgb_to_hex(int *rgb);
 int			exit_program(t_game *g);
 
