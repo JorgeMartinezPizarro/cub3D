@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/23 14:04:57 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:10:04 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 # define MOVE_SPEED 0.07
 # define ROT_SPEED  0.051
 # define FPS 30
-# define MOUSE_SENS 0.00314
+# define MOUSE_SENS 0.00095
 
 // MINIMAPA
 # define MM_SCALE 4

@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:26:51 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/23 14:02:25 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:09:04 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	mouse_move(int x, int y, t_game *g)
 	if (x == center_x && y == center_y)
 		return (0);
 	delta_x = x - center_x;
-	if (abs(delta_x) < 200)
+	if (abs(delta_x) > 1 && abs(delta_x) < 200)
 	{
 		g->p.angle += delta_x * MOUSE_SENS;
 		normalize_angle(&g->p.angle);
@@ -54,8 +54,8 @@ void	ft_draw_crosshair(t_game *g)
 
 void	load_handlers(t_game *g)
 {
-	mlx_mouse_move(g->mlx, g->win, WIDTH / 2, HEIGHT / 2);
 	mlx_mouse_hide(g->mlx, g->win);
+	mlx_mouse_move(g->mlx, g->win, WIDTH / 2, HEIGHT / 2);
 	mlx_hook(g->win, 2, 1L << 0, key_press, g);
 	mlx_hook(g->win, 3, 1L << 1, key_release, g);
 	mlx_hook(g->win, 6, 1L << 6, mouse_move, g);
