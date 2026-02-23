@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/22 19:10:35 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:04:57 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <fcntl.h>
 
 // WINDOW
-# define WIDTH 1200
-# define HEIGHT 800
+# define WIDTH 1024
+# define HEIGHT 786
 # define TEX 64
 # define MAX_MAP_SIZE 100
 
@@ -46,7 +46,7 @@
 # define MOVE_SPEED 0.07
 # define ROT_SPEED  0.051
 # define FPS 30
-# define MOUSE_SENS 0.005
+# define MOUSE_SENS 0.00314
 
 // MINIMAPA
 # define MM_SCALE 4

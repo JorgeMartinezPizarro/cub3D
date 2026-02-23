@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:25:41 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/19 13:59:00 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:06:28 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static void	apply_movement(t_game *g)
 int	game_loop(t_game *g)
 {
 	long long	now;
-	int			delta_x;
 
 	now = get_time();
 	if (now - g->last_time < 1000 / FPS)
@@ -71,18 +70,6 @@ int	game_loop(t_game *g)
 	g->last_time = now;
 	apply_movement(g);
 	ft_update_doors(g);
-	if (g->old_mouse_x == 0)
-		g->old_mouse_x = g->mouse_x;
-	if (g->mouse_x != g->old_mouse_x)
-	{
-		delta_x = g->mouse_x - g->old_mouse_x;
-		if (abs(delta_x) < 200)
-		{
-			g->p.angle += delta_x * MOUSE_SENS;
-			normalize_angle(&g->p.angle);
-		}
-		g->old_mouse_x = g->mouse_x;
-	}
 	render(g);
 	return (0);
 }

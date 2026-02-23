@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:26:51 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/19 13:59:36 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:02:25 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,21 @@
 
 static int	mouse_move(int x, int y, t_game *g)
 {
-	g->mouse_x = x;
-	g->mouse_y = y;
+	int	center_x;
+	int	center_y;
+	int	delta_x;
+
+	center_x = WIDTH / 2;
+	center_y = HEIGHT / 2;
+	if (x == center_x && y == center_y)
+		return (0);
+	delta_x = x - center_x;
+	if (abs(delta_x) < 200)
+	{
+		g->p.angle += delta_x * MOUSE_SENS;
+		normalize_angle(&g->p.angle);
+	}
+	mlx_mouse_move(g->mlx, g->win, center_x, center_y);
 	return (0);
 }
 
