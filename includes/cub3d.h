@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/23 14:56:21 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/02/24 15:31:23 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 // WINDOW
 # define WIDTH 2000
 # define HEIGHT 1200
-# define TEX 64
 # define MAX_MAP_SIZE 100
 
 // PLAYER
