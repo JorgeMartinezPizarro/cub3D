@@ -6,29 +6,11 @@
 /*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 19:33:54 by guigonza          #+#    #+#             */
-/*   Updated: 2026/02/19 12:53:58 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/03/09 18:01:59 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static	int	ft_is_valid_nummber(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (ft_isspace(str[i]))
-		i++;
-	if (str[i] == '\0' || str[i] == '\n')
-		return (0);
-	while (str[i] && str[i] != '\n' && !ft_isspace(str[i]))
-	{
-		if (!ft_isdigit(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 static	int	ft_validate_color_values(char **values, int *color, int count)
 {
@@ -38,7 +20,9 @@ static	int	ft_validate_color_values(char **values, int *color, int count)
 	i = 0;
 	while (i < 3)
 	{
-		if (!ft_is_valid_nummber(values[i]))
+		if (values[i][ft_strlen(values[i]) - 1] == '\n')
+			values[i][ft_strlen(values[i]) - 1] = '\0';
+		if (!ft_valid_int(values[i]))
 			return (free_strarr(values, count), 1);
 		num = ft_atoi(values[i]);
 		if (num < 0 || num > 255)
