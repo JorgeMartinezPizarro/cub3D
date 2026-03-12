@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:05:00 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/15 14:14:46 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/03/12 21:12:04 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,3 @@ int	main(int argc, char **argv)
 	exit_program(&game);
 	return (0);
 }
-/*
-
-TODO: 
-
-- Revisar que la ventana no se carga al fallar el mapa.
-- Revisar los mensajes de error.
-- Mejorar las animaciones de las puertas.
-- Revisar interaccion de mouse.
-- Finalizar free_game y free_config.
-
-*/
