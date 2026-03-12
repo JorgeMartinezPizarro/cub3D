@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 19:50:32 by guigonza          #+#    #+#             */
-/*   Updated: 2026/02/18 19:21:48 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/03/12 20:46:50 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,26 @@
 
 int	ft_print_errors(t_error err)
 {
-	static char	*msg[] = {"Error\nMalloc Failed\n",
-		"Error\nInvalid file extension\n", "Error\nFile can't be open\n",
-		"Error\nDuplicate texture\n", "Error\nLine can't be empty\n",
-		"Error\nDuplicate color\n", "Error\nInvalid color value\n",
-		"Error\nColor out of range (0-255)\n", "Error\nMissing element\n",
+	static char	*errors[ERR_COUNT] = {
+		"Error\nMalloc Failed\n",
+		"Error\nInvalid file extension\n",
+		"Error\nFile can't be open\n",
+		"Error\nDuplicate texture\n",
+		"Error\nLine can't be empty\n",
+		"Error\nDuplicate color\n",
+		"Error\nInvalid color value\n",
+		"Error\nColor out of range (0-255)\n",
+		"Error\nMissing element\n",
 		"Error\nInvalid character in map\n",
 		"Error\nInvalid spawn (need exactly one N/S/E/W)\n",
-		"Error\nMap not found\n", "Error\nMap not closed\n",
+		"Error\nMap not found\n",
+		"Error\nMap not closed\n",
 		"Error\nInvalid line in file\n",
-		"Error\nMap too large (max 100x100)\n"};
+		"Error\nMap too large (max 100x100)\n"
+	};
 
 	if (err >= 0 && err < ERR_COUNT)
-		ft_putstr_fd(msg[err], 2);
+		ft_putstr_fd(errors[err], 2);
 	return (1);
 }
 
