@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:08:26 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/22 15:18:01 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/04/06 17:41:35 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ int	key_press(int k, t_game *g)
 {
 	if (k == KEY_ESC)
 		exit_program(g);
-	if (k == KEY_E)
+	else if (k == KEY_E)
 		ft_toggle_door(g);
-	if (k < 65536)
+	else if (k == KEY_M)
+		toggle_mouse(g, !g->mouse_enable);
+	else if (k < 65536)
 		g->keys[k] = 1;
 	return (0);
 }

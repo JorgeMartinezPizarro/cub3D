@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 14:15:26 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/03/12 21:09:49 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/04/06 17:45:14 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	load_game(char *filename, t_game *g)
 	g->p.mouse_x = WIDTH / 2;
 	g->p.mouse_y = HEIGHT / 2;
 	g->current_hand_frame = 0;
+	g->mouse_enable = 0;
 	g->last_hand_time = get_time();
 	g->last_time = 0;
 	init_keys(g);

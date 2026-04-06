@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/03/12 20:43:38 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/04/06 17:45:24 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
 # define KEY_E 101
+# define KEY_M 109
 
 // GAME SPEED
 # define MOVE_SPEED 0.07
@@ -156,6 +157,7 @@ typedef struct s_game
 	int			door_x;
 	int			door_y;
 	int			door_opening;
+	int			mouse_enable;
 	long long	door_time;
 }	t_game;
 
@@ -238,5 +240,7 @@ int			game_loop(t_game *g);
 void		render(t_game *g);
 void		ft_draw_crosshair(t_game *g);
 void		ft_update_doors(t_game *g);
+
+void		toggle_mouse(t_game *g, int enable);
 
 #endif
