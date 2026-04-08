@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 14:15:26 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/04/08 17:25:29 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/04/09 00:33:13 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ int	load_game(char *filename, t_game *g)
 	g->win = mlx_new_window(g->mlx, WIDTH, HEIGHT, "Cub3D");
 	if (!g->win)
 		return (ft_free_config(config), 0);
-	// if (!g->win)
-	// 	return (0);
 	ft_free_config(config);
 	return (1);
 }
