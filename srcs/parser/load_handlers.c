@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_handlers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:26:51 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/04/06 17:45:29 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/04/08 17:17:47 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,4 @@ void	toggle_mouse(t_game *g, int enable)
 	else
 		mlx_mouse_show(g->mlx, g->win);
 	g->mouse_enable = enable;
-
 }

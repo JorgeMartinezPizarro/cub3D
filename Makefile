@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+         #
+#    By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/02/22 18:48:10 by jomarti3         ###   ########.fr        #
+#    Updated: 2026/04/08 16:33:29 by guigonza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CC			= cc
 CFLAGS		= \
 	-Wall -Wextra -Werror \
 	-I./includes -I./$(LIBFT_DIR)/src -I./$(MLX_DIR) \
-	-g
+	-g -O3 -fsanitize=address
 
 LIBFT_DIR	= libft
 

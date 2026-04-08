@@ -6,13 +6,13 @@
 /*   By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 19:33:54 by guigonza          #+#    #+#             */
-/*   Updated: 2026/03/09 18:01:59 by guigonza         ###   ########.fr       */
+/*   Updated: 2026/04/08 17:16:52 by guigonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static	int	ft_validate_color_values(char **values, int *color, int count)
+static int	ft_validate_color_values(char **values, int *color, int count)
 {
 	int	i;
 	int	num;
@@ -26,7 +26,7 @@ static	int	ft_validate_color_values(char **values, int *color, int count)
 			return (free_strarr(values, count), 1);
 		num = ft_atoi(values[i]);
 		if (num < 0 || num > 255)
-			return (free_strarr(values, i), 2);
+			return (free_strarr(values, count), 2);
 		color[i] = num;
 		i++;
 	}
