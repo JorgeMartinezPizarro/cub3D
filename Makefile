@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: guigonza <guigonza@student.42.fr>          +#+  +:+       +#+         #
+#    By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/04/08 16:33:29 by guigonza         ###   ########.fr        #
+#    Updated: 2026/04/09 00:35:36 by jomarti3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,9 @@ NAME		= cub3D
 
 CC			= cc
 
-CFLAGS		= \
-	-Wall -Wextra -Werror \
-	-I./includes -I./$(LIBFT_DIR)/src -I./$(MLX_DIR) \
-	-g -O3 -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror
+
+CPPFLAGS	= -I./includes -I./$(LIBFT_DIR)/src -I./$(MLX_DIR)
 
 LIBFT_DIR	= libft
 
@@ -48,7 +47,7 @@ all: $(NAME)
 bonus: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) \
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJECTS) \
 		-L$(LIBFT_DIR) -lft \
 		-L$(MLX_DIR) -lmlx_Linux \
 		-L/usr/lib -lXext -lX11 -lm \
