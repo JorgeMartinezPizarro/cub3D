@@ -1,12 +1,10 @@
-NO ./textures/wall_north.xpm
-SO ./textures/wall_south.xpm
+NO ./textures/ladrillo_128.xpm
+SO ./textures/madera_128.xpm
+WE ./textures/metal_128.xpm
+EA ./textures/piedra_128.xpm
 
 F 100,100,42
 C 50,50,80
-
-
-WE ./textures/wall_west.xpm
-EA ./textures/wall_east.xpm
 
 111111111111111111111111111111
 100000000000000000000000000001

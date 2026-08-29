@@ -22,8 +22,8 @@
 # include <fcntl.h>
 
 // WINDOW
-# define WIDTH 2000
-# define HEIGHT 1200
+# define WIDTH 1200
+# define HEIGHT 800
 # define MAX_MAP_SIZE 100
 
 // PLAYER
@@ -45,7 +45,7 @@
 // GAME SPEED
 # define MOVE_SPEED 0.07
 # define ROT_SPEED  0.051
-# define FPS 30
+# define FPS 60
 # define MOUSE_SENS 0.00095
 
 // MINIMAPA

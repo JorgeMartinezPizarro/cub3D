@@ -14,7 +14,7 @@ NAME		= cub3D
 
 CC			= cc
 
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -MMD -MP
 
 CPPFLAGS	= -I./includes -I./$(LIBFT_DIR)/src -I./$(MLX_DIR)
 
@@ -40,7 +40,8 @@ FILES		= \
 	parser/load_game parser/load_handlers \
 	parser/load_map
 
-OBJECTS		= $(addprefix srcs/, $(FILES:=.o))
+OBJECTS			= $(addprefix srcs/, $(FILES:=.o))
+DEPENDENCIES	= $(addprefix srcs/, $(FILES:=.d))
 
 all: $(NAME)
 
@@ -62,7 +63,7 @@ $(MLX):
 clean:
 	@$(MAKE) -C $(LIBFT_DIR) clean
 	@$(MAKE) -C $(MLX_DIR) clean
-	rm -f $(OBJECTS)
+	rm -f $(OBJECTS) $(DEPENDENCIES)
 
 fclean: clean
 	@$(MAKE) -C $(LIBFT_DIR) fclean
@@ -70,6 +71,8 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+-include $(DEPENDENCIES)
 
 .PHONY: all clean fclean re bonus
 
