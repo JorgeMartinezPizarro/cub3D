@@ -16,8 +16,8 @@ The project includes:
 To compile and run the game:
 
 ```bash
-make
-./cub3d maps/map_name.cub
+make bonus
+./cub3d maps/level1.cub
 ```
 
 with an existing *.cub file.
@@ -34,6 +34,8 @@ The game speed can be adjusted using:
 ```
 
 The default configuration works nice for the 42 computers at 12/03/2026. 
+
+To toggle mouse usage on, press `m`. It works properly on linux, but fails in WSL.
 
 ## Resources
 
