@@ -1162,3 +1162,37 @@
    fun:load_game
    fun:main
 }
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XrmInternalStringToQuark
+   fun:XrmInitialize
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:XGetDefault
+   fun:_XcursorGetDisplayInfo
+   fun:XcursorSupportsARGB
+   fun:XcursorNoticeCreateBitmap
+   fun:XCreatePixmap
+   fun:XCreateBitmapFromData
+   fun:mlx_mouse_hide
+   fun:toggle_mouse
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_XrmInternalStringToQuark
+   fun:XrmInitialize
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:XGetDefault
+   fun:_XcursorGetDisplayInfo
+   fun:XcursorSupportsARGB
+   fun:XcursorNoticeCreateBitmap
+   fun:XCreatePixmap
+   fun:XCreateBitmapFromData
+   fun:mlx_mouse_hide
+   fun:toggle_mouse
+}
