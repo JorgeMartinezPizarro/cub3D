@@ -48,7 +48,7 @@ all: $(NAME)
 bonus: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJECTS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJECTS) \
+	$(CC) $(OBJECTS) \
 		-L$(LIBFT_DIR) -lft \
 		-L$(MLX_DIR) -lmlx_Linux \
 		-L/usr/lib -lXext -lX11 -lm \
