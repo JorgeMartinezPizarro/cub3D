@@ -35,10 +35,10 @@ MLX_DIR		= mlx_linux
 MLX			= $(MLX_DIR)/libmlx_Linux.a
 
 CC			= cc
-
 CFLAGS		= -Wall -Wextra -Werror -MMD -MP
-
 CPPFLAGS	= -I./includes -I./$(LIBFT_DIR)/src -I./$(MLX_DIR)
+LDFLAGS := -L$(LIBFT_DIR) -L$(MLX_DIR)
+LDLIBS  := -lft -lmlx_Linux -lXext -lX11 -lm
 
 OBJECTS			= $(addprefix srcs/, $(FILES:=.o))
 DEPENDENCIES	= $(addprefix srcs/, $(FILES:=.d))
@@ -48,11 +48,7 @@ all: $(NAME)
 bonus: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJECTS)
-	$(CC) $(OBJECTS) \
-		-L$(LIBFT_DIR) -lft \
-		-L$(MLX_DIR) -lmlx_Linux \
-		-L/usr/lib -lXext -lX11 -lm \
-		-o $(NAME)
+	$(CC) $(OBJECTS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
