@@ -1,10 +1,10 @@
 NO ./textures/ladrillo_128.xpm
 SO ./textures/madera_128.xpm
 WE ./textures/metal_128.xpm
-EA ./textures/big_texture.xpm
+EA ./textures/piedra_128.xpm
 
 F 100,100,42
-C 50,50,80
+C 50,50,50
 
 111111111111111111111111111111
 100000000000000000000000000001

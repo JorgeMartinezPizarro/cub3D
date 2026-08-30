@@ -12,17 +12,22 @@
 
 #include "cub3d.h"
 
+static void	update_hand_animation(t_game *g)
+{
+	if (get_time() - g->last_hand_time >= 100)
+	{
+		g->current_hand_frame = (g->current_hand_frame + 1) % 4;
+		g->last_hand_time = get_time();
+	}
+}
+
 static void	move_player(t_game *g, double dx, double dy)
 {
 	double	margin_x;
 	double	margin_y;
 	int		tile;
 
-	if (get_time() - g->last_hand_time >= 100)
-	{
-		g->current_hand_frame = (g->current_hand_frame + 1) % 4;
-		g->last_hand_time = get_time();
-	}
+	update_hand_animation(g);
 	if (dx > 0)
 		margin_x = PLAYER_RADIUS;
 	else
@@ -54,9 +59,15 @@ static void	apply_movement(t_game *g)
 		move_player(g, -sin(g->p.angle) * MOVE_SPEED,
 			cos(g->p.angle) * MOVE_SPEED);
 	if (g->keys[KEY_LEFT])
+	{
 		g->p.angle -= ROT_SPEED;
+		update_hand_animation(g);
+	}
 	if (g->keys[KEY_RIGHT])
+	{
 		g->p.angle += ROT_SPEED;
+		update_hand_animation(g);
+	}
 	normalize_angle(&g->p.angle);
 }
 

@@ -1,8 +1,8 @@
 NO ./textures/wall_north.xpm
 SO ./textures/wall_south.xpm
 
-F 255,0,0
-C 0,255,0
+F 128,128,128
+C 12,13,14
 
 
 WE ./textures/wall_west.xpm

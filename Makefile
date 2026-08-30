@@ -12,20 +12,6 @@
 
 NAME		= cub3D
 
-CC			= cc
-
-CFLAGS		= -Wall -Wextra -Werror -MMD -MP
-
-CPPFLAGS	= -I./includes -I./$(LIBFT_DIR)/src -I./$(MLX_DIR)
-
-LIBFT_DIR	= libft
-
-LIBFT		= $(LIBFT_DIR)/libft.a
-
-MLX_DIR		= mlx_linux
-
-MLX			= $(MLX_DIR)/libmlx_Linux.a
-
 FILES		= \
 	main \
 	render/render_minimap \
@@ -39,6 +25,20 @@ FILES		= \
 	parser/parser_textures parser/parser_map \
 	parser/load_game parser/load_handlers \
 	parser/load_map
+
+CC			= cc
+
+CFLAGS		= -Wall -Wextra -Werror -MMD -MP
+
+CPPFLAGS	= -I./includes -I./$(LIBFT_DIR)/src -I./$(MLX_DIR)
+
+LIBFT_DIR	= libft
+
+LIBFT		= $(LIBFT_DIR)/libft.a
+
+MLX_DIR		= mlx_linux
+
+MLX			= $(MLX_DIR)/libmlx_Linux.a
 
 OBJECTS			= $(addprefix srcs/, $(FILES:=.o))
 DEPENDENCIES	= $(addprefix srcs/, $(FILES:=.d))
