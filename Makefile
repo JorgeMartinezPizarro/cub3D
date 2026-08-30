@@ -72,10 +72,6 @@ fclean: clean
 
 re: fclean all
 
--include $(DEPENDENCIES)
-
-.PHONY: all clean fclean re bonus
-
 ###############################################################################
 ## Basic code metrics.
 ###############################################################################
@@ -98,3 +94,7 @@ test: all
 
 debug: all
 	@./tests/debug.sh
+
+-include $(DEPENDENCIES)
+
+.PHONY: all clean fclean re bonus stats test debug
