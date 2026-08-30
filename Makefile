@@ -26,12 +26,6 @@ FILES		= \
 	parser/load_game parser/load_handlers \
 	parser/load_map
 
-CC			= cc
-
-CFLAGS		= -Wall -Wextra -Werror -MMD -MP
-
-CPPFLAGS	= -I./includes -I./$(LIBFT_DIR)/src -I./$(MLX_DIR)
-
 LIBFT_DIR	= libft
 
 LIBFT		= $(LIBFT_DIR)/libft.a
@@ -39,6 +33,12 @@ LIBFT		= $(LIBFT_DIR)/libft.a
 MLX_DIR		= mlx_linux
 
 MLX			= $(MLX_DIR)/libmlx_Linux.a
+
+CC			= cc
+
+CFLAGS		= -Wall -Wextra -Werror -MMD -MP
+
+CPPFLAGS	= -I./includes -I./$(LIBFT_DIR)/src -I./$(MLX_DIR)
 
 OBJECTS			= $(addprefix srcs/, $(FILES:=.o))
 DEPENDENCIES	= $(addprefix srcs/, $(FILES:=.d))
