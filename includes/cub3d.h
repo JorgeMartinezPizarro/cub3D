@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/08/31 12:04:11 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/08/31 16:03:23 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 # define FPS 60
 # define MOUSE_SENS 0.0021
 
-// MINIMAPA
+// MINIMAP
 # define MM_SCALE 4
 # define MM_OFFSET_X 10
 # define MM_OFFSET_Y 10
