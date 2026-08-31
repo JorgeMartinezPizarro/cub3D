@@ -11,6 +11,15 @@ The project includes:
 - playable with keyboard and mouse
 - minimap
 
+Code summary:
+
+| File type | Lines of Code |
+|----------|--------------:|
+| `.c`     |          1093 |
+| `.h`     |           205 |
+| Makefile |            64 |
+| **TOTAL**|        **1362** |
+
 ## Instructions
 
 To compile and run the game:
