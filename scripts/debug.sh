@@ -7,7 +7,6 @@ VALGRIND="valgrind \
 	--track-origins=yes \
 	--trace-children=no \
 "
-
-${VALGRIND} \
-	./cub3D \
-	maps/level1.cub
+make build-san
+./cub3D_san maps/level1.cub
+make clean-san

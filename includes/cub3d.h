@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/08/31 16:03:23 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/08/31 16:57:43 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@
 # define KEY_M 109
 
 // GAME SPEED
-# define MOVE_SPEED 0.1
-# define ROT_SPEED  0.071
+# define MOVE_SPEED 0.0792
+# define ROT_SPEED  0.0512
 # define FPS 60
-# define MOUSE_SENS 0.0021
+# define MOUSE_SENS 0.0020
 
 // MINIMAP
 # define MM_SCALE 4

@@ -15,10 +15,10 @@ Code summary:
 
 | File type | Lines of Code |
 |----------|--------------:|
-| `.c`     |          1093 |
+| `.c`     |          1086 |
 | `.h`     |           205 |
-| Makefile |            64 |
-| **TOTAL**|        **1362** |
+| Makefile |            72 |
+| **TOTAL**|        **1363** |
 
 ## Instructions
 

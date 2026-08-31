@@ -6,7 +6,7 @@
 #    By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/08/31 14:43:55 by jomarti3         ###   ########.fr        #
+#    Updated: 2026/08/31 16:53:54 by jomarti3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,10 @@ MLX			= $(MLX_DIR)/libmlx_Linux.a
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -MMD -MP
 CPPFLAGS	= -I./includes -I./$(LIBFT_DIR)/src -I./$(MLX_DIR)
-LDFLAGS := -L$(LIBFT_DIR) -L$(MLX_DIR)
+LDFLAGS := -L$(LIBFT_DIR) -L$(MLX_DIR) -L/usr/lib
 LDLIBS  := -lft -lmlx_Linux -lXext -lX11 -lm
 
+SOURCES			= $(addprefix srcs/, $(FILES:=.c))
 OBJECTS			= $(addprefix srcs/, $(FILES:=.o))
 DEPENDENCIES	= $(addprefix srcs/, $(FILES:=.d))
 
@@ -49,6 +50,15 @@ bonus: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
+
+build-san: $(LIBFT) $(MLX)
+	@$(CC) $(CFLAGS) $(CPPFLAGS) $(SOURCES) \
+		$(LDFLAGS) $(LDLIBS) \
+		-fsanitize=address -fsanitize=undefined \
+		-o $(NAME)_san
+
+clean-san: 
+	rm -f $(NAME)_san
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
@@ -77,7 +87,7 @@ stats:
 test: all
 	@./scripts/test.sh
 
-debug: all
+debug: 
 	@./scripts/debug.sh
 
 -include $(DEPENDENCIES)
