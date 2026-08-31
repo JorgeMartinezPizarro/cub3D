@@ -6,7 +6,7 @@
 #    By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/04/09 00:35:36 by jomarti3         ###   ########.fr        #
+#    Updated: 2026/08/31 14:43:55 by jomarti3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ $(MLX):
 	
 clean:
 	@$(MAKE) -C $(LIBFT_DIR) clean
-	@$(MAKE) -C $(MLX_DIR) clean
+	@$(MAKE) -C $(MLX_DIR) clean || true
 	rm -f $(OBJECTS) $(DEPENDENCIES)
 
 fclean: clean
@@ -72,24 +72,13 @@ re: fclean all
 ## Basic code metrics.
 ###############################################################################
 stats:
-	@lines=$$( \
-		{ \
-			find srcs includes -type f \( -name '*.c' -o -name '*.h' -o -name '*.sh' \) -exec cat {} +; \
-		} | grep -Ev '^[[:space:]]*(#|//|$$)' | wc -l \
-	); \
-	echo ""; \
-	echo "  - Total of lines: \033[0;32m$$lines\033[0m"; \
-	files=$$( \
-		find srcs includes -type f \( -name '*.c' -o -name '*.h' -o -name '*.sh' \) | wc -l \
-	); \
-	echo "  - Total of files: \033[0;32m$$files\033[0m"; \
-	echo ""
+	@./scripts/summary.sh
 
 test: all
-	@./tests/test.sh
+	@./scripts/test.sh
 
 debug: all
-	@./tests/debug.sh
+	@./scripts/debug.sh
 
 -include $(DEPENDENCIES)
 
