@@ -30,7 +30,7 @@ LIBFT_DIR	= libft
 
 LIBFT		= $(LIBFT_DIR)/libft.a
 
-MLX_DIR		= mlx_linux
+MLX_DIR		= minilibx-linux
 
 MLX			= $(MLX_DIR)/libmlx_Linux.a
 
@@ -58,7 +58,7 @@ build-san: $(LIBFT) $(MLX)
 		-o $(NAME)_san
 
 clean-san: 
-	rm -f $(NAME)_san
+	rm -f $(NAME)_san*
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
@@ -92,4 +92,4 @@ debug:
 
 -include $(DEPENDENCIES)
 
-.PHONY: all clean fclean re bonus stats test debug
+.PHONY: all clean fclean re bonus stats test debug build-san clean-san
