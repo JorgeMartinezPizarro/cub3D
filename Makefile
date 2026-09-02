@@ -6,7 +6,7 @@
 #    By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/08/31 16:53:54 by jomarti3         ###   ########.fr        #
+#    Updated: 2026/09/02 14:57:40 by jomarti3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,15 +51,6 @@ bonus: $(NAME)
 $(NAME): $(LIBFT) $(MLX) $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 
-build-san: $(LIBFT) $(MLX)
-	@$(CC) $(CFLAGS) $(CPPFLAGS) $(SOURCES) \
-		$(LDFLAGS) $(LDLIBS) \
-		-fsanitize=address -fsanitize=undefined \
-		-o $(NAME)_san
-
-clean-san: 
-	rm -f $(NAME)_san*
-
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
 
@@ -83,6 +74,18 @@ re: fclean all
 ###############################################################################
 stats:
 	@./scripts/summary.sh
+
+###############################################################################
+## Test and debug targets
+###############################################################################
+build-san: $(LIBFT) $(MLX)
+	@$(CC) $(CFLAGS) $(CPPFLAGS) $(SOURCES) \
+		$(LDFLAGS) $(LDLIBS) \
+		-fsanitize=address -fsanitize=undefined \
+		-o $(NAME)_san
+
+clean-san: 
+	rm -f $(NAME)_san*
 
 test: all
 	@./scripts/test.sh

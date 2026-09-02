@@ -34,9 +34,10 @@ count_code() {
 
 nc=$(count_code "$BASE/srcs" "$BASE/includes" -type f -name "*.c")
 nh=$(count_code "$BASE/srcs" "$BASE/includes" -type f -name "*.h")
+ns=$(count_code "$BASE/scripts" -type f -name "*.sh")
 mk=$(count_code "$BASE" -maxdepth 1 -type f \
     \( -name "Makefile" -o -name "makefile" -o -name "*.mk" \))
-total=$((nc + nh + mk))
+total=$((nc + nh + ns + mk))
 
 # --- Colores (se desactivan si la salida no es una terminal) ---
 if [ -t 1 ]; then
@@ -52,7 +53,15 @@ LW=14   # ancho columna etiqueta
 NW=10   # ancho columna numero
 TITLE="Lines of Code"
 
-rep() { i=0; s=""; while [ $i -lt $1 ]; do s="$s$2"; i=$((i+1)); done; printf '%s' "$s"; }
+rep() {
+    i=0
+    s=""
+    while [ $i -lt "$1" ]; do
+        s="$s$2"
+        i=$((i+1))
+    done
+    printf '%s' "$s"
+}
 
 row() { # $1 color  $2 label  $3 value
     printf "%s│%s %s%-*s%s %s│%s %s%*d%s %s│%s\n" \
@@ -60,12 +69,21 @@ row() { # $1 color  $2 label  $3 value
         "$DIM" "$R" "$1" "$NW" "$3" "$R" "$DIM" "$R"
 }
 
-line_mid() { printf "%s├%s┼%s┤%s\n" "$DIM" "$(rep $((LW+2)) ─)" "$(rep $((NW+2)) ─)" "$R"; }
-line_bot() { printf "%s└%s┴%s┘%s\n" "$DIM" "$(rep $((LW+2)) ─)" "$(rep $((NW+2)) ─)" "$R"; }
+line_mid() {
+    printf "%s├%s┼%s┤%s\n" \
+        "$DIM" "$(rep $((LW+2)) ─)" "$(rep $((NW+2)) ─)" "$R"
+}
+
+line_bot() {
+    printf "%s└%s┴%s┘%s\n" \
+        "$DIM" "$(rep $((LW+2)) ─)" "$(rep $((NW+2)) ─)" "$R"
+}
 
 WIDTH=$((LW + NW + 5))
 title_pad=$(( (WIDTH - ${#TITLE}) / 2 ))
+
 echo
+
 # Header
 printf "%s┌%s┐%s\n" "$DIM" "$(rep $WIDTH ─)" "$R"
 printf "%s│%s%*s%s%s%s%*s%s│%s\n" \
@@ -75,6 +93,7 @@ line_mid
 
 row "$GREEN"  ".c"       "$nc"
 row "$BLUE"   ".h"       "$nh"
+row "$YELLOW" ".sh"      "$ns"
 row "$YELLOW" "Makefile" "$mk"
 line_mid
 row "$BOLDW"  "TOTAL"    "$total"
