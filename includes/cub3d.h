@@ -21,16 +21,32 @@
 # include <stdio.h>
 # include <fcntl.h>
 
+///////////////////////////////////////////////////////////
+// GAME CONFIGURATION
+///////////////////////////////////////////////////////////
+
 // WINDOW
-# define WIDTH 1024
-# define HEIGHT 800
+# define WIDTH 1904
+# define HEIGHT 1000
 # define MAX_MAP_SIZE 200
+# define FONT_SIZE 1.6
+
+// GAME SPEED
+# define MOVE_SPEED 0.1423
+# define ROT_SPEED  0.0647
+# define FPS 30
+# define MOUSE_SENS 0.0021
+
+///////////////////////////////////////////////////////////
+// INTERNAL GAME VALUES
+// Do not touch this values 
+///////////////////////////////////////////////////////////
 
 // PLAYER
 // hand sprite-sheet is always a 2x2 grid of frames (any resolution);
 // HAND_SCALE is how many times bigger than its native size it is drawn
-# define HAND_SCALE 3
-# define PLAYER_RADIUS 0.1
+# define HAND_SCALE 3.3
+# define PLAYER_RADIUS 0.2
 
 // KEYS
 # define KEY_W 119
@@ -44,11 +60,7 @@
 # define KEY_M 109
 # define KEY_ENTER 65293
 
-// GAME SPEED
-# define MOVE_SPEED 0.0892
-# define ROT_SPEED  0.0397
-# define FPS 60
-# define MOUSE_SENS 0.0025
+
 
 // MINIMAP: walls fade into the black background, floor is a muted gray,
 // and the two things worth spotting at a glance (doors, the player/spawn
