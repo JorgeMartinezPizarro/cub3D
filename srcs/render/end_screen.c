@@ -61,5 +61,5 @@ void	draw_corner(t_game *g, t_img *tex, int cx, int cy)
 
 void	put_centered(t_game *g, int y, char *s)
 {
-	put_centered_scaled(g, y, s, FONT_SIZE);
+	put_centered_scaled(g, y, s);
 }

@@ -60,8 +60,6 @@
 # define KEY_M 109
 # define KEY_ENTER 65293
 
-
-
 // MINIMAP: walls fade into the black background, floor is a muted gray,
 // and the two things worth spotting at a glance (doors, the player/spawn
 // dot) get the only bright colors on the map
@@ -106,8 +104,8 @@
 
 // DOOR ANIMATION: closed/half/open textures shown in sequence while the
 // door tile is TILE_DOOR_HALF; DOOR_FRAME_MS is how long each one is shown
-# define DOOR_FRAME_MS		100
-# define DOOR_ANIM_MS		300
+# define DOOR_FRAME_MS		150
+# define DOOR_ANIM_MS		450
 
 // WIN: once the last door finishes opening, wait this long (with the HUD
 // already showing n/n) before switching to the end screen
@@ -370,8 +368,8 @@ void		draw_spawn_arrow(t_game *g, int ox, int oy, int scale);
 void		render_end_screen(t_game *g);
 char		*ft_build_win_message(t_game *g, int min, int sec, int ms);
 void		put_centered(t_game *g, int y, char *s);
-void		put_centered_scaled(t_game *g, int y, char *s, double scale);
-void		put_text(t_game *g, int x, int y, double scale, char *s);
+void		put_centered_scaled(t_game *g, int y, char *s);
+void		put_text(t_game *g, int x, int y, char *s);
 void		draw_corner(t_game *g, t_img *tex, int cx, int cy);
 char		*ft_build_load_message(long long load_ms);
 char		*ft_build_map_message(char *path);
