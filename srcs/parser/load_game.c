@@ -33,7 +33,8 @@ static int	load_textures(t_game *g, t_config *config)
 		|| !load_tex(g, &g->hand_sheet, "textures/arms.xpm")
 		|| !load_tex(g, &g->door_closed, "textures/puerta_cerrada.xpm")
 		|| !load_tex(g, &g->door_half, "textures/puerta_entornada.xpm")
-		|| !load_tex(g, &g->door_open, "textures/puerta_abierta.xpm"))
+		|| !load_tex(g, &g->door_open, "textures/puerta_abierta.xpm")
+		|| !load_tex(g, &g->fireworks, "textures/fireworks.xpm"))
 		return (0);
 	return (1);
 }
@@ -77,7 +78,6 @@ int	load_game(char *filename, t_game *g)
 	g->p.mouse_x = WIDTH / 2;
 	g->p.mouse_y = HEIGHT / 2;
 	g->current_hand_frame = 0;
-	g->mouse_enable = 0;
 	g->last_hand_time = get_time();
 	g->last_time = 0;
 	init_keys(g);
@@ -89,7 +89,7 @@ int	load_game(char *filename, t_game *g)
 	g->win = mlx_new_window(g->mlx, WIDTH, HEIGHT, "Cub3D");
 	if (!g->win)
 		return (ft_free_config(config), 0);
+	mlx_set_font(g->mlx, g->win, "fixed");
 	ft_free_config(config);
-	g->game_start = get_time();
 	return (1);
 }

@@ -34,8 +34,8 @@ static void	ft_print_win(t_game *g)
 	ms = (int)(elapsed % 1000);
 	ft_printf("Has abierto todas las %d puertas en %02d:%02d.%03d.\n",
 		g->door_total, min, sec, ms);
-	free_game(g);
-	exit(0);
+	g->win_msg = ft_build_win_message(g, min, sec, ms);
+	g->finished = 1;
 }
 
 static void	ft_finish_door(t_game *g)

@@ -42,11 +42,11 @@ total=$((nc + nh + ns + mk))
 # --- Colores (se desactivan si la salida no es una terminal) ---
 if [ -t 1 ]; then
     B="$(printf '\033[1m')"; DIM="$(printf '\033[2m')"; R="$(printf '\033[0m')"
-    CYAN="$(printf '\033[36m')"; GREEN="$(printf '\033[32m')"
-    YELLOW="$(printf '\033[33m')"; BLUE="$(printf '\033[34m')"
+    RED="$(printf '\033[31m')"; GREEN="$(printf '\033[32m')"
+    YELLOW="$(printf '\033[93m')"; BLUE="$(printf '\033[34m')"
     BOLDW="$(printf '\033[1;37m')"
 else
-    B=""; DIM=""; R=""; CYAN=""; GREEN=""; YELLOW=""; BLUE=""; BOLDW=""
+    B=""; DIM=""; R=""; RED=""; GREEN=""; YELLOW=""; BLUE=""; BOLDW=""
 fi
 
 LW=14   # ancho columna etiqueta
@@ -87,14 +87,14 @@ echo
 # Header
 printf "%s┌%s┐%s\n" "$DIM" "$(rep $WIDTH ─)" "$R"
 printf "%s│%s%*s%s%s%s%*s%s│%s\n" \
-    "$DIM" "$R" "$title_pad" "" "$B$CYAN" "$TITLE" "$R" \
+    "$DIM" "$R" "$title_pad" "" "$B$RED" "$TITLE" "$R" \
     "$((WIDTH - title_pad - ${#TITLE}))" "" "$DIM" "$R"
 line_mid
 
 row "$GREEN"  ".c"       "$nc"
 row "$BLUE"   ".h"       "$nh"
 row "$YELLOW" ".sh"      "$ns"
-row "$YELLOW" "Makefile" "$mk"
+row "$RED"    "Makefile" "$mk"
 line_mid
 row "$BOLDW"  "TOTAL"    "$total"
 line_bot

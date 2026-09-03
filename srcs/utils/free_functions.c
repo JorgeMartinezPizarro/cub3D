@@ -12,31 +12,41 @@
 
 #include "cub3d.h"
 
-static void	free_image(t_game *game, t_img *img)
-{
-	mlx_destroy_image(game->mlx, img->img);
-}
-
 static void	free_images(t_game *game)
 {
 	if (game->hand_sheet.img)
-		free_image(game, &game->hand_sheet);
+		mlx_destroy_image(game->mlx, game->hand_sheet.img);
 	if (game->frame.img)
-		free_image(game, &game->frame);
+		mlx_destroy_image(game->mlx, game->frame.img);
 	if (game->wall_north.img)
-		free_image(game, &game->wall_north);
+		mlx_destroy_image(game->mlx, game->wall_north.img);
 	if (game->wall_south.img)
-		free_image(game, &game->wall_south);
+		mlx_destroy_image(game->mlx, game->wall_south.img);
 	if (game->wall_east.img)
-		free_image(game, &game->wall_east);
+		mlx_destroy_image(game->mlx, game->wall_east.img);
 	if (game->wall_west.img)
-		free_image(game, &game->wall_west);
+		mlx_destroy_image(game->mlx, game->wall_west.img);
 	if (game->door_open.img)
-		free_image(game, &game->door_open);
+		mlx_destroy_image(game->mlx, game->door_open.img);
 	if (game->door_half.img)
-		free_image(game, &game->door_half);
+		mlx_destroy_image(game->mlx, game->door_half.img);
 	if (game->door_closed.img)
-		free_image(game, &game->door_closed);
+		mlx_destroy_image(game->mlx, game->door_closed.img);
+	if (game->fireworks.img)
+		mlx_destroy_image(game->mlx, game->fireworks.img);
+}
+
+static void	close_window(t_game *game)
+{
+	if (game->win)
+	{
+		mlx_clear_window(game->mlx, game->win);
+		mlx_destroy_window(game->mlx, game->win);
+		game->win = NULL;
+	}
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
+	game->mlx = NULL;
 }
 
 void	free_game(t_game *game)
@@ -45,6 +55,7 @@ void	free_game(t_game *game)
 
 	if (!game)
 		return ;
+	free(game->win_msg);
 	if (game->world)
 	{
 		i = 0;
@@ -53,18 +64,9 @@ void	free_game(t_game *game)
 		free(game->world);
 	}
 	if (game->mlx)
+	{
 		free_images(game);
-	if (game->mlx && game->win)
-	{
-		mlx_clear_window(game->mlx, game->win);
-		mlx_destroy_window(game->mlx, game->win);
-		game->win = NULL;
-	}
-	if (game->mlx)
-	{
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-		game->mlx = NULL;
+		close_window(game);
 	}
 }
 

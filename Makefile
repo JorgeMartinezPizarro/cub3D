@@ -17,7 +17,7 @@ FILES		= \
 	render/render_minimap \
 	render/animations render/draw_hand_frame \
 	render/game_loop render/render \
-	render/door_layer \
+	render/door_layer render/start_screen render/end_screen \
 	utils/free_functions utils/utils \
 	utils/cast_ray utils/ray_utils utils/color \
 	utils/helpers utils/get_pixel \
@@ -31,7 +31,7 @@ LIBFT_DIR	= libft
 
 LIBFT		= $(LIBFT_DIR)/libft.a
 
-MLX_DIR		= minilibx-linux
+MLX_DIR		= minilibx
 
 MLX			= $(MLX_DIR)/libmlx_Linux.a
 

@@ -57,6 +57,10 @@
 # define COLOR_WALL   0x00FFFFFF
 # define COLOR_EMPTY  0x00333333
 # define COLOR_DOOR   0x00CC8800
+
+// TEXT: mlx_string_put always uses the X core "fixed" font (set explicitly
+// in load_game), which is a fixed-width bitmap font, FONT_CHAR_W pixels wide
+# define FONT_CHAR_W 6
 # define COLOR_PLAYER 0x00FF0000
 
 // ENUM FOR MAP
@@ -177,6 +181,11 @@ typedef struct s_game
 	int			doors_opened;
 	long long	game_start;
 	int			**flood_visited;
+	int			started;
+	int			finished;
+	t_img		fireworks;
+	t_img		fireworks2;
+	char		*win_msg;
 }	t_game;
 
 typedef struct s_charview
@@ -272,6 +281,10 @@ int			game_loop(t_game *g);
 void		render(t_game *g);
 void		setup_door(t_ray *ray, t_column *col);
 void		draw_door_layer(t_game *g, t_column *c);
+void		clear_frame(t_img *img, int color);
+void		render_start_screen(t_game *g);
+void		render_end_screen(t_game *g);
+char		*ft_build_win_message(t_game *g, int min, int sec, int ms);
 void		ft_draw_crosshair(t_game *g);
 void		ft_update_doors(t_game *g);
 

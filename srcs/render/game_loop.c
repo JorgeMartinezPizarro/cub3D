@@ -79,8 +79,11 @@ int	game_loop(t_game *g)
 	if (now - g->last_time < 1000 / FPS)
 		return (0);
 	g->last_time = now;
-	apply_movement(g);
-	ft_update_doors(g);
+	if (g->started && !g->finished)
+	{
+		apply_movement(g);
+		ft_update_doors(g);
+	}
 	render(g);
 	return (0);
 }
