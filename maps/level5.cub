@@ -2,6 +2,7 @@ NO ./textures/128_arena.xpm
 SO ./textures/128_green.xpm
 WE ./textures/128_ladrillo.xpm
 EA ./textures/128_lila.xpm
+
 F 100,0,50
 C 50,50,80
 

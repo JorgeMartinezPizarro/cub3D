@@ -1,5 +1,5 @@
-NO ./textures/128_lila.xpm
-SO ./textures/128_green.xpm
+NO ./textures/256_textil.xpm
+SO ./textures/1024_water.xpm
 WE ./textures/128_plantas.xpm
 EA ./textures/128_purple.xpm
 

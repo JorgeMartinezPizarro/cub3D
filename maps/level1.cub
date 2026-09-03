@@ -1,7 +1,7 @@
 NO ./textures/128_metal.xpm
 SO ./textures/128_plantas.xpm
-WE ./textures/128_purple.xpm
-EA ./textures/128_green.xpm
+WE ./textures/512_green.xpm
+EA ./textures/512_textil.xpm
 F 255,100,100
 C 50,50,80
 

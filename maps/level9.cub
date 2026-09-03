@@ -1,7 +1,7 @@
-NO ./textures/128_lila.xpm
-SO ./textures/128_green.xpm
-WE ./textures/128_plantas.xpm
-EA ./textures/128_purple.xpm
+NO ./textures/1024_water.xpm
+SO ./textures/1024_metal.xpm
+WE ./textures/1024_madera.xpm
+EA ./textures/1024_stone.xpm
 
 F 255,100,100
 C 50,50,80
