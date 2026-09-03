@@ -38,6 +38,8 @@ static void	compute_ray(t_game *g, int x, t_ray *ray)
 	ray->cam_dist = ray->dist * cos(ray->angle - g->p.angle);
 	if (ray->cam_dist <= 0.1)
 		ray->cam_dist = 0.1;
+	if (ray->has_door)
+		ray->door_cam_dist = ray->door_dist * cos(ray->angle - g->p.angle);
 }
 
 static void	setup_column(t_game *g, t_ray *ray, t_column *col)
@@ -87,6 +89,8 @@ static void	draw_column(t_game *g, t_column *c)
 	}
 	while (y < HEIGHT)
 		put_pixel(&g->frame, c->x, y++, g->floor_color);
+	if (c->has_door)
+		draw_door_layer(g, c);
 }
 
 void	render(t_game *g)
@@ -102,6 +106,7 @@ void	render(t_game *g)
 		col.x = x;
 		compute_ray(g, x, &ray);
 		setup_column(g, &ray, &col);
+		setup_door(&ray, &col);
 		draw_column(g, &col);
 		x++;
 	}

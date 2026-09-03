@@ -17,6 +17,7 @@ static int	get_minimap_color(t_game *g, int x, int y)
 	int	map_x;
 	int	map_y;
 	int	color;
+	int	tile;
 
 	map_x = (int)g->p.x + x;
 	map_y = (int)g->p.y + y;
@@ -24,8 +25,12 @@ static int	get_minimap_color(t_game *g, int x, int y)
 	if (map_x >= 0 && map_x < g->width
 		&& map_y >= 0 && map_y < g->height)
 	{
-		if (g->world[map_y][map_x] == 1)
+		tile = g->world[map_y][map_x];
+		if (tile == TILE_WALL)
 			color = COLOR_WALL;
+		else if (tile == TILE_DOOR || tile == TILE_DOOR_OPEN
+			|| tile == TILE_DOOR_HALF)
+			color = COLOR_DOOR;
 		else
 			color = COLOR_EMPTY;
 	}

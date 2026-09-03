@@ -21,6 +21,40 @@ static t_img	*door_frame_tex(t_game *g, int frame)
 	return (&g->door_open);
 }
 
+static void	ft_print_win(t_game *g)
+{
+	long long	elapsed;
+	int			min;
+	int			sec;
+	int			ms;
+
+	elapsed = get_time() - g->game_start;
+	min = (int)(elapsed / 60000);
+	sec = (int)((elapsed / 1000) % 60);
+	ms = (int)(elapsed % 1000);
+	ft_printf("Has abierto todas las %d puertas en %02d:%02d.%03d.\n",
+		g->door_total, min, sec, ms);
+	free_game(g);
+	exit(0);
+}
+
+static void	ft_finish_door(t_game *g)
+{
+	if (g->door_opening)
+	{
+		g->world[g->door_y][g->door_x] = TILE_DOOR_OPEN;
+		g->doors_opened++;
+	}
+	else
+	{
+		g->world[g->door_y][g->door_x] = TILE_DOOR;
+		g->doors_opened--;
+	}
+	g->door_x = -1;
+	if (g->doors_opened == g->door_total)
+		ft_print_win(g);
+}
+
 void	ft_update_doors(t_game *g)
 {
 	long long	elapsed;
@@ -31,11 +65,7 @@ void	ft_update_doors(t_game *g)
 	elapsed = get_time() - g->door_time;
 	if (elapsed >= DOOR_ANIM_MS)
 	{
-		if (g->door_opening)
-			g->world[g->door_y][g->door_x] = TILE_DOOR_OPEN;
-		else
-			g->world[g->door_y][g->door_x] = TILE_DOOR;
-		g->door_x = -1;
+		ft_finish_door(g);
 		return ;
 	}
 	frame = (int)(elapsed / DOOR_FRAME_MS);

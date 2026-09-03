@@ -23,3 +23,5 @@ ${VALGRIND} ./${NAME} maps/invalid12.cup || true
 ${VALGRIND} ./${NAME} maps/invalid13.cub || true
 ${VALGRIND} ./${NAME} maps/invalid14.cub || true
 ${VALGRIND} ./${NAME} maps/invalid15.cub || true
+${VALGRIND} ./${NAME} maps/invalid16.cub || true
+${VALGRIND} ./${NAME} maps/invalid17.cub || true

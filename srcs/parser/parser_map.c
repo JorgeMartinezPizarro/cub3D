@@ -68,6 +68,28 @@ static int	ft_create_world(t_config *config, t_game *game)
 	return (1);
 }
 
+static int	ft_count_doors(t_game *game)
+{
+	int	x;
+	int	y;
+	int	count;
+
+	count = 0;
+	y = 0;
+	while (y < game->height)
+	{
+		x = 0;
+		while (x < game->width)
+		{
+			if (game->world[y][x] == TILE_DOOR)
+				count++;
+			x++;
+		}
+		y++;
+	}
+	return (count);
+}
+
 int	ft_config_to_game(t_config *config, t_game *game)
 {
 	if (config->width > MAX_MAP_SIZE || config->height > MAX_MAP_SIZE)
@@ -78,6 +100,11 @@ int	ft_config_to_game(t_config *config, t_game *game)
 	game->width = config->width;
 	game->height = config->height;
 	if (!ft_create_world(config, game))
+		return (0);
+	game->door_total = ft_count_doors(game);
+	if (game->door_total == 0)
+		return (ft_print_errors(ERR_MISSING_ELEMENT), 0);
+	if (!ft_check_doors_reachable(config, game))
 		return (0);
 	game->p.x = config->x_spawn + 0.5;
 	game->p.y = config->y_spawn + 0.5;

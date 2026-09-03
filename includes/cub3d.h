@@ -56,6 +56,7 @@
 # define MINIMAP_RADIUS 16
 # define COLOR_WALL   0x00FFFFFF
 # define COLOR_EMPTY  0x00333333
+# define COLOR_DOOR   0x00CC8800
 # define COLOR_PLAYER 0x00FF0000
 
 // ENUM FOR MAP
@@ -92,6 +93,7 @@ typedef enum e_error
 	ERR_MAP_NOT_CLOSED,
 	ERR_INVALID_LINE,
 	ERR_MAP_TOO_LONG,
+	ERR_DOOR_UNREACHABLE,
 	ERR_COUNT
 }	t_error;
 
@@ -171,6 +173,10 @@ typedef struct s_game
 	int			mouse_enable;
 	long long	door_time;
 	t_img		*door_anim_tex;
+	int			door_total;
+	int			doors_opened;
+	long long	game_start;
+	int			**flood_visited;
 }	t_game;
 
 typedef struct s_charview
@@ -202,6 +208,10 @@ typedef struct s_ray
 	int		step_y;
 	int		side;
 	int		hit_type;
+	int		has_door;
+	double	door_dist;
+	double	door_cam_dist;
+	double	door_wall_x;
 }	t_ray;
 
 typedef struct s_column
@@ -212,6 +222,11 @@ typedef struct s_column
 	int		wall_h;
 	double	wall_x;
 	t_img	*tex;
+	int		has_door;
+	int		d_start;
+	int		d_end;
+	int		d_wall_h;
+	double	d_wall_x;
 }	t_column;
 
 void		render_minimap(t_game *g);
@@ -229,6 +244,7 @@ int			ft_parse_color(int *color, int *flag, char *line);
 int			ft_check_cell(t_config *config, int x, int y, int *spawn_count);
 int			ft_validate_map(t_config *config);
 int			ft_config_to_game(t_config *config, t_game *game);
+int			ft_check_doors_reachable(t_config *config, t_game *game);
 void		ft_set_spawn(t_config *config, int x, int y, char c);
 t_config	*ft_init_config(void);
 int			ft_check_all_flags(t_config *config);
@@ -254,6 +270,8 @@ int			load_game(char *filename, t_game *g);
 
 int			game_loop(t_game *g);
 void		render(t_game *g);
+void		setup_door(t_ray *ray, t_column *col);
+void		draw_door_layer(t_game *g, t_column *c);
 void		ft_draw_crosshair(t_game *g);
 void		ft_update_doors(t_game *g);
 

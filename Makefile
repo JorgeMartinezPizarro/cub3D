@@ -17,6 +17,7 @@ FILES		= \
 	render/render_minimap \
 	render/animations render/draw_hand_frame \
 	render/game_loop render/render \
+	render/door_layer \
 	utils/free_functions utils/utils \
 	utils/cast_ray utils/ray_utils utils/color \
 	utils/helpers utils/get_pixel \
@@ -24,7 +25,7 @@ FILES		= \
 	parser/parser parser/parser_init \
 	parser/parser_textures parser/parser_map \
 	parser/load_game parser/load_handlers \
-	parser/load_map
+	parser/load_map parser/parser_flood
 
 LIBFT_DIR	= libft
 

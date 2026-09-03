@@ -43,5 +43,13 @@ int	ray_door_open(t_game *g, t_ray *r, int side)
 		wall_x = g->p.y + dist * r->dir_y;
 	wall_x -= floor(wall_x);
 	tex_x = (int)(wall_x * tex->w);
-	return ((unsigned int)get_pixel(tex, tex_x, tex->h / 2) == DOOR_ALPHA_KEY);
+	if ((unsigned int)get_pixel(tex, tex_x, tex->h / 2) != DOOR_ALPHA_KEY)
+		return (0);
+	if (!r->has_door)
+	{
+		r->has_door = 1;
+		r->door_dist = dist;
+		r->door_wall_x = wall_x;
+	}
+	return (1);
 }

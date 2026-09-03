@@ -22,6 +22,7 @@ static void	ray_init(t_game *g, t_ray *r)
 	r->delta_x = fabs(1.0 / r->dir_x);
 	r->delta_y = fabs(1.0 / r->dir_y);
 	r->hit_type = TILE_WALL;
+	r->has_door = 0;
 }
 
 static void	ray_steps(t_game *g, t_ray *r)

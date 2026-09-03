@@ -23,13 +23,14 @@ int	ft_print_errors(t_error err)
 		"Error\nDuplicate color\n",
 		"Error\nInvalid color value\n",
 		"Error\nColor out of range (0-255)\n",
-		"Error\nMissing element\n",
+		"Error\nMissing a door\n",
 		"Error\nInvalid character in map\n",
 		"Error\nInvalid spawn (need exactly one N/S/E/W)\n",
 		"Error\nMap not found\n",
 		"Error\nMap not closed\n",
 		"Error\nInvalid line in file\n",
-		"Error\nMap too large (max 100x100)\n"
+		"Error\nMap too large (max 100x100)\n",
+		"Error\nNot all doors are reachable\n"
 	};
 
 	if (err >= 0 && err < ERR_COUNT)
