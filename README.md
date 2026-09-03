@@ -15,11 +15,11 @@ Code summary:
 
 | File type | Lines of Code |
 |----------|--------------:|
-| `.c`     |          2127 |
-| `.h`     |           305 |
-| `.sh`     |           171 |
-| Makefile |            83 |
-| **TOTAL**|        **2686** |
+| `.c`     |          2184 |
+| `.h`     |           315 |
+| `.sh`     |           125 |
+| Makefile |            82 |
+| **TOTAL**|        **2706** |
 
 ## Instructions
 
