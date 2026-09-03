@@ -50,17 +50,17 @@
 # define MOUSE_SENS 0.0025
 
 // MINIMAP
-# define MM_SCALE 4
+# define MM_SCALE 5
 # define MM_OFFSET_X 10
 # define MM_OFFSET_Y 10
-# define MINIMAP_RADIUS 16
+# define MINIMAP_RADIUS 14
 # define COLOR_WALL   0x00FFFFFF
 # define COLOR_EMPTY  0x00333333
-# define COLOR_DOOR   0x00CC8800
+# define COLOR_DOOR   0x00FFFF00
 
 // TEXT: mlx_string_put always uses the X core "fixed" font (set explicitly
 // in load_game), which is a fixed-width bitmap font, FONT_CHAR_W pixels wide
-# define FONT_CHAR_W 8
+# define FONT_CHAR_W 6
 
 // HUD: size in pixels of each digit sprite drawn for the doors-open counter
 # define HUD_DIGIT_SIZE 64
@@ -198,6 +198,7 @@ typedef struct s_game
 	t_img		fireworks2;
 	char		*win_msg;
 	char		*load_msg;
+	char		*map_msg;
 	t_img		digits[10];
 }	t_game;
 
@@ -298,7 +299,9 @@ void		clear_frame(t_img *img, int color);
 void		render_start_screen(t_game *g);
 void		render_end_screen(t_game *g);
 char		*ft_build_win_message(t_game *g, int min, int sec, int ms);
+void		put_centered(t_game *g, int y, char *s);
 char		*ft_build_load_message(long long load_ms);
+char		*ft_build_map_message(char *path);
 void		append_str(char *buf, int *i, char *s);
 void		append_pad(char *buf, int *i, int n, int width);
 int			load_digits(t_game *g);

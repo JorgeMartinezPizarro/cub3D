@@ -57,3 +57,15 @@ char	*ft_build_load_message(long long load_ms)
 	buf[i] = '\0';
 	return (ft_strdup(buf));
 }
+
+char	*ft_build_map_message(char *path)
+{
+	char	buf[512];
+	int		i;
+
+	i = 0;
+	append_str(buf, &i, "Has resuelto el mapa ");
+	append_str(buf, &i, path);
+	buf[i] = '\0';
+	return (ft_strdup(buf));
+}

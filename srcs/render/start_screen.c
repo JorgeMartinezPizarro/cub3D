@@ -21,11 +21,7 @@ void	render_start_screen(t_game *g)
 	l3 = "Press any key to start.";
 	clear_frame(&g->frame, 0x000000);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
-	mlx_string_put(g->mlx, g->win,
-		WIDTH / 2 - ft_strlen(g->load_msg) * FONT_CHAR_W / 2,
-		HEIGHT / 2 - 30, 0x00FFFFFF, g->load_msg);
-	mlx_string_put(g->mlx, g->win, WIDTH / 2 - ft_strlen(l2) * FONT_CHAR_W / 2,
-		HEIGHT / 2, 0x00FFFFFF, l2);
-	mlx_string_put(g->mlx, g->win, WIDTH / 2 - ft_strlen(l3) * FONT_CHAR_W / 2,
-		HEIGHT / 2 + 30, 0x00FFFFFF, l3);
+	put_centered(g, HEIGHT / 2 - 30, g->load_msg);
+	put_centered(g, HEIGHT / 2, l2);
+	put_centered(g, HEIGHT / 2 + 30, l3);
 }

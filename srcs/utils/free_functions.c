@@ -59,6 +59,7 @@ void	free_game(t_game *game)
 		return ;
 	free(game->win_msg);
 	free(game->load_msg);
+	free(game->map_msg);
 	if (game->world)
 	{
 		i = 0;
