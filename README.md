@@ -32,8 +32,6 @@ make
 
 with an existing *.cub file.
 
-To play all the maps in a row, run `make run`.
-
 ## Gameplay
 
 The game speed can be adjusted using:
