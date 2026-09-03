@@ -12,31 +12,6 @@
 
 #include "cub3d.h"
 
-static void	append_str(char *buf, int *i, char *s)
-{
-	while (*s)
-		buf[(*i)++] = *s++;
-}
-
-static void	append_pad(char *buf, int *i, int n, int width)
-{
-	char	tmp[16];
-	int		len;
-
-	len = 0;
-	if (n == 0)
-		tmp[len++] = '0';
-	while (n > 0)
-	{
-		tmp[len++] = '0' + n % 10;
-		n /= 10;
-	}
-	while (len < width)
-		tmp[len++] = '0';
-	while (len > 0)
-		buf[(*i)++] = tmp[--len];
-}
-
 char	*ft_build_win_message(t_game *g, int min, int sec, int ms)
 {
 	char	buf[96];

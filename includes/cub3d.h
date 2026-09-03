@@ -44,10 +44,10 @@
 # define KEY_M 109
 
 // GAME SPEED
-# define MOVE_SPEED 0.1392
-# define ROT_SPEED  0.0882
-# define FPS 30
-# define MOUSE_SENS 0.0035
+# define MOVE_SPEED 0.0892
+# define ROT_SPEED  0.0397
+# define FPS 60
+# define MOUSE_SENS 0.0025
 
 // MINIMAP
 # define MM_SCALE 4
@@ -60,7 +60,11 @@
 
 // TEXT: mlx_string_put always uses the X core "fixed" font (set explicitly
 // in load_game), which is a fixed-width bitmap font, FONT_CHAR_W pixels wide
-# define FONT_CHAR_W 6
+# define FONT_CHAR_W 8
+
+// HUD: size in pixels of each digit sprite drawn for the doors-open counter
+# define HUD_DIGIT_SIZE 64
+# define HUD_PAD 8
 # define COLOR_PLAYER 0x00FF0000
 
 // ENUM FOR MAP
@@ -79,6 +83,10 @@
 // door tile is TILE_DOOR_HALF; DOOR_FRAME_MS is how long each one is shown
 # define DOOR_FRAME_MS		100
 # define DOOR_ANIM_MS		300
+
+// WIN: once the last door finishes opening, wait this long (with the HUD
+// already showing n/n) before switching to the end screen
+# define WIN_DELAY_MS		300
 
 typedef enum e_error
 {
@@ -181,11 +189,16 @@ typedef struct s_game
 	int			doors_opened;
 	long long	game_start;
 	int			**flood_visited;
+	long long	load_ms;
 	int			started;
 	int			finished;
+	int			win_pending;
+	long long	win_pending_since;
 	t_img		fireworks;
 	t_img		fireworks2;
 	char		*win_msg;
+	char		*load_msg;
+	t_img		digits[10];
 }	t_game;
 
 typedef struct s_charview
@@ -285,6 +298,12 @@ void		clear_frame(t_img *img, int color);
 void		render_start_screen(t_game *g);
 void		render_end_screen(t_game *g);
 char		*ft_build_win_message(t_game *g, int min, int sec, int ms);
+char		*ft_build_load_message(long long load_ms);
+void		append_str(char *buf, int *i, char *s);
+void		append_pad(char *buf, int *i, int n, int width);
+int			load_digits(t_game *g);
+void		free_digits(t_game *g);
+void		render_hud(t_game *g);
 void		ft_draw_crosshair(t_game *g);
 void		ft_update_doors(t_game *g);
 

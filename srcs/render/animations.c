@@ -52,7 +52,12 @@ static void	ft_finish_door(t_game *g)
 	}
 	g->door_x = -1;
 	if (g->doors_opened == g->door_total)
-		ft_print_win(g);
+	{
+		g->win_pending = 1;
+		g->win_pending_since = get_time();
+	}
+	else
+		g->win_pending = 0;
 }
 
 void	ft_update_doors(t_game *g)
@@ -60,6 +65,9 @@ void	ft_update_doors(t_game *g)
 	long long	elapsed;
 	int			frame;
 
+	if (g->win_pending && g->doors_opened == g->door_total
+		&& get_time() - g->win_pending_since >= WIN_DELAY_MS)
+		ft_print_win(g);
 	if (g->door_x < 0)
 		return ;
 	elapsed = get_time() - g->door_time;

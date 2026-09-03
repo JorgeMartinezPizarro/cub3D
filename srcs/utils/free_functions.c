@@ -58,6 +58,7 @@ void	free_game(t_game *game)
 	if (!game)
 		return ;
 	free(game->win_msg);
+	free(game->load_msg);
 	if (game->world)
 	{
 		i = 0;
@@ -68,6 +69,7 @@ void	free_game(t_game *game)
 	if (game->mlx)
 	{
 		free_images(game);
+		free_digits(game);
 		close_window(game);
 	}
 }

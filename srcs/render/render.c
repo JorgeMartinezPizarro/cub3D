@@ -117,5 +117,6 @@ void	render(t_game *g)
 	draw_hand_frame(g, &g->hand_sheet, g->current_hand_frame);
 	ft_draw_crosshair(g);
 	render_minimap(g);
+	render_hud(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
 }

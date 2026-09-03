@@ -17,15 +17,15 @@ FILES		= \
 	render/render_minimap \
 	render/animations render/draw_hand_frame \
 	render/game_loop render/render \
-	render/door_layer render/start_screen render/end_screen \
-	utils/free_functions utils/utils \
+	render/door_layer render/start_screen render/end_screen render/hud \
+	utils/free_functions utils/utils utils/msg_utils \
 	utils/cast_ray utils/ray_utils utils/color \
 	utils/helpers utils/get_pixel \
 	utils/put_pixel \
 	parser/parser parser/parser_init \
 	parser/parser_textures parser/parser_map \
 	parser/load_game parser/load_handlers \
-	parser/load_map parser/parser_flood
+	parser/load_map parser/parser_flood parser/load_digits
 
 LIBFT_DIR	= libft
 

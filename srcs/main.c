@@ -17,7 +17,8 @@
 
 int	main(int argc, char **argv)
 {
-	t_game	game;
+	t_game		game;
+	long long	t0;
 
 	ft_memset(&game, 0, sizeof(t_game));
 	if (argc != 2)
@@ -25,11 +26,14 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("Error\nUsage: ./cub3d <map.cub>\n", 2);
 		return (1);
 	}
+	t0 = get_time();
 	if (!load_game(argv[1], &game))
 	{
 		exit_program(&game);
 		return (1);
 	}
+	game.load_ms = get_time() - t0;
+	game.load_msg = ft_build_load_message(game.load_ms);
 	load_handlers(&game);
 	mlx_loop(game.mlx);
 	exit_program(&game);

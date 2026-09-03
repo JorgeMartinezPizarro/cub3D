@@ -78,14 +78,12 @@ int	load_game(char *filename, t_game *g)
 		return (ft_free_config(config), 0);
 	g->p.mouse_x = WIDTH / 2;
 	g->p.mouse_y = HEIGHT / 2;
-	g->current_hand_frame = 0;
 	g->last_hand_time = get_time();
-	g->last_time = 0;
 	init_keys(g);
 	g->mlx = mlx_init();
 	if (!g->mlx)
 		return (ft_free_config(config), 0);
-	if (!load_textures(g, config) || !load_images(g))
+	if (!load_textures(g, config) || !load_images(g) || !load_digits(g))
 		return (ft_free_config(config), 0);
 	g->win = mlx_new_window(g->mlx, WIDTH, HEIGHT, "Cub3D");
 	if (!g->win)

@@ -14,15 +14,18 @@
 
 void	render_start_screen(t_game *g)
 {
-	char	*l1;
 	char	*l2;
+	char	*l3;
 
-	l1 = "Let's open the doors!";
-	l2 = "Press any key to start.";
+	l2 = "Let's open all those dammit doors!";
+	l3 = "Press any key to start.";
 	clear_frame(&g->frame, 0x000000);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
-	mlx_string_put(g->mlx, g->win, WIDTH / 2 - ft_strlen(l1) * FONT_CHAR_W / 2,
-		HEIGHT / 2 - 10, 0x00FFFFFF, l1);
+	mlx_string_put(g->mlx, g->win,
+		WIDTH / 2 - ft_strlen(g->load_msg) * FONT_CHAR_W / 2,
+		HEIGHT / 2 - 30, 0x00FFFFFF, g->load_msg);
 	mlx_string_put(g->mlx, g->win, WIDTH / 2 - ft_strlen(l2) * FONT_CHAR_W / 2,
-		HEIGHT / 2 + 10, 0x00FFFFFF, l2);
+		HEIGHT / 2, 0x00FFFFFF, l2);
+	mlx_string_put(g->mlx, g->win, WIDTH / 2 - ft_strlen(l3) * FONT_CHAR_W / 2,
+		HEIGHT / 2 + 30, 0x00FFFFFF, l3);
 }
