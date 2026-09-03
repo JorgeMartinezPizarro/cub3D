@@ -27,10 +27,12 @@ To compile and run the game:
 
 ```bash
 make
-./cub3d maps/level1.cub
+./cub3d maps/level[1-9].cub
 ```
 
 with an existing *.cub file.
+
+To play all the maps in a row, run `make run`.
 
 ## Gameplay
 
