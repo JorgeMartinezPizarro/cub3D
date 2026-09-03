@@ -115,7 +115,7 @@
 // height (px) reserved below the preview for the 6 lines of status text
 # define START_TEXT_BLOCK_H		205
 // height (px) reserved above the preview for the map title
-# define START_TITLE_H			30
+# define START_TITLE_H			54
 
 // CORNER ICONS: key (start screen) and fireworks (end screen) are blitted
 // at this fixed on-screen size regardless of their native texture size
