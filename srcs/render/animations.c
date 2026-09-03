@@ -35,6 +35,7 @@ static void	ft_print_win(t_game *g)
 	ft_printf("Has abierto todas las %d puertas en %02d:%02d.%03d.\n",
 		g->door_total, min, sec, ms);
 	g->win_msg = ft_build_win_message(g, min, sec, ms);
+	ft_check_score(g, elapsed);
 	g->finished = 1;
 }
 

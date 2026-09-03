@@ -88,6 +88,12 @@
 // already showing n/n) before switching to the end screen
 # define WIN_DELAY_MS		300
 
+// SCORE: best times are stored XOR'd and hex-encoded so the file is not
+// trivially editable in a plain text editor
+# define SCORES_PATH		"scores.dat"
+# define SCORE_XOR_KEY		0x5A
+# define SCORE_MAP_COUNT	9
+
 typedef enum e_error
 {
 	ERR_MALLOC,
@@ -130,6 +136,13 @@ typedef struct s_config
 	int		f_flag;
 	int		c_flag;
 }	t_config;
+
+typedef struct s_score
+{
+	char	name[16];
+	int		hash;
+	int		best_ms;
+}	t_score;
 
 typedef struct s_img
 {
@@ -199,6 +212,10 @@ typedef struct s_game
 	char		*win_msg;
 	char		*load_msg;
 	char		*map_msg;
+	char		*score_msg;
+	char		*record_msg;
+	char		*map_path;
+	int			map_hash;
 	t_img		digits[10];
 }	t_game;
 
@@ -300,6 +317,7 @@ void		render_start_screen(t_game *g);
 void		render_end_screen(t_game *g);
 char		*ft_build_win_message(t_game *g, int min, int sec, int ms);
 void		put_centered(t_game *g, int y, char *s);
+void		draw_corner(t_game *g, t_img *tex, int cx, int cy);
 char		*ft_build_load_message(long long load_ms);
 char		*ft_build_map_message(char *path);
 void		append_str(char *buf, int *i, char *s);
@@ -311,5 +329,17 @@ void		ft_draw_crosshair(t_game *g);
 void		ft_update_doors(t_game *g);
 
 void		toggle_mouse(t_game *g, int enable);
+
+int			ft_hash_file(char *path);
+void		ft_xor_buf(char *buf, int len, int key);
+char		*ft_hex_encode(char *buf, int len);
+int			ft_hex_decode(char *hex, char *out);
+char		*ft_score_encode(t_score *s);
+
+void		ft_load_scores(t_score *scores);
+void		ft_save_scores(t_score *scores);
+
+int			ft_find_map_index(char *path);
+void		ft_check_score(t_game *g, long long elapsed);
 
 #endif

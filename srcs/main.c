@@ -35,6 +35,8 @@ int	main(int argc, char **argv)
 	game.load_ms = get_time() - t0;
 	game.load_msg = ft_build_load_message(game.load_ms);
 	game.map_msg = ft_build_map_message(argv[1]);
+	game.map_path = argv[1];
+	game.map_hash = ft_hash_file(argv[1]);
 	load_handlers(&game);
 	mlx_loop(game.mlx);
 	exit_program(&game);

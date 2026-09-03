@@ -17,11 +17,13 @@ FILES		= \
 	render/render_minimap \
 	render/animations render/draw_hand_frame \
 	render/game_loop render/render \
-	render/door_layer render/start_screen render/end_screen render/hud \
+	render/door_layer render/start_screen render/end_screen \
+	render/end_screen_layout render/hud \
 	utils/free_functions utils/utils utils/msg_utils \
 	utils/cast_ray utils/ray_utils utils/color \
 	utils/helpers utils/get_pixel \
 	utils/put_pixel \
+	utils/score_codec utils/score_io utils/score_game \
 	parser/parser parser/parser_init \
 	parser/parser_textures parser/parser_map \
 	parser/load_game parser/load_handlers \

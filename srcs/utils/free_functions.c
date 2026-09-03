@@ -60,6 +60,8 @@ void	free_game(t_game *game)
 	free(game->win_msg);
 	free(game->load_msg);
 	free(game->map_msg);
+	free(game->score_msg);
+	free(game->record_msg);
 	if (game->world)
 	{
 		i = 0;
