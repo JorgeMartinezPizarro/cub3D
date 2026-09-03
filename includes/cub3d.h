@@ -54,9 +54,9 @@
 // and the two things worth spotting at a glance (doors, the player/spawn
 // dot) get the only bright colors on the map
 # define MM_SCALE 5
-# define MM_OFFSET_X 10
-# define MM_OFFSET_Y 10
 # define MINIMAP_RADIUS 14
+# define MM_OFFSET_X 10
+# define MM_OFFSET_Y ((HEIGHT - (2 * MINIMAP_RADIUS + 1) * MM_SCALE) / 2)
 # define COLOR_WALL   0x00000000
 # define COLOR_EMPTY  0x00333333
 # define COLOR_DOOR   0x00FFFF00
@@ -100,9 +100,14 @@
 // START SCREEN: miniature map preview box + the 4 corner key icons
 # define START_PREVIEW_MAX_W	480
 # define START_PREVIEW_MAX_H	260
-# define START_PREVIEW_TOP		70
 # define START_KEY_MARGIN		70
 # define START_ARROW_LEN		10
+// height (px) reserved below the preview for the 5 lines of status text
+# define START_TEXT_BLOCK_H		175
+
+// CORNER ICONS: key (start screen) and fireworks (end screen) are blitted
+// at this fixed on-screen size regardless of their native texture size
+# define ICON_DISPLAY_SIZE		128
 
 typedef enum e_error
 {

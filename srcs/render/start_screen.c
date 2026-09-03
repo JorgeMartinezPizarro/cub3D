@@ -99,6 +99,7 @@ void	render_start_screen(t_game *g)
 {
 	int	scale;
 	int	ox;
+	int	oy;
 	int	y;
 
 	clear_frame(&g->frame, 0x000000);
@@ -109,10 +110,11 @@ void	render_start_screen(t_game *g)
 		HEIGHT - START_KEY_MARGIN);
 	scale = preview_scale(g);
 	ox = WIDTH / 2 - (g->width * scale) / 2;
-	render_map_preview(g, ox, START_PREVIEW_TOP, scale);
-	draw_spawn_arrow(g, ox, START_PREVIEW_TOP, scale);
+	oy = (HEIGHT - (g->height * scale + START_TEXT_BLOCK_H)) / 2;
+	render_map_preview(g, ox, oy, scale);
+	draw_spawn_arrow(g, ox, oy, scale);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
-	y = START_PREVIEW_TOP + g->height * scale + 40;
+	y = oy + g->height * scale + 40;
 	put_centered(g, y, g->load_msg);
 	put_centered(g, y + 25, g->size_msg);
 	put_centered(g, y + 50, g->best_msg);

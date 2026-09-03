@@ -32,7 +32,7 @@ make
 
 with an existing *.cub file.
 
-### Advanced
+## Gameplay
 
 The game speed can be adjusted using:
 
@@ -45,7 +45,9 @@ The game speed can be adjusted using:
 
 The default configuration works nice for the 42 computers at 03/09/2026. 
 
-To toggle mouse usage on, press `m`. It works properly on linux, but fails in WSL.
+To toggle mouse usage on, press `m`. (It works properly on linux, but fails in WSL)
+
+To open the doors, you may press `e`. The game consists on opening all the doors.
 
 ## Resources
 

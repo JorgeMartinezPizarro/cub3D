@@ -38,12 +38,13 @@ static void	blit_fireworks(t_game *g, t_img *tex, int ox, int oy)
 	int	color;
 
 	y = 0;
-	while (y < tex->h)
+	while (y < ICON_DISPLAY_SIZE)
 	{
 		x = 0;
-		while (x < tex->w)
+		while (x < ICON_DISPLAY_SIZE)
 		{
-			color = get_pixel(tex, x, y);
+			color = get_pixel(tex, x * tex->w / ICON_DISPLAY_SIZE,
+					y * tex->h / ICON_DISPLAY_SIZE);
 			if (color != 0x000000)
 				put_pixel(&g->frame, ox + x, oy + y, color);
 			x++;
@@ -54,7 +55,8 @@ static void	blit_fireworks(t_game *g, t_img *tex, int ox, int oy)
 
 void	draw_corner(t_game *g, t_img *tex, int cx, int cy)
 {
-	blit_fireworks(g, tex, cx - tex->w / 2, cy - tex->h / 2);
+	blit_fireworks(g, tex, cx - ICON_DISPLAY_SIZE / 2,
+		cy - ICON_DISPLAY_SIZE / 2);
 }
 
 void	put_centered(t_game *g, int y, char *s)
