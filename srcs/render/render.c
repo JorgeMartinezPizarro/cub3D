@@ -42,6 +42,12 @@ static void	compute_ray(t_game *g, int x, t_ray *ray)
 
 static void	setup_column(t_game *g, t_ray *ray, t_column *col)
 {
+	t_img	*walls[4];
+
+	walls[0] = &g->wall_north;
+	walls[1] = &g->wall_south;
+	walls[2] = &g->wall_east;
+	walls[3] = &g->wall_west;
 	col->wall_h = (int)(HEIGHT / ray->cam_dist);
 	col->start = HEIGHT / 2 - col->wall_h / 2;
 	col->end = HEIGHT / 2 + col->wall_h / 2;
@@ -54,18 +60,11 @@ static void	setup_column(t_game *g, t_ray *ray, t_column *col)
 	else
 		col->wall_x = ray->hit_y;
 	col->wall_x -= floor(col->wall_x);
+	col->tex = walls[ray->side];
 	if (ray->hit_type == TILE_DOOR)
 		col->tex = &g->door_closed;
 	else if (ray->hit_type == TILE_DOOR_HALF)
-		col->tex = &g->door_half;
-	else if (ray->side == 0)
-		col->tex = &g->wall_north;
-	else if (ray->side == 1)
-		col->tex = &g->wall_south;
-	else if (ray->side == 2)
-		col->tex = &g->wall_east;
-	else
-		col->tex = &g->wall_west;
+		col->tex = g->door_anim_tex;
 }
 
 static void	draw_column(t_game *g, t_column *c)

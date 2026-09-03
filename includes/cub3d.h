@@ -22,13 +22,14 @@
 # include <fcntl.h>
 
 // WINDOW
-# define WIDTH 1200
-# define HEIGHT 800
+# define WIDTH 1600
+# define HEIGHT 950
 # define MAX_MAP_SIZE 100
 
 // PLAYER
-# define HAND_WIDTH 192
-# define HAND_HEIGHT 128
+// hand sprite-sheet is always a 2x2 grid of frames (any resolution);
+// HAND_SCALE is how many times bigger than its native size it is drawn
+# define HAND_SCALE 3
 # define PLAYER_RADIUS 0.1
 
 // KEYS
@@ -43,10 +44,10 @@
 # define KEY_M 109
 
 // GAME SPEED
-# define MOVE_SPEED 0.0792
-# define ROT_SPEED  0.0512
+# define MOVE_SPEED 0.0992
+# define ROT_SPEED  0.0582
 # define FPS 60
-# define MOUSE_SENS 0.0020
+# define MOUSE_SENS 0.0025
 
 // MINIMAP
 # define MM_SCALE 4
@@ -63,6 +64,16 @@
 # define TILE_DOOR			2
 # define TILE_DOOR_OPEN   	3
 # define TILE_DOOR_HALF		4
+
+// DOOR TRANSPARENCY: this project's vendored minilibx (mlx_xpm.c) maps every
+// "c None" xpm pixel to this exact 32bpp value (see mlx_rgb.c: {"none", -1}
+// and mlx_xpm.c: if (col == -1) col = 0xFF000000), so no texture edits needed
+# define DOOR_ALPHA_KEY		0xFF000000
+
+// DOOR ANIMATION: closed/half/open textures shown in sequence while the
+// door tile is TILE_DOOR_HALF; DOOR_FRAME_MS is how long each one is shown
+# define DOOR_FRAME_MS		100
+# define DOOR_ANIM_MS		300
 
 typedef enum e_error
 {
@@ -159,12 +170,15 @@ typedef struct s_game
 	int			door_opening;
 	int			mouse_enable;
 	long long	door_time;
+	t_img		*door_anim_tex;
 }	t_game;
 
 typedef struct s_charview
 {
 	int	tex_x;
 	int	tex_y;
+	int	tex_w;
+	int	tex_h;
 	int	screen_x;
 	int	screen_y;
 }	t_charview;
@@ -202,6 +216,8 @@ typedef struct s_column
 
 void		render_minimap(t_game *g);
 void		put_pixel(t_img *img, int x, int y, int c);
+int			ray_step(t_ray *r);
+int			ray_door_open(t_game *g, t_ray *r, int side);
 void		free_game(t_game *game);
 void		free_strarr(char **res, int i);
 void		ft_free_config(t_config *config);

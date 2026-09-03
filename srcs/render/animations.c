@@ -12,17 +12,36 @@
 
 #include "cub3d.h"
 
+static t_img	*door_frame_tex(t_game *g, int frame)
+{
+	if (frame <= 0)
+		return (&g->door_closed);
+	if (frame == 1)
+		return (&g->door_half);
+	return (&g->door_open);
+}
+
 void	ft_update_doors(t_game *g)
 {
+	long long	elapsed;
+	int			frame;
+
 	if (g->door_x < 0)
 		return ;
-	if (get_time() - g->door_time < 150)
+	elapsed = get_time() - g->door_time;
+	if (elapsed >= DOOR_ANIM_MS)
+	{
+		if (g->door_opening)
+			g->world[g->door_y][g->door_x] = TILE_DOOR_OPEN;
+		else
+			g->world[g->door_y][g->door_x] = TILE_DOOR;
+		g->door_x = -1;
 		return ;
-	if (g->door_opening)
-		g->world[g->door_y][g->door_x] = TILE_DOOR_OPEN;
-	else
-		g->world[g->door_y][g->door_x] = TILE_DOOR;
-	g->door_x = -1;
+	}
+	frame = (int)(elapsed / DOOR_FRAME_MS);
+	if (!g->door_opening)
+		frame = 2 - frame;
+	g->door_anim_tex = door_frame_tex(g, frame);
 }
 
 void	ft_toggle_door(t_game *g)
@@ -45,5 +64,9 @@ void	ft_toggle_door(t_game *g)
 		g->door_y = map_y;
 		g->door_opening = (tile == TILE_DOOR);
 		g->door_time = get_time();
+		if (g->door_opening)
+			g->door_anim_tex = &g->door_closed;
+		else
+			g->door_anim_tex = &g->door_open;
 	}
 }

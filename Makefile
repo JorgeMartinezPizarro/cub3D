@@ -18,7 +18,7 @@ FILES		= \
 	render/animations render/draw_hand_frame \
 	render/game_loop render/render \
 	utils/free_functions utils/utils \
-	utils/cast_ray utils/color \
+	utils/cast_ray utils/ray_utils utils/color \
 	utils/helpers utils/get_pixel \
 	utils/put_pixel \
 	parser/parser parser/parser_init \
