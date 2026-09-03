@@ -8,5 +8,5 @@ VALGRIND="valgrind \
 	--trace-children=no \
 "
 make build-san
-./cub3D_san maps/level0.cub
+./cub3D_san maps/level1.cub
 make clean-san
