@@ -22,8 +22,8 @@
 # include <fcntl.h>
 
 // WINDOW
-# define WIDTH 1600
-# define HEIGHT 950
+# define WIDTH 1024
+# define HEIGHT 800
 # define MAX_MAP_SIZE 200
 
 // PLAYER
