@@ -44,10 +44,10 @@
 # define KEY_M 109
 
 // GAME SPEED
-# define MOVE_SPEED 0.0992
-# define ROT_SPEED  0.0582
-# define FPS 60
-# define MOUSE_SENS 0.0025
+# define MOVE_SPEED 0.1392
+# define ROT_SPEED  0.0882
+# define FPS 30
+# define MOUSE_SENS 0.0035
 
 // MINIMAP
 # define MM_SCALE 4
