@@ -34,6 +34,8 @@ static void	free_images(t_game *game)
 		mlx_destroy_image(game->mlx, game->door_closed.img);
 	if (game->fireworks.img)
 		mlx_destroy_image(game->mlx, game->fireworks.img);
+	if (game->fireworks2.img)
+		mlx_destroy_image(game->mlx, game->fireworks2.img);
 }
 
 static void	close_window(t_game *game)

@@ -56,19 +56,19 @@ char	*ft_build_win_message(t_game *g, int min, int sec, int ms)
 	return (ft_strdup(buf));
 }
 
-static void	blit_fireworks(t_game *g, int ox, int oy)
+static void	blit_fireworks(t_game *g, t_img *tex, int ox, int oy)
 {
 	int	x;
 	int	y;
 	int	color;
 
 	y = 0;
-	while (y < g->fireworks.h)
+	while (y < tex->h)
 	{
 		x = 0;
-		while (x < g->fireworks.w)
+		while (x < tex->w)
 		{
-			color = get_pixel(&g->fireworks, x, y);
+			color = get_pixel(tex, x, y);
 			if (color != 0x000000)
 				put_pixel(&g->frame, ox + x, oy + y, color);
 			x++;
@@ -83,8 +83,11 @@ void	render_end_screen(t_game *g)
 
 	l2 = "Press a key to close the game.";
 	clear_frame(&g->frame, 0x000000);
-	blit_fireworks(g, 40, 40);
-	blit_fireworks(g, WIDTH - 40 - g->fireworks.w, 40);
+	blit_fireworks(g, &g->fireworks, 40, 40);
+	blit_fireworks(g, &g->fireworks2, WIDTH - 40 - g->fireworks2.w, 40);
+	blit_fireworks(g, &g->fireworks2, 40, HEIGHT - 40 - g->fireworks2.h);
+	blit_fireworks(g, &g->fireworks, WIDTH - 40 - g->fireworks.w,
+		HEIGHT - 40 - g->fireworks.h);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
 	mlx_string_put(g->mlx, g->win,
 		WIDTH / 2 - ft_strlen(g->win_msg) * FONT_CHAR_W / 2,
