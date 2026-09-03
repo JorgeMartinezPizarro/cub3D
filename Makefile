@@ -18,7 +18,7 @@ FILES		= \
 	render/animations render/draw_hand_frame \
 	render/game_loop render/render \
 	render/door_layer render/start_screen render/start_screen_preview \
-	render/end_screen \
+	render/end_screen render/put_text \
 	render/end_screen_layout render/hud \
 	utils/free_functions utils/free_config utils/utils \
 	utils/msg_utils utils/msg_utils2 \
@@ -30,6 +30,7 @@ FILES		= \
 	parser/parser_textures parser/parser_map \
 	parser/load_game parser/load_handlers \
 	parser/load_map parser/parser_flood parser/load_digits \
+	parser/load_font \
 	parser/switch_map parser/map_reload
 
 LIBFT_DIR	= libft

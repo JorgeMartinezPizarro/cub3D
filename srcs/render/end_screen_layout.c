@@ -33,12 +33,12 @@ static void	draw_end_texts(t_game *g)
 	if (g->score_msg)
 	{
 		put_centered(g, y, g->score_msg);
-		y += 20;
+		y += FONT_CELL_H + 4;
 	}
 	if (g->record_msg)
 	{
 		put_centered(g, y, g->record_msg);
-		y += 20;
+		y += FONT_CELL_H + 4;
 	}
 	put_centered(g, y, "Press ESC to exit, or ENTER to play again.");
 }

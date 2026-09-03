@@ -41,11 +41,11 @@ static void	draw_start_texts(t_game *g, int oy, int y)
 {
 	put_centered(g, oy - START_TITLE_H + 8, g->title_msg);
 	put_centered(g, y, g->load_msg);
-	put_centered(g, y + 25, g->size_msg);
-	put_centered(g, y + 50, g->best_msg);
-	put_centered(g, y + 85, "Let's open all those FREAKING doors!");
-	put_centered(g, y + 115, "Press ENTER to start.");
-	put_centered(g, y + 145, "Press ESC to exit the game.");
+	put_centered(g, y + 30, g->size_msg);
+	put_centered(g, y + 60, g->best_msg);
+	put_centered(g, y + 95, "Let's open all those FREAKING doors!");
+	put_centered(g, y + 125, "Press ENTER to start.");
+	put_centered(g, y + 155, "Press ESC to exit the game.");
 }
 
 void	render_start_screen(t_game *g)
