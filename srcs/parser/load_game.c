@@ -17,7 +17,7 @@ static int	load_tex(t_game *g, t_img *t, char *path)
 	t->img = mlx_xpm_file_to_image(g->mlx, path, &t->w, &t->h);
 	if (!t->img)
 	{
-		ft_putstr_fd("Error loading texture\n", 2);
+		ft_putstr_fd("Error\nCould not load a texture\n", 2);
 		return (0);
 	}
 	t->addr = mlx_get_data_addr(t->img, &t->bpp, &t->line, &t->endian);

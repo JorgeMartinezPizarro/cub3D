@@ -8,6 +8,7 @@ VALGRIND="valgrind \
   --track-fds=yes \
   --quiet \
 "
+norminette srcs includes
 ${VALGRIND} ./${NAME} maps/invalid1.cub || true
 ${VALGRIND} ./${NAME} maps/invalid2.cub || true
 ${VALGRIND} ./${NAME} maps/invalid3.cub || true

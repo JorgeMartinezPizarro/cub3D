@@ -87,7 +87,7 @@ echo
 # Header
 printf "%s┌%s┐%s\n" "$DIM" "$(rep $WIDTH ─)" "$R"
 printf "%s│%s%*s%s%s%s%*s%s│%s\n" \
-    "$DIM" "$R" "$title_pad" "" "$B$RED" "$TITLE" "$R" \
+    "$DIM" "$R" "$title_pad" "" "$B$YELLOW" "$TITLE" "$R" \
     "$((WIDTH - title_pad - ${#TITLE}))" "" "$DIM" "$R"
 line_mid
 
