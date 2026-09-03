@@ -17,15 +17,17 @@
 
 int	key_press(int k, t_game *g)
 {
-	if (g->finished)
-		exit_program(g);
-	else if (!g->started)
+	if (g->finished || !g->started)
 	{
+		if (k != KEY_ENTER)
+			return (0);
+		if (g->finished)
+			exit_program(g);
 		g->started = 1;
 		g->game_start = get_time();
 		return (0);
 	}
-	else if (k == KEY_ESC)
+	if (k == KEY_ESC)
 		exit_program(g);
 	else if (k == KEY_E)
 		ft_toggle_door(g);

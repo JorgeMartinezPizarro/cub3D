@@ -73,7 +73,21 @@ void	ft_check_score(t_game *g, long long elapsed)
 		scores[idx].hash = g->map_hash;
 		scores[idx].best_ms = (int)elapsed;
 		ft_save_scores(scores);
-		g->record_msg = build_time_msg("Nuevo record! Tiempo: ", elapsed);
+		g->record_msg = build_time_msg("New record! Time: ", elapsed);
 	}
-	g->score_msg = build_time_msg("Mejor tiempo: ", scores[idx].best_ms);
+	g->score_msg = build_time_msg("Best time: ", scores[idx].best_ms);
+}
+
+char	*ft_build_record_message(t_game *g)
+{
+	t_score	scores[SCORE_MAP_COUNT];
+	int		idx;
+
+	idx = ft_find_map_index(g->map_path);
+	if (idx < 0)
+		return (ft_strdup("No record: map not recognized."));
+	ft_load_scores(scores);
+	if (scores[idx].hash != g->map_hash || scores[idx].best_ms == 0)
+		return (ft_strdup("No record yet for this map."));
+	return (build_time_msg("Current record: ", scores[idx].best_ms));
 }

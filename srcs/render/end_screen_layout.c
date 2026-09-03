@@ -65,7 +65,7 @@ void	render_end_screen(t_game *g)
 	int		half_w;
 	int		bottom;
 
-	l2 = "Press a key to close the game.";
+	l2 = "Press ENTER to close the game.";
 	half_w = end_msg_width(g, l2);
 	bottom = HEIGHT / 2 + 22;
 	if (g->score_msg)

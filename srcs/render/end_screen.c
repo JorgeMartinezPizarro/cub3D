@@ -18,9 +18,9 @@ char	*ft_build_win_message(t_game *g, int min, int sec, int ms)
 	int		i;
 
 	i = 0;
-	append_str(buf, &i, "Has abierto todas las ");
+	append_str(buf, &i, "You opened all ");
 	append_pad(buf, &i, g->door_total, 1);
-	append_str(buf, &i, " puertas en ");
+	append_str(buf, &i, " doors in ");
 	append_pad(buf, &i, min, 2);
 	append_str(buf, &i, ":");
 	append_pad(buf, &i, sec, 2);

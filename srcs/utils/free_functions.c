@@ -36,6 +36,8 @@ static void	free_images(t_game *game)
 		mlx_destroy_image(game->mlx, game->fireworks.img);
 	if (game->fireworks2.img)
 		mlx_destroy_image(game->mlx, game->fireworks2.img);
+	if (game->key_icon.img)
+		mlx_destroy_image(game->mlx, game->key_icon.img);
 }
 
 static void	close_window(t_game *game)
@@ -62,6 +64,8 @@ void	free_game(t_game *game)
 	free(game->map_msg);
 	free(game->score_msg);
 	free(game->record_msg);
+	free(game->size_msg);
+	free(game->best_msg);
 	if (game->world)
 	{
 		i = 0;

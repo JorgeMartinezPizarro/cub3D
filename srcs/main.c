@@ -15,6 +15,17 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
+static void	build_messages(t_game *game, char *path, long long load_ms)
+{
+	game->load_ms = load_ms;
+	game->load_msg = ft_build_load_message(load_ms);
+	game->map_msg = ft_build_map_message(path);
+	game->map_path = path;
+	game->map_hash = ft_hash_file(path);
+	game->size_msg = ft_build_size_message(game);
+	game->best_msg = ft_build_record_message(game);
+}
+
 int	main(int argc, char **argv)
 {
 	t_game		game;
@@ -32,11 +43,7 @@ int	main(int argc, char **argv)
 		exit_program(&game);
 		return (1);
 	}
-	game.load_ms = get_time() - t0;
-	game.load_msg = ft_build_load_message(game.load_ms);
-	game.map_msg = ft_build_map_message(argv[1]);
-	game.map_path = argv[1];
-	game.map_hash = ft_hash_file(argv[1]);
+	build_messages(&game, argv[1], get_time() - t0);
 	load_handlers(&game);
 	mlx_loop(game.mlx);
 	exit_program(&game);

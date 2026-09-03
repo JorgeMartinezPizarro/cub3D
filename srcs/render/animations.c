@@ -32,7 +32,7 @@ static void	ft_print_win(t_game *g)
 	min = (int)(elapsed / 60000);
 	sec = (int)((elapsed / 1000) % 60);
 	ms = (int)(elapsed % 1000);
-	ft_printf("Has abierto todas las %d puertas en %02d:%02d.%03d.\n",
+	ft_printf("You opened all %d doors in %02d:%02d.%03d.\n",
 		g->door_total, min, sec, ms);
 	g->win_msg = ft_build_win_message(g, min, sec, ms);
 	ft_check_score(g, elapsed);

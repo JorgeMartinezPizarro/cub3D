@@ -96,6 +96,9 @@ test: all
 debug: 
 	@./scripts/debug.sh
 
+run:
+	@./scripts/run.sh
+
 -include $(DEPENDENCIES)
 
 .PHONY: all clean fclean re bonus stats test debug build-san clean-san

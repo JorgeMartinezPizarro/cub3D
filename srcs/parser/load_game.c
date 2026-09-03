@@ -35,7 +35,8 @@ static int	load_textures(t_game *g, t_config *config)
 		|| !load_tex(g, &g->door_half, "textures/puerta_entornada.xpm")
 		|| !load_tex(g, &g->door_open, "textures/puerta_abierta.xpm")
 		|| !load_tex(g, &g->fireworks, "textures/fireworks.xpm")
-		|| !load_tex(g, &g->fireworks2, "textures/fireworks2.xpm"))
+		|| !load_tex(g, &g->fireworks2, "textures/fireworks2.xpm")
+		|| !load_tex(g, &g->key_icon, "textures/key.xpm"))
 		return (0);
 	return (1);
 }

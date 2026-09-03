@@ -47,7 +47,7 @@ char	*ft_build_load_message(long long load_ms)
 	min = (int)(load_ms / 60000);
 	sec = (int)((load_ms / 1000) % 60);
 	i = 0;
-	append_str(buf, &i, "Juego cargado en ");
+	append_str(buf, &i, "Game loaded in ");
 	append_pad(buf, &i, min, 2);
 	append_str(buf, &i, ":");
 	append_pad(buf, &i, sec, 2);
@@ -64,8 +64,24 @@ char	*ft_build_map_message(char *path)
 	int		i;
 
 	i = 0;
-	append_str(buf, &i, "Has resuelto el mapa ");
+	append_str(buf, &i, "You solved map ");
 	append_str(buf, &i, path);
+	buf[i] = '\0';
+	return (ft_strdup(buf));
+}
+
+char	*ft_build_size_message(t_game *g)
+{
+	char	buf[128];
+	int		i;
+
+	i = 0;
+	append_str(buf, &i, "Map size: ");
+	append_pad(buf, &i, g->width, 1);
+	append_str(buf, &i, " x ");
+	append_pad(buf, &i, g->height, 1);
+	append_str(buf, &i, "   Doors to open: ");
+	append_pad(buf, &i, g->door_total, 1);
 	buf[i] = '\0';
 	return (ft_strdup(buf));
 }

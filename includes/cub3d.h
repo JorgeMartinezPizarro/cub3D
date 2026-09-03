@@ -42,6 +42,7 @@
 # define KEY_ESC 65307
 # define KEY_E 101
 # define KEY_M 109
+# define KEY_ENTER 65293
 
 // GAME SPEED
 # define MOVE_SPEED 0.0892
@@ -49,12 +50,14 @@
 # define FPS 60
 # define MOUSE_SENS 0.0025
 
-// MINIMAP
+// MINIMAP: walls fade into the black background, floor is a muted gray,
+// and the two things worth spotting at a glance (doors, the player/spawn
+// dot) get the only bright colors on the map
 # define MM_SCALE 5
 # define MM_OFFSET_X 10
 # define MM_OFFSET_Y 10
 # define MINIMAP_RADIUS 14
-# define COLOR_WALL   0x00FFFFFF
+# define COLOR_WALL   0x00000000
 # define COLOR_EMPTY  0x00333333
 # define COLOR_DOOR   0x00FFFF00
 
@@ -65,7 +68,7 @@
 // HUD: size in pixels of each digit sprite drawn for the doors-open counter
 # define HUD_DIGIT_SIZE 64
 # define HUD_PAD 8
-# define COLOR_PLAYER 0x00FF0000
+# define COLOR_PLAYER 0x00FFFFFF
 
 // ENUM FOR MAP
 # define TILE_EMPTY			0
@@ -93,6 +96,13 @@
 # define SCORES_PATH		"scores.dat"
 # define SCORE_XOR_KEY		0x5A
 # define SCORE_MAP_COUNT	9
+
+// START SCREEN: miniature map preview box + the 4 corner key icons
+# define START_PREVIEW_MAX_W	480
+# define START_PREVIEW_MAX_H	260
+# define START_PREVIEW_TOP		70
+# define START_KEY_MARGIN		70
+# define START_ARROW_LEN		10
 
 typedef enum e_error
 {
@@ -209,11 +219,14 @@ typedef struct s_game
 	long long	win_pending_since;
 	t_img		fireworks;
 	t_img		fireworks2;
+	t_img		key_icon;
 	char		*win_msg;
 	char		*load_msg;
 	char		*map_msg;
 	char		*score_msg;
 	char		*record_msg;
+	char		*size_msg;
+	char		*best_msg;
 	char		*map_path;
 	int			map_hash;
 	t_img		digits[10];
@@ -341,5 +354,7 @@ void		ft_save_scores(t_score *scores);
 
 int			ft_find_map_index(char *path);
 void		ft_check_score(t_game *g, long long elapsed);
+char		*ft_build_record_message(t_game *g);
+char		*ft_build_size_message(t_game *g);
 
 #endif
