@@ -1,7 +1,7 @@
-NO ./textures/ladrillo_128.xpm
-SO ./textures/madera_128.xpm
-WE ./textures/metal_128.xpm
-EA ./textures/piedra_128.xpm
+NO ./textures/128_ladrillo.xpm
+SO ./textures/128_madera.xpm
+WE ./textures/128_metal.xpm
+EA ./textures/128_piedra.xpm
 
 F 100,100,100
 C 50,50,80

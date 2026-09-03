@@ -1,7 +1,7 @@
 NO ./textures/1240_madera.xpm
-SO ./textures/piedra_4096.xpm
-WE ./textures/metal_128.xpm
-EA ./textures/arena_128.xpm
+SO ./textures/4096_piedra.xpm
+WE ./textures/1024_water.xpm
+EA ./textures/1024_bricks.xpm
 
 F 100,100,100
 C 50,50,80
