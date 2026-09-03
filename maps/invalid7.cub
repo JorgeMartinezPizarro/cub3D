@@ -1,8 +1,8 @@
-NO ./textures/wall_north.xpm
-NO ./textures/wall_north.xpm
-SO ./textures/wall_south.xpm
-WE ./textures/wall_west.xpm
-EA ./textures/wall_east.xpm
+NO ./textures/64_wall_north.xpm
+NO ./textures/64_wall_north.xpm
+SO ./textures/64_wall_south.xpm
+WE ./textures/64_wall_west.xpm
+EA ./textures/64_wall_east.xpm
 F 100,100,100
 C 50,50,80
 

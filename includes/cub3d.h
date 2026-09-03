@@ -24,7 +24,7 @@
 // WINDOW
 # define WIDTH 1600
 # define HEIGHT 950
-# define MAX_MAP_SIZE 100
+# define MAX_MAP_SIZE 200
 
 // PLAYER
 // hand sprite-sheet is always a 2x2 grid of frames (any resolution);

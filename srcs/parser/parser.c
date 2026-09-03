@@ -29,7 +29,7 @@ int	ft_print_errors(t_error err)
 		"Error\nMap not found\n",
 		"Error\nMap not closed\n",
 		"Error\nInvalid line in file\n",
-		"Error\nMap too large (max 100x100)\n",
+		"Error\nMap too large (max 200x200)\n",
 		"Error\nNot all doors are reachable\n"
 	};
 
