@@ -80,7 +80,6 @@ int	load_game(char *filename, t_game *g)
 	g->mouse_enable = 0;
 	g->last_hand_time = get_time();
 	g->last_time = 0;
-	g->game_start = get_time();
 	init_keys(g);
 	g->mlx = mlx_init();
 	if (!g->mlx)
@@ -91,5 +90,6 @@ int	load_game(char *filename, t_game *g)
 	if (!g->win)
 		return (ft_free_config(config), 0);
 	ft_free_config(config);
+	g->game_start = get_time();
 	return (1);
 }
