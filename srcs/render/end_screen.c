@@ -80,12 +80,13 @@ void	render_end_screen(t_game *g)
 	top = HEIGHT / 2 - 51;
 	bottom = HEIGHT / 2 + 22;
 	clear_frame(&g->frame, 0x000000);
-	draw_corner(g, &g->fireworks, (WIDTH / 2 - half_w) / 2, top / 2);
-	draw_corner(g, &g->fireworks2, WIDTH - (WIDTH / 2 - half_w) / 2, top / 2);
-	draw_corner(g, &g->fireworks2, (WIDTH / 2 - half_w) / 2,
-		HEIGHT - (HEIGHT - bottom) / 2);
-	draw_corner(g, &g->fireworks, WIDTH - (WIDTH / 2 - half_w) / 2,
-		HEIGHT - (HEIGHT - bottom) / 2);
+	draw_corner(g, &g->fireworks, (WIDTH / 2 - half_w) * 2 / 3, top * 2 / 3);
+	draw_corner(g, &g->fireworks2, WIDTH - (WIDTH / 2 - half_w) * 2 / 3,
+		top * 2 / 3);
+	draw_corner(g, &g->fireworks2, (WIDTH / 2 - half_w) * 2 / 3,
+		HEIGHT - (HEIGHT - bottom) * 2 / 3);
+	draw_corner(g, &g->fireworks, WIDTH - (WIDTH / 2 - half_w) * 2 / 3,
+		HEIGHT - (HEIGHT - bottom) * 2 / 3);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
 	put_centered(g, HEIGHT / 2 - 40, g->map_msg);
 	put_centered(g, HEIGHT / 2 - 10, g->win_msg);
