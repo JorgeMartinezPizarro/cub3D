@@ -15,17 +15,18 @@ Code summary:
 
 | File type | Lines of Code |
 |----------|--------------:|
-| `.c`     |          1086 |
-| `.h`     |           205 |
-| Makefile |            72 |
-| **TOTAL**|        **1363** |
+| `.c`     |          1861 |
+| `.h`     |           280 |
+| `.sh`     |           125 |
+| Makefile |            78 |
+| **TOTAL**|        **2344** |
 
 ## Instructions
 
 To compile and run the game:
 
 ```bash
-make bonus
+make
 ./cub3d maps/level1.cub
 ```
 
@@ -36,13 +37,13 @@ with an existing *.cub file.
 The game speed can be adjusted using:
 
 ```c
-# define MOVE_SPEED 0.07
-# define ROT_SPEED  0.051
-# define MOUSE_SENS 0.002
-# define FPS 30
+# define MOVE_SPEED 0.0892
+# define ROT_SPEED  0.0397
+# define FPS 60
+# define MOUSE_SENS 0.0025
 ```
 
-The default configuration works nice for the 42 computers at 12/03/2026. 
+The default configuration works nice for the 42 computers at 03/09/2026. 
 
 To toggle mouse usage on, press `m`. It works properly on linux, but fails in WSL.
 
