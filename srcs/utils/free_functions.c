@@ -55,57 +55,22 @@ static void	close_window(t_game *game)
 
 void	free_game(t_game *game)
 {
-	int	i;
-
 	if (!game)
 		return ;
 	free(game->win_msg);
 	free(game->load_msg);
 	free(game->map_msg);
+	free(game->title_msg);
 	free(game->score_msg);
 	free(game->record_msg);
 	free(game->size_msg);
 	free(game->best_msg);
-	if (game->world)
-	{
-		i = 0;
-		while (i < game->height)
-			free(game->world[i++]);
-		free(game->world);
-	}
+	free(game->map_path);
+	free_world(game);
 	if (game->mlx)
 	{
 		free_images(game);
 		free_digits(game);
 		close_window(game);
 	}
-}
-
-void	free_strarr(char **res, int i)
-{
-	int	j;
-
-	j = 0;
-	if (!res)
-		return ;
-	while (j < i && res[j])
-		free(res[j++]);
-	free(res);
-}
-
-void	ft_free_config(t_config *config)
-{
-	ft_printf("Clean up config.\n");
-	if (!config)
-		return ;
-	if (config->no_texture)
-		free(config->no_texture);
-	if (config->so_texture)
-		free(config->so_texture);
-	if (config->we_texture)
-		free(config->we_texture);
-	if (config->ea_texture)
-		free(config->ea_texture);
-	free_strarr(config->map, config->height);
-	free(config);
 }

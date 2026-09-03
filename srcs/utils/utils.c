@@ -15,20 +15,32 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
+static int	key_press_menu(int k, t_game *g)
+{
+	if (k == KEY_ESC)
+		exit_program(g);
+	if (g->finished)
+	{
+		if (k == KEY_ENTER)
+			ft_restart_map(g);
+		return (0);
+	}
+	if (k == KEY_LEFT || k == KEY_RIGHT)
+		ft_switch_map(g, (k == KEY_RIGHT) - (k == KEY_LEFT));
+	if (k == KEY_ENTER)
+	{
+		g->started = 1;
+		g->game_start = get_time();
+	}
+	return (0);
+}
+
 int	key_press(int k, t_game *g)
 {
 	if (g->finished || !g->started)
-	{
-		if (k != KEY_ENTER)
-			return (0);
-		if (g->finished)
-			exit_program(g);
-		g->started = 1;
-		g->game_start = get_time();
-		return (0);
-	}
+		return (key_press_menu(k, g));
 	if (k == KEY_ESC)
-		exit_program(g);
+		ft_return_to_menu(g);
 	else if (k == KEY_E)
 		ft_toggle_door(g);
 	else if (k == KEY_M)

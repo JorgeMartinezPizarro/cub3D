@@ -1,7 +1,7 @@
-NO ./textures/64_wall_north.xpm
-SO ./textures/64_wall_south.xpm
-WE ./textures/64_wall_west.xpm
-EA ./textures/64_wall_east.xpm
+NO ./textures/128_papel.xpm
+SO ./textures/128_roca.xpm
+WE ./textures/128_slate.xpm
+EA ./textures/128_rayos.xpm
 F 100,111,50
 C 50,50,80
 

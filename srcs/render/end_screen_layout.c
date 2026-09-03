@@ -23,7 +23,7 @@ static void	draw_all_corners(t_game *g)
 		HEIGHT - START_KEY_MARGIN);
 }
 
-static void	draw_end_texts(t_game *g, char *l2)
+static void	draw_end_texts(t_game *g)
 {
 	int	y;
 
@@ -40,16 +40,13 @@ static void	draw_end_texts(t_game *g, char *l2)
 		put_centered(g, y, g->record_msg);
 		y += 20;
 	}
-	put_centered(g, y, l2);
+	put_centered(g, y, "Press ESC to exit, or ENTER to play again.");
 }
 
 void	render_end_screen(t_game *g)
 {
-	char	*l2;
-
-	l2 = "Press ENTER to close the game.";
 	clear_frame(&g->frame, 0x000000);
 	draw_all_corners(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
-	draw_end_texts(g, l2);
+	draw_end_texts(g);
 }

@@ -56,7 +56,8 @@
 # define MM_SCALE 5
 # define MINIMAP_RADIUS 14
 # define MM_OFFSET_X 10
-# define MM_OFFSET_Y ((HEIGHT - (2 * MINIMAP_RADIUS + 1) * MM_SCALE) / 2)
+// MM_OFFSET_Y = (HEIGHT - (2 * MINIMAP_RADIUS + 1) * MM_SCALE) / 2
+# define MM_OFFSET_Y 327
 # define COLOR_WALL   0x00000000
 # define COLOR_EMPTY  0x00333333
 # define COLOR_DOOR   0x00FFFF00
@@ -102,8 +103,10 @@
 # define START_PREVIEW_MAX_H	260
 # define START_KEY_MARGIN		70
 # define START_ARROW_LEN		10
-// height (px) reserved below the preview for the 5 lines of status text
-# define START_TEXT_BLOCK_H		175
+// height (px) reserved below the preview for the 6 lines of status text
+# define START_TEXT_BLOCK_H		205
+// height (px) reserved above the preview for the map title
+# define START_TITLE_H			30
 
 // CORNER ICONS: key (start screen) and fireworks (end screen) are blitted
 // at this fixed on-screen size regardless of their native texture size
@@ -228,12 +231,14 @@ typedef struct s_game
 	char		*win_msg;
 	char		*load_msg;
 	char		*map_msg;
+	char		*title_msg;
 	char		*score_msg;
 	char		*record_msg;
 	char		*size_msg;
 	char		*best_msg;
 	char		*map_path;
 	int			map_hash;
+	int			map_idx;
 	t_img		digits[10];
 }	t_game;
 
@@ -292,6 +297,7 @@ void		put_pixel(t_img *img, int x, int y, int c);
 int			ray_step(t_ray *r);
 int			ray_door_open(t_game *g, t_ray *r, int side);
 void		free_game(t_game *game);
+void		free_world(t_game *game);
 void		free_strarr(char **res, int i);
 void		ft_free_config(t_config *config);
 void		drain_fd(int fd);
@@ -325,6 +331,11 @@ void		draw_hand_frame(t_game *g, t_img *sheet, int frame_idx);
 
 void		load_handlers(t_game *g);
 int			load_game(char *filename, t_game *g);
+int			load_tex(t_game *g, t_img *t, char *path);
+int			reload_map(t_game *g, char *path);
+void		ft_switch_map(t_game *g, int dir);
+void		ft_restart_map(t_game *g);
+void		ft_return_to_menu(t_game *g);
 
 int			game_loop(t_game *g);
 void		render(t_game *g);
@@ -332,12 +343,15 @@ void		setup_door(t_ray *ray, t_column *col);
 void		draw_door_layer(t_game *g, t_column *c);
 void		clear_frame(t_img *img, int color);
 void		render_start_screen(t_game *g);
+void		render_map_preview(t_game *g, int ox, int oy, int scale);
+void		draw_spawn_arrow(t_game *g, int ox, int oy, int scale);
 void		render_end_screen(t_game *g);
 char		*ft_build_win_message(t_game *g, int min, int sec, int ms);
 void		put_centered(t_game *g, int y, char *s);
 void		draw_corner(t_game *g, t_img *tex, int cx, int cy);
 char		*ft_build_load_message(long long load_ms);
 char		*ft_build_map_message(char *path);
+char		*ft_build_title_message(char *path);
 void		append_str(char *buf, int *i, char *s);
 void		append_pad(char *buf, int *i, int n, int width);
 int			load_digits(t_game *g);

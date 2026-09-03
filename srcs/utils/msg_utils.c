@@ -57,31 +57,3 @@ char	*ft_build_load_message(long long load_ms)
 	buf[i] = '\0';
 	return (ft_strdup(buf));
 }
-
-char	*ft_build_map_message(char *path)
-{
-	char	buf[512];
-	int		i;
-
-	i = 0;
-	append_str(buf, &i, "You solved map ");
-	append_str(buf, &i, path);
-	buf[i] = '\0';
-	return (ft_strdup(buf));
-}
-
-char	*ft_build_size_message(t_game *g)
-{
-	char	buf[128];
-	int		i;
-
-	i = 0;
-	append_str(buf, &i, "Map size: ");
-	append_pad(buf, &i, g->width, 1);
-	append_str(buf, &i, " x ");
-	append_pad(buf, &i, g->height, 1);
-	append_str(buf, &i, "   Doors to open: ");
-	append_pad(buf, &i, g->door_total, 1);
-	buf[i] = '\0';
-	return (ft_strdup(buf));
-}

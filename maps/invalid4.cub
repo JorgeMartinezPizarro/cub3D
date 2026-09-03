@@ -1,10 +1,9 @@
-NO ./textures/64_wall_north.xpm
-SO 
 
 C 50,50,80
-
-WE ./textures/64_wall_west.xpm
-EA ./textures/64_wall_east.xpm
+NO ./textures/128_papel.xpm
+SO ./textures/128_roca.xpm
+WE ./textures/128_slate.xpm
+EA ./textures/128_rayos.xpm
 
 111111111111111111111111111111
 100000000000000000000000000001

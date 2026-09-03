@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-static int	load_tex(t_game *g, t_img *t, char *path)
+int	load_tex(t_game *g, t_img *t, char *path)
 {
 	t->img = mlx_xpm_file_to_image(g->mlx, path, &t->w, &t->h);
 	if (!t->img)
