@@ -64,10 +64,9 @@
 // and the two things worth spotting at a glance (doors, the player/spawn
 // dot) get the only bright colors on the map
 # define MM_SCALE 5
-# define MINIMAP_RADIUS 14
+# define MINIMAP_RADIUS 18
 # define MM_OFFSET_X 10
-// MM_OFFSET_Y = (HEIGHT - (2 * MINIMAP_RADIUS + 1) * MM_SCALE) / 2
-# define MM_OFFSET_Y 327
+# define MM_OFFSET_Y 10
 # define COLOR_WALL   0x00000000
 # define COLOR_EMPTY  0x00333333
 # define COLOR_DOOR   0x00FFFF00
@@ -104,8 +103,8 @@
 
 // DOOR ANIMATION: closed/half/open textures shown in sequence while the
 // door tile is TILE_DOOR_HALF; DOOR_FRAME_MS is how long each one is shown
-# define DOOR_FRAME_MS		150
-# define DOOR_ANIM_MS		450
+# define DOOR_FRAME_MS		75
+# define DOOR_ANIM_MS		225
 
 // WIN: once the last door finishes opening, wait this long (with the HUD
 // already showing n/n) before switching to the end screen
