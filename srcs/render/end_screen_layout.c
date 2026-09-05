@@ -27,18 +27,20 @@ static void	draw_end_texts(t_game *g)
 {
 	int	y;
 
-	put_centered(g, HEIGHT / 2 - 40, g->map_msg);
-	put_centered(g, HEIGHT / 2 - 10, g->win_msg);
-	y = HEIGHT / 2 + 20;
+	y = HEIGHT / 2 - 2 * font_line_h();
+	put_centered(g, y, g->map_msg);
+	y += font_line_h();
+	put_centered(g, y, g->win_msg);
+	y += font_line_h();
 	if (g->score_msg)
 	{
 		put_centered(g, y, g->score_msg);
-		y += FONT_CELL_H + 4;
+		y += font_line_h();
 	}
 	if (g->record_msg)
 	{
 		put_centered(g, y, g->record_msg);
-		y += FONT_CELL_H + 4;
+		y += font_line_h();
 	}
 	put_centered(g, y, "Press ESC to exit, or ENTER to play again.");
 }

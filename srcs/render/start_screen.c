@@ -37,15 +37,25 @@ static void	draw_start_corners(t_game *g)
 		HEIGHT - START_KEY_MARGIN);
 }
 
+static int	start_text_block_h(void)
+{
+	return (40 + START_TEXT_LINES * font_line_h() + font_line_h() / 3);
+}
+
 static void	draw_start_texts(t_game *g, int oy, int y)
 {
 	put_centered(g, oy - START_TITLE_H + 8, g->title_msg);
 	put_centered(g, y, g->load_msg);
-	put_centered(g, y + 30, g->size_msg);
-	put_centered(g, y + 60, g->best_msg);
-	put_centered(g, y + 95, "Let's open all those FREAKING doors!");
-	put_centered(g, y + 125, "Press ENTER to start.");
-	put_centered(g, y + 155, "Press ESC to exit the game.");
+	y += font_line_h();
+	put_centered(g, y, g->size_msg);
+	y += font_line_h();
+	put_centered(g, y, g->best_msg);
+	y += font_line_h() + font_line_h() / 3;
+	put_centered(g, y, "Let's open all those FREAKING doors!");
+	y += font_line_h();
+	put_centered(g, y, "Press ENTER to start.");
+	y += font_line_h();
+	put_centered(g, y, "Press ESC to exit the game.");
 }
 
 void	render_start_screen(t_game *g)
@@ -58,7 +68,7 @@ void	render_start_screen(t_game *g)
 	draw_start_corners(g);
 	scale = preview_scale(g);
 	ox = WIDTH / 2 - (g->width * scale) / 2;
-	oy = (HEIGHT - (g->height * scale + START_TEXT_BLOCK_H + START_TITLE_H))
+	oy = (HEIGHT - (g->height * scale + start_text_block_h() + START_TITLE_H))
 		/ 2 + START_TITLE_H;
 	render_map_preview(g, ox, oy, scale);
 	draw_spawn_arrow(g, ox, oy, scale);

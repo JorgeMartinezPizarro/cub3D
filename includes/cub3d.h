@@ -29,7 +29,7 @@
 # define WIDTH 1904
 # define HEIGHT 1000
 # define MAX_MAP_SIZE 200
-# define FONT_SIZE 2.4
+# define FONT_SIZE 2.1
 # define WALL_TEX_REPEAT 1
 
 // GAME SPEED
@@ -64,7 +64,7 @@
 // MINIMAP: walls fade into the black background, floor is a muted gray,
 // and the two things worth spotting at a glance (doors, the player/spawn
 // dot) get the only bright colors on the map
-# define MM_SCALE 5
+# define MM_SCALE 6
 # define MINIMAP_RADIUS 18
 # define MM_OFFSET_X 10
 # define MM_OFFSET_Y 10
@@ -84,9 +84,12 @@
 # define FONT_FIRST_CHAR 32
 # define FONT_GLYPH_COUNT 95
 # define FONT_CHAR_W FONT_CELL_W
+// extra leading added on top of the scaled glyph height by font_line_h(),
+// as a percentage, so lines of text never overlap the one below them
+# define FONT_LINE_LEADING 30
 
 // HUD: size in pixels of each digit sprite drawn for the doors-open counter
-# define HUD_DIGIT_SIZE 64
+# define HUD_DIGIT_SIZE 128
 # define HUD_PAD 8
 # define COLOR_PLAYER 0x00FFFFFF
 
@@ -122,8 +125,10 @@
 # define START_PREVIEW_MAX_H	260
 # define START_KEY_MARGIN		70
 # define START_ARROW_LEN		10
-// height (px) reserved below the preview for the 6 lines of status text
-# define START_TEXT_BLOCK_H		205
+// number of text lines start_text_block_h() reserves room for below the
+// preview (the 40px gap, the 6 status lines, plus one extra 1/3 line gap
+// before "Let's open...")
+# define START_TEXT_LINES		6
 // height (px) reserved above the preview for the map title
 # define START_TITLE_H			54
 
@@ -376,6 +381,7 @@ void		put_centered(t_game *g, int y, char *s);
 void		put_centered_scaled(t_game *g, int y, char *s);
 void		put_text(t_game *g, int x, int y, char *s);
 void		put_glyph(t_game *g, int ch, t_charview *cv);
+int			font_line_h(void);
 void		draw_corner(t_game *g, t_img *tex, int cx, int cy);
 char		*ft_build_load_message(long long load_ms);
 char		*ft_build_map_message(char *path);

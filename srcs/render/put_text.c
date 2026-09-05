@@ -75,3 +75,8 @@ void	put_centered_scaled(t_game *g, int y, char *s)
 	x = WIDTH / 2 - (int)(ft_strlen(s) * FONT_CHAR_W * FONT_SIZE) / 2;
 	put_text(g, x, y, s);
 }
+
+int	font_line_h(void)
+{
+	return ((int)(FONT_CELL_H * FONT_SIZE * (100 + FONT_LINE_LEADING) / 100));
+}
