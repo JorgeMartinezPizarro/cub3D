@@ -56,3 +56,13 @@ To open the doors, you may press `e`. The game consists on opening all the doors
 - [minilibx](https://harm-smits.github.io/42docs/libs/minilibx)
 
 - We used [chatgpt](https://chatgpt.com) to get an overview of the classical algorithms used typically. The game is created using the Ray Casting and DDA algorithms, based on the projective geometry.
+
+## Shortcuts
+
+In windows, you can capture with Win + G and then use the mp4 as follows to create a gif:
+
+```powershell
+ffmpeg -i './cube.mp4' -vf "fps=15,scale=800:-1:flags=lanczos,palettegen" palette.png
+
+ffmpeg -i 'cube.mp4' -i palette.png -lavfi "fps=15,scale=800:-1:flags=lanczos[x];[x][1:v]paletteuse" Cub3D.gif
+```
