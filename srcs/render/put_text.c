@@ -72,7 +72,7 @@ void	put_centered_scaled(t_game *g, int y, char *s)
 {
 	int	x;
 
-	x = WIDTH / 2 - (int)(ft_strlen(s) * FONT_CHAR_W * FONT_SIZE) / 2;
+	x = g->frame.w / 2 - (int)(ft_strlen(s) * FONT_CHAR_W * FONT_SIZE) / 2;
 	put_text(g, x, y, s);
 }
 

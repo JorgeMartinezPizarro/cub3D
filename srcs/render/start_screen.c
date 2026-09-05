@@ -31,10 +31,12 @@ static int	preview_scale(t_game *g)
 static void	draw_start_corners(t_game *g)
 {
 	draw_corner(g, &g->key_icon, START_KEY_MARGIN, START_KEY_MARGIN);
-	draw_corner(g, &g->key_icon, WIDTH - START_KEY_MARGIN, START_KEY_MARGIN);
-	draw_corner(g, &g->key_icon, START_KEY_MARGIN, HEIGHT - START_KEY_MARGIN);
-	draw_corner(g, &g->key_icon, WIDTH - START_KEY_MARGIN,
-		HEIGHT - START_KEY_MARGIN);
+	draw_corner(g, &g->key_icon, g->frame.w - START_KEY_MARGIN,
+		START_KEY_MARGIN);
+	draw_corner(g, &g->key_icon, START_KEY_MARGIN,
+		g->frame.h - START_KEY_MARGIN);
+	draw_corner(g, &g->key_icon, g->frame.w - START_KEY_MARGIN,
+		g->frame.h - START_KEY_MARGIN);
 }
 
 static int	start_text_block_h(void)
@@ -67,8 +69,9 @@ void	render_start_screen(t_game *g)
 	clear_frame(&g->frame, 0x000000);
 	draw_start_corners(g);
 	scale = preview_scale(g);
-	ox = WIDTH / 2 - (g->width * scale) / 2;
-	oy = (HEIGHT - (g->height * scale + start_text_block_h() + START_TITLE_H))
+	ox = g->frame.w / 2 - (g->width * scale) / 2;
+	oy = (g->frame.h
+			- (g->height * scale + start_text_block_h() + START_TITLE_H))
 		/ 2 + START_TITLE_H;
 	render_map_preview(g, ox, oy, scale);
 	draw_spawn_arrow(g, ox, oy, scale);

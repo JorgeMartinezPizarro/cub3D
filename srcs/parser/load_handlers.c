@@ -20,8 +20,8 @@ static int	mouse_move(int x, int y, t_game *g)
 
 	if (!g->mouse_enable)
 		return (0);
-	center_x = WIDTH / 2;
-	center_y = HEIGHT / 2;
+	center_x = g->frame.w / 2;
+	center_y = g->frame.h / 2;
 	if (x == center_x && y == center_y)
 		return (0);
 	delta_x = x - center_x;
@@ -40,8 +40,8 @@ void	ft_draw_crosshair(t_game *g)
 	int	cy;
 	int	i;
 
-	cx = WIDTH / 2;
-	cy = HEIGHT / 2;
+	cx = g->frame.w / 2;
+	cy = g->frame.h / 2;
 	put_pixel(&g->frame, cx, cy, COLOR_WALL);
 	i = 3;
 	while (i <= 10)
@@ -56,7 +56,7 @@ void	ft_draw_crosshair(t_game *g)
 
 void	load_handlers(t_game *g)
 {
-	mlx_mouse_move(g->mlx, g->win, WIDTH / 2, HEIGHT / 2);
+	mlx_mouse_move(g->mlx, g->win, g->frame.w / 2, g->frame.h / 2);
 	mlx_hook(g->win, 2, 1L << 0, key_press, g);
 	mlx_hook(g->win, 3, 1L << 1, key_release, g);
 	mlx_hook(g->win, 6, 1L << 6, mouse_move, g);
@@ -72,4 +72,20 @@ void	toggle_mouse(t_game *g, int enable)
 	else
 		mlx_mouse_show(g->mlx, g->win);
 	g->mouse_enable = enable;
+}
+
+void	resolve_win_size(t_game *g, int *win_w, int *win_h)
+{
+	int	max_w;
+	int	max_h;
+
+	mlx_get_screen_size(g->mlx, &max_w, &max_h);
+	max_w -= WIN_FRAME_W;
+	max_h -= WIN_FRAME_H;
+	*win_w = WANTED_WIDTH;
+	if (*win_w == 0 || *win_w > max_w)
+		*win_w = max_w;
+	*win_h = WANTED_HEIGHT;
+	if (*win_h == 0 || *win_h > max_h)
+		*win_h = max_h;
 }

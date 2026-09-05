@@ -31,8 +31,8 @@ void	draw_hand_frame(t_game *g, t_img *sheet, int frame_idx)
 	cv.tex_h = sheet->h / 2;
 	cv.tex_x = (frame_idx % 2) * cv.tex_w;
 	cv.tex_y = (frame_idx / 2) * cv.tex_h;
-	cv.screen_x = (WIDTH / 2) - (cv.tex_w * HAND_SCALE / 2);
-	cv.screen_y = HEIGHT - (cv.tex_h * HAND_SCALE) + (20 * HAND_SCALE);
+	cv.screen_x = (g->frame.w / 2) - (cv.tex_w * HAND_SCALE / 2);
+	cv.screen_y = g->frame.h - (cv.tex_h * HAND_SCALE) + (20 * HAND_SCALE);
 	y = 0;
 	while (y < cv.tex_h * HAND_SCALE)
 	{

@@ -18,10 +18,10 @@ void	clear_frame(t_img *img, int color)
 	int	y;
 
 	y = 0;
-	while (y < HEIGHT)
+	while (y < img->h)
 	{
 		x = 0;
-		while (x < WIDTH)
+		while (x < img->w)
 			put_pixel(img, x++, y, color);
 		y++;
 	}
@@ -33,7 +33,7 @@ static void	compute_ray(t_game *g, int x, t_ray *ray)
 
 	fov = M_PI / 3.0;
 	ray->angle = g->p.angle - fov / 2
-		+ (double)x / WIDTH * fov;
+		+ (double)x / g->frame.w * fov;
 	ray->dist = cast_ray(g, ray);
 	ray->cam_dist = ray->dist * cos(ray->angle - g->p.angle);
 	if (ray->cam_dist <= 0.1)
@@ -50,13 +50,13 @@ static void	setup_column(t_game *g, t_ray *ray, t_column *col)
 	walls[1] = &g->wall_south;
 	walls[2] = &g->wall_east;
 	walls[3] = &g->wall_west;
-	col->wall_h = (int)(HEIGHT / ray->cam_dist);
-	col->start = HEIGHT / 2 - col->wall_h / 2;
-	col->end = HEIGHT / 2 + col->wall_h / 2;
+	col->wall_h = (int)(g->frame.h / ray->cam_dist);
+	col->start = g->frame.h / 2 - col->wall_h / 2;
+	col->end = g->frame.h / 2 + col->wall_h / 2;
 	if (col->start < 0)
 		col->start = 0;
-	if (col->end >= HEIGHT)
-		col->end = HEIGHT - 1;
+	if (col->end >= g->frame.h)
+		col->end = g->frame.h - 1;
 	if (ray->side == 0 || ray->side == 1)
 		col->wall_x = ray->hit_x;
 	else
@@ -88,12 +88,12 @@ static void	draw_column(t_game *g, t_column *c)
 	y = c->start;
 	while (y < c->end)
 	{
-		tex_y = (y - (HEIGHT / 2 - c->wall_h / 2))
+		tex_y = (y - (g->frame.h / 2 - c->wall_h / 2))
 			* c->tex->h * rep / c->wall_h % c->tex->h;
 		put_pixel(&g->frame, c->x, y++,
 			get_pixel(c->tex, tex_x, tex_y));
 	}
-	while (y < HEIGHT)
+	while (y < g->frame.h)
 		put_pixel(&g->frame, c->x, y++, g->floor_color);
 	if (c->has_door)
 		draw_door_layer(g, c);
@@ -111,12 +111,12 @@ void	render(t_game *g)
 		return (render_start_screen(g));
 	clear_frame(&g->frame, 0x000000);
 	x = 0;
-	while (x < WIDTH)
+	while (x < g->frame.w)
 	{
 		col.x = x;
 		compute_ray(g, x, &ray);
 		setup_column(g, &ray, &col);
-		setup_door(&ray, &col);
+		setup_door(g, &ray, &col);
 		draw_column(g, &col);
 		x++;
 	}

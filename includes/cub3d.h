@@ -25,9 +25,16 @@
 // GAME CONFIGURATION
 ///////////////////////////////////////////////////////////
 
-// WINDOW
-# define WIDTH 1904
-# define HEIGHT 1000
+// WINDOW: WANTED_WIDTH/WANTED_HEIGHT are the size the developer asks for.
+// At startup they are clamped to the usable screen size (mlx_get_screen_size
+// minus WIN_FRAME_W/WIN_FRAME_H, an allowance for the window manager's
+// borders and title bar) so the window always fits on screen; a value of 0
+// means "use the full usable screen size" for that axis. The resolved size
+// ends up in g->frame.w / g->frame.h, which the rest of the game reads.
+# define WANTED_WIDTH 0
+# define WANTED_HEIGHT 0
+# define WIN_FRAME_W 10
+# define WIN_FRAME_H 40
 # define MAX_MAP_SIZE 200
 # define FONT_SIZE 2.0
 # define WALL_TEX_REPEAT 1
@@ -365,6 +372,7 @@ void		draw_player_hand(t_game *g);
 
 void		load_handlers(t_game *g);
 int			load_game(char *filename, t_game *g);
+void		resolve_win_size(t_game *g, int *win_w, int *win_h);
 int			load_tex(t_game *g, t_img *t, char *path);
 int			reload_map(t_game *g, char *path);
 void		ft_switch_map(t_game *g, int dir);
@@ -373,7 +381,7 @@ void		ft_return_to_menu(t_game *g);
 
 int			game_loop(t_game *g);
 void		render(t_game *g);
-void		setup_door(t_ray *ray, t_column *col);
+void		setup_door(t_game *g, t_ray *ray, t_column *col);
 void		draw_door_layer(t_game *g, t_column *c);
 void		clear_frame(t_img *img, int color);
 void		render_start_screen(t_game *g);

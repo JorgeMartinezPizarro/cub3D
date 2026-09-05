@@ -77,7 +77,7 @@ void	render_hud(t_game *g)
 	int	i;
 
 	total = count_digits(g->doors_opened) + 1 + count_digits(g->door_total);
-	x = WIDTH - 10 - total * HUD_DIGIT_SIZE;
+	x = g->frame.w - 10 - total * HUD_DIGIT_SIZE;
 	draw_panel(g, x, 10, total * HUD_DIGIT_SIZE);
 	x = draw_number(g, g->doors_opened, x, 10);
 	i = 0;

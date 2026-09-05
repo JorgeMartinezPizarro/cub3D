@@ -60,11 +60,9 @@ static int	load_images(t_game *g)
 {
 	if (!g->mlx)
 		return (0);
-	g->frame.img = mlx_new_image(g->mlx, WIDTH, HEIGHT);
+	g->frame.img = mlx_new_image(g->mlx, g->frame.w, g->frame.h);
 	if (!g->frame.img)
 		return (0);
-	g->frame.w = WIDTH;
-	g->frame.h = HEIGHT;
 	g->frame.addr = mlx_get_data_addr(g->frame.img,
 			&g->frame.bpp, &g->frame.line, &g->frame.endian);
 	return (1);
@@ -79,16 +77,17 @@ int	load_game(char *filename, t_game *g)
 		return (0);
 	if (!ft_config_to_game(config, g))
 		return (ft_free_config(config), 0);
-	g->p.mouse_x = WIDTH / 2;
-	g->p.mouse_y = HEIGHT / 2;
 	g->last_hand_time = get_time();
 	init_keys(g);
 	g->mlx = mlx_init();
 	if (!g->mlx)
 		return (ft_free_config(config), 0);
+	resolve_win_size(g, &g->frame.w, &g->frame.h);
+	g->p.mouse_x = g->frame.w / 2;
+	g->p.mouse_y = g->frame.h / 2;
 	if (!load_textures(g, config) || !load_images(g) || !load_font(g))
 		return (ft_free_config(config), 0);
-	g->win = mlx_new_window(g->mlx, WIDTH, HEIGHT, "Cub3D");
+	g->win = mlx_new_window(g->mlx, g->frame.w, g->frame.h, "Cub3D");
 	if (!g->win)
 		return (ft_free_config(config), 0);
 	ft_free_config(config);

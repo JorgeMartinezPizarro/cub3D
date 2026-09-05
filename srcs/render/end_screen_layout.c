@@ -15,19 +15,19 @@
 static void	draw_all_corners(t_game *g)
 {
 	draw_corner(g, &g->fireworks, START_KEY_MARGIN, START_KEY_MARGIN);
-	draw_corner(g, &g->fireworks2, WIDTH - START_KEY_MARGIN,
+	draw_corner(g, &g->fireworks2, g->frame.w - START_KEY_MARGIN,
 		START_KEY_MARGIN);
 	draw_corner(g, &g->fireworks2, START_KEY_MARGIN,
-		HEIGHT - START_KEY_MARGIN);
-	draw_corner(g, &g->fireworks, WIDTH - START_KEY_MARGIN,
-		HEIGHT - START_KEY_MARGIN);
+		g->frame.h - START_KEY_MARGIN);
+	draw_corner(g, &g->fireworks, g->frame.w - START_KEY_MARGIN,
+		g->frame.h - START_KEY_MARGIN);
 }
 
 static void	draw_end_texts(t_game *g)
 {
 	int	y;
 
-	y = HEIGHT / 2 - 2 * font_line_h();
+	y = g->frame.h / 2 - 2 * font_line_h();
 	put_centered(g, y, g->map_msg);
 	y += font_line_h();
 	put_centered(g, y, g->win_msg);
