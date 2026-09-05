@@ -63,6 +63,8 @@ static void	setup_column(t_game *g, t_ray *ray, t_column *col)
 		col->wall_x = ray->hit_y;
 	col->wall_x -= floor(col->wall_x);
 	col->tex = walls[ray->side];
+	col->is_door = (ray->hit_type == TILE_DOOR
+			|| ray->hit_type == TILE_DOOR_HALF);
 	if (ray->hit_type == TILE_DOOR)
 		col->tex = &g->door_closed;
 	else if (ray->hit_type == TILE_DOOR_HALF)
@@ -74,16 +76,20 @@ static void	draw_column(t_game *g, t_column *c)
 	int	y;
 	int	tex_x;
 	int	tex_y;
+	int	rep;
 
+	rep = WALL_TEX_REPEAT;
+	if (c->is_door)
+		rep = 1;
 	y = 0;
 	while (y < c->start)
 		put_pixel(&g->frame, c->x, y++, g->ceiling_color);
-	tex_x = (int)(c->wall_x * c->tex->w);
+	tex_x = (int)(c->wall_x * rep * c->tex->w) % c->tex->w;
 	y = c->start;
 	while (y < c->end)
 	{
 		tex_y = (y - (HEIGHT / 2 - c->wall_h / 2))
-			* c->tex->h / c->wall_h;
+			* c->tex->h * rep / c->wall_h % c->tex->h;
 		put_pixel(&g->frame, c->x, y++,
 			get_pixel(c->tex, tex_x, tex_y));
 	}

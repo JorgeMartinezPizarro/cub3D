@@ -25,6 +25,7 @@ void	setup_door(t_ray *ray, t_column *col)
 	if (col->d_end >= HEIGHT)
 		col->d_end = HEIGHT - 1;
 	col->d_wall_x = ray->door_wall_x;
+	col->d_tex = ray->door_tex;
 }
 
 void	draw_door_layer(t_game *g, t_column *c)
@@ -34,13 +35,13 @@ void	draw_door_layer(t_game *g, t_column *c)
 	int	tex_y;
 	int	pixel;
 
-	tex_x = (int)(c->d_wall_x * g->door_anim_tex->w);
+	tex_x = (int)(c->d_wall_x * c->d_tex->w);
 	y = c->d_start;
 	while (y < c->d_end)
 	{
 		tex_y = (y - (HEIGHT / 2 - c->d_wall_h / 2))
-			* g->door_anim_tex->h / c->d_wall_h;
-		pixel = get_pixel(g->door_anim_tex, tex_x, tex_y);
+			* c->d_tex->h / c->d_wall_h;
+		pixel = get_pixel(c->d_tex, tex_x, tex_y);
 		if ((unsigned int)pixel != DOOR_ALPHA_KEY)
 			put_pixel(&g->frame, c->x, y, pixel);
 		y++;

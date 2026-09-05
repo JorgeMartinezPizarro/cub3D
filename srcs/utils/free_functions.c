@@ -70,7 +70,6 @@ void	free_game(t_game *game)
 	if (game->mlx)
 	{
 		free_images(game);
-		free_digits(game);
 		free_font(game);
 		close_window(game);
 	}

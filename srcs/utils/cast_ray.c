@@ -51,14 +51,16 @@ static void	ray_steps(t_game *g, t_ray *r)
 
 static int	ray_dda(t_game *g, t_ray *r)
 {
-	int	side;
-	int	tile;
+	int		side;
+	int		tile;
+	t_img	*door_tex;
 
 	while (1)
 	{
 		side = ray_step(r);
 		tile = g->world[r->map_y][r->map_x];
-		if (tile == TILE_DOOR_HALF && ray_door_open(g, r, side))
+		door_tex = door_tile_tex(g, tile);
+		if (door_tex && ray_door_open(g, r, side, door_tex))
 			continue ;
 		if (tile == TILE_WALL || tile == TILE_DOOR || tile == TILE_DOOR_HALF)
 		{

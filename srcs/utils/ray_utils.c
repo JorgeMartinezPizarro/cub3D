@@ -25,14 +25,35 @@ int	ray_step(t_ray *r)
 	return (1);
 }
 
-int	ray_door_open(t_game *g, t_ray *r, int side)
+static int	tex_col_has_alpha(t_img *tex, int tex_x)
 {
-	t_img	*tex;
+	int	y;
+
+	y = 0;
+	while (y < tex->h)
+	{
+		if ((unsigned int)get_pixel(tex, tex_x, y) == DOOR_ALPHA_KEY)
+			return (1);
+		y++;
+	}
+	return (0);
+}
+
+t_img	*door_tile_tex(t_game *g, int tile)
+{
+	if (tile == TILE_DOOR)
+		return (&g->door_closed);
+	if (tile == TILE_DOOR_HALF)
+		return (g->door_anim_tex);
+	return (NULL);
+}
+
+int	ray_door_open(t_game *g, t_ray *r, int side, t_img *tex)
+{
 	double	dist;
 	double	wall_x;
 	int		tex_x;
 
-	tex = g->door_anim_tex;
 	if (side == 0)
 		dist = (r->map_x - g->p.x + (1 - r->step_x) / 2) / r->dir_x;
 	else
@@ -43,13 +64,14 @@ int	ray_door_open(t_game *g, t_ray *r, int side)
 		wall_x = g->p.y + dist * r->dir_y;
 	wall_x -= floor(wall_x);
 	tex_x = (int)(wall_x * tex->w);
-	if ((unsigned int)get_pixel(tex, tex_x, tex->h / 2) != DOOR_ALPHA_KEY)
+	if (!tex_col_has_alpha(tex, tex_x))
 		return (0);
 	if (!r->has_door)
 	{
 		r->has_door = 1;
 		r->door_dist = dist;
 		r->door_wall_x = wall_x;
+		r->door_tex = tex;
 	}
 	return (1);
 }

@@ -29,12 +29,13 @@
 # define WIDTH 1904
 # define HEIGHT 1000
 # define MAX_MAP_SIZE 200
-# define FONT_SIZE 1.6
+# define FONT_SIZE 2.4
+# define WALL_TEX_REPEAT 1
 
 // GAME SPEED
-# define MOVE_SPEED 0.1423
-# define ROT_SPEED  0.0647
-# define FPS 30
+# define MOVE_SPEED 0.1493
+# define ROT_SPEED  0.0689
+# define FPS 24
 # define MOUSE_SENS 0.0021
 
 ///////////////////////////////////////////////////////////
@@ -257,18 +258,19 @@ typedef struct s_game
 	char		*map_path;
 	int			map_hash;
 	int			map_idx;
-	t_img		digits[10];
 	t_img		font;
 }	t_game;
 
 typedef struct s_charview
 {
-	int	tex_x;
-	int	tex_y;
-	int	tex_w;
-	int	tex_h;
-	int	screen_x;
-	int	screen_y;
+	int		tex_x;
+	int		tex_y;
+	int		tex_w;
+	int		tex_h;
+	int		screen_x;
+	int		screen_y;
+	double	scale;
+	int		invert;
 }	t_charview;
 
 typedef struct s_ray
@@ -294,6 +296,7 @@ typedef struct s_ray
 	double	door_dist;
 	double	door_cam_dist;
 	double	door_wall_x;
+	t_img	*door_tex;
 }	t_ray;
 
 typedef struct s_column
@@ -304,17 +307,20 @@ typedef struct s_column
 	int		wall_h;
 	double	wall_x;
 	t_img	*tex;
+	int		is_door;
 	int		has_door;
 	int		d_start;
 	int		d_end;
 	int		d_wall_h;
 	double	d_wall_x;
+	t_img	*d_tex;
 }	t_column;
 
 void		render_minimap(t_game *g);
 void		put_pixel(t_img *img, int x, int y, int c);
 int			ray_step(t_ray *r);
-int			ray_door_open(t_game *g, t_ray *r, int side);
+int			ray_door_open(t_game *g, t_ray *r, int side, t_img *tex);
+t_img		*door_tile_tex(t_game *g, int tile);
 void		free_game(t_game *game);
 void		free_world(t_game *game);
 void		free_strarr(char **res, int i);
@@ -369,14 +375,13 @@ char		*ft_build_win_message(t_game *g, int min, int sec, int ms);
 void		put_centered(t_game *g, int y, char *s);
 void		put_centered_scaled(t_game *g, int y, char *s);
 void		put_text(t_game *g, int x, int y, char *s);
+void		put_glyph(t_game *g, int ch, t_charview *cv);
 void		draw_corner(t_game *g, t_img *tex, int cx, int cy);
 char		*ft_build_load_message(long long load_ms);
 char		*ft_build_map_message(char *path);
 char		*ft_build_title_message(char *path);
 void		append_str(char *buf, int *i, char *s);
 void		append_pad(char *buf, int *i, int n, int width);
-int			load_digits(t_game *g);
-void		free_digits(t_game *g);
 int			load_font(t_game *g);
 void		free_font(t_game *g);
 void		render_hud(t_game *g);

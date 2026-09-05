@@ -29,7 +29,7 @@ FILES		= \
 	parser/parser parser/parser_init \
 	parser/parser_textures parser/parser_map \
 	parser/load_game parser/load_handlers \
-	parser/load_map parser/parser_flood parser/load_digits \
+	parser/load_map parser/parser_flood \
 	parser/load_font \
 	parser/switch_map parser/map_reload
 

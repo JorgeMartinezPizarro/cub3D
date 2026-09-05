@@ -12,38 +12,57 @@
 
 #include "cub3d.h"
 
-static void	blit_glyph(t_game *g, int idx, int x, int y)
+static void	blit_glyph(t_game *g, t_charview *cv)
 {
 	int	i;
 	int	j;
-	int	sx;
-	int	sy;
 	int	color;
 
-	sx = (idx % FONT_COLS) * FONT_CELL_W;
-	sy = (idx / FONT_COLS) * FONT_CELL_H;
 	j = 0;
-	while (j < (int)(FONT_CELL_H * FONT_SIZE))
+	while (j < (int)(cv->tex_h * cv->scale))
 	{
 		i = 0;
-		while (i < (int)(FONT_CELL_W * FONT_SIZE))
+		while (i < (int)(cv->tex_w * cv->scale))
 		{
-			color = get_pixel(&g->font, sx + (int)(i / FONT_SIZE),
-					sy + (int)(j / FONT_SIZE));
+			color = get_pixel(&g->font, cv->tex_x + (int)(i / cv->scale),
+					cv->tex_y + (int)(j / cv->scale));
 			if (color != 0x00000000)
-				put_pixel(&g->frame, x + i, y + j, color);
+			{
+				if (cv->invert)
+					color = 0x00FFFFFF - color;
+				put_pixel(&g->frame, cv->screen_x + i, cv->screen_y + j, color);
+			}
 			i++;
 		}
 		j++;
 	}
 }
 
+void	put_glyph(t_game *g, int ch, t_charview *cv)
+{
+	int	idx;
+
+	if (ch < FONT_FIRST_CHAR || ch >= FONT_FIRST_CHAR + FONT_GLYPH_COUNT)
+		return ;
+	idx = ch - FONT_FIRST_CHAR;
+	cv->tex_x = (idx % FONT_COLS) * FONT_CELL_W;
+	cv->tex_y = (idx / FONT_COLS) * FONT_CELL_H;
+	cv->tex_w = FONT_CELL_W;
+	cv->tex_h = FONT_CELL_H;
+	blit_glyph(g, cv);
+}
+
 void	put_text(t_game *g, int x, int y, char *s)
 {
+	t_charview	cv;
+
+	cv.scale = FONT_SIZE;
+	cv.invert = 0;
 	while (*s)
 	{
-		if (*s >= FONT_FIRST_CHAR && *s < FONT_FIRST_CHAR + FONT_GLYPH_COUNT)
-			blit_glyph(g, *s - FONT_FIRST_CHAR, x, y);
+		cv.screen_x = x;
+		cv.screen_y = y;
+		put_glyph(g, *s, &cv);
 		x += (int)(FONT_CHAR_W * FONT_SIZE);
 		s++;
 	}

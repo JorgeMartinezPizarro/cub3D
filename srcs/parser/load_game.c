@@ -84,8 +84,7 @@ int	load_game(char *filename, t_game *g)
 	g->mlx = mlx_init();
 	if (!g->mlx)
 		return (ft_free_config(config), 0);
-	if (!load_textures(g, config) || !load_images(g) || !load_digits(g)
-		|| !load_font(g))
+	if (!load_textures(g, config) || !load_images(g) || !load_font(g))
 		return (ft_free_config(config), 0);
 	g->win = mlx_new_window(g->mlx, WIDTH, HEIGHT, "Cub3D");
 	if (!g->win)

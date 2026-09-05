@@ -28,24 +28,15 @@ static int	count_digits(int n)
 
 static void	draw_digit(t_game *g, int n, int x, int y)
 {
-	int	i;
-	int	j;
-	int	color;
+	t_charview	cv;
+	int			glyph_w;
 
-	i = 0;
-	while (i < HUD_DIGIT_SIZE)
-	{
-		j = 0;
-		while (j < HUD_DIGIT_SIZE)
-		{
-			color = get_pixel(&g->digits[n], i * g->digits[n].w
-					/ HUD_DIGIT_SIZE, j * g->digits[n].h / HUD_DIGIT_SIZE);
-			if (color != 0x00FFFFFF)
-				put_pixel(&g->frame, x + i, y + j, color);
-			j++;
-		}
-		i++;
-	}
+	cv.scale = (double)HUD_DIGIT_SIZE / FONT_CELL_H;
+	glyph_w = (int)(FONT_CELL_W * cv.scale);
+	cv.screen_x = x + (HUD_DIGIT_SIZE - glyph_w) / 2;
+	cv.screen_y = y;
+	cv.invert = 1;
+	put_glyph(g, '0' + n, &cv);
 }
 
 static int	draw_number(t_game *g, int n, int x, int y)
