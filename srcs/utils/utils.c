@@ -42,7 +42,10 @@ int	key_press(int k, t_game *g)
 	if (k == KEY_ESC)
 		ft_return_to_menu(g);
 	else if (k == KEY_E)
+	{
 		ft_toggle_door(g);
+		ft_start_key_anim(g);
+	}
 	else if (k == KEY_M)
 		toggle_mouse(g, !g->mouse_enable);
 	else if (k < 65536)

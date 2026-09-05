@@ -16,6 +16,8 @@ static void	free_images(t_game *game)
 {
 	if (game->hand_sheet.img)
 		mlx_destroy_image(game->mlx, game->hand_sheet.img);
+	if (game->key_sheet.img)
+		mlx_destroy_image(game->mlx, game->key_sheet.img);
 	if (game->frame.img)
 		mlx_destroy_image(game->mlx, game->frame.img);
 	if (game->wall_north.img)
@@ -26,6 +28,10 @@ static void	free_images(t_game *game)
 		mlx_destroy_image(game->mlx, game->wall_east.img);
 	if (game->wall_west.img)
 		mlx_destroy_image(game->mlx, game->wall_west.img);
+}
+
+static void	free_door_images(t_game *game)
+{
 	if (game->door_open.img)
 		mlx_destroy_image(game->mlx, game->door_open.img);
 	if (game->door_half.img)
@@ -70,6 +76,7 @@ void	free_game(t_game *game)
 	if (game->mlx)
 	{
 		free_images(game);
+		free_door_images(game);
 		free_font(game);
 		close_window(game);
 	}

@@ -83,6 +83,7 @@ int	game_loop(t_game *g)
 	{
 		apply_movement(g);
 		ft_update_doors(g);
+		ft_update_key_anim(g);
 	}
 	render(g);
 	return (0);

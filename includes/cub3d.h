@@ -211,6 +211,7 @@ typedef struct s_game
 	void		*mlx;
 	void		*win;
 	t_img		hand_sheet;
+	t_img		key_sheet;
 	t_img		frame;
 	t_img		wall_north;
 	t_img		wall_south;
@@ -234,6 +235,8 @@ typedef struct s_game
 	int			ceiling_color;
 	int			floor_color;
 	long long	last_hand_time;
+	int			key_anim_frame;
+	long long	key_anim_time;
 	int			door_x;
 	int			door_y;
 	int			door_opening;
@@ -358,6 +361,7 @@ int			exit_program(t_game *g);
 
 double		cast_ray(t_game *g, t_ray *ray);
 void		draw_hand_frame(t_game *g, t_img *sheet, int frame_idx);
+void		draw_player_hand(t_game *g);
 
 void		load_handlers(t_game *g);
 int			load_game(char *filename, t_game *g);
@@ -393,6 +397,8 @@ void		free_font(t_game *g);
 void		render_hud(t_game *g);
 void		ft_draw_crosshair(t_game *g);
 void		ft_update_doors(t_game *g);
+void		ft_start_key_anim(t_game *g);
+void		ft_update_key_anim(t_game *g);
 
 void		toggle_mouse(t_game *g, int enable);
 

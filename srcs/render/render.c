@@ -120,7 +120,7 @@ void	render(t_game *g)
 		draw_column(g, &col);
 		x++;
 	}
-	draw_hand_frame(g, &g->hand_sheet, g->current_hand_frame);
+	draw_player_hand(g);
 	ft_draw_crosshair(g);
 	render_minimap(g);
 	render_hud(g);

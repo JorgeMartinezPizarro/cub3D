@@ -31,6 +31,7 @@ static int	load_textures(t_game *g, t_config *config)
 		|| !load_tex(g, &g->wall_east, config->ea_texture)
 		|| !load_tex(g, &g->wall_west, config->we_texture)
 		|| !load_tex(g, &g->hand_sheet, "textures/arms.xpm")
+		|| !load_tex(g, &g->key_sheet, "textures/arms_key.xpm")
 		|| !load_tex(g, &g->door_closed, "textures/puerta_cerrada.xpm")
 		|| !load_tex(g, &g->door_half, "textures/puerta_entornada.xpm")
 		|| !load_tex(g, &g->door_open, "textures/puerta_abierta.xpm")
@@ -52,6 +53,7 @@ static void	init_keys(t_game *game)
 		i++;
 	}
 	game->door_x = -1;
+	game->key_anim_frame = -1;
 }
 
 static int	load_images(t_game *g)

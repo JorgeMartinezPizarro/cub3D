@@ -50,6 +50,7 @@ static void	reset_run_state(t_game *g)
 	g->win_pending_since = 0;
 	g->current_hand_frame = 0;
 	g->last_hand_time = get_time();
+	g->key_anim_frame = -1;
 }
 
 static void	rebuild_messages(t_game *g, char *path, long long load_ms)

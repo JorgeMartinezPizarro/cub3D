@@ -12,6 +12,14 @@
 
 #include "cub3d.h"
 
+void	draw_player_hand(t_game *g)
+{
+	if (g->key_anim_frame >= 0)
+		draw_hand_frame(g, &g->key_sheet, g->key_anim_frame);
+	else
+		draw_hand_frame(g, &g->hand_sheet, g->current_hand_frame);
+}
+
 void	draw_hand_frame(t_game *g, t_img *sheet, int frame_idx)
 {
 	int			x;
