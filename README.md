@@ -17,11 +17,11 @@ Code summary:
 
 | File type | Lines of Code |
 |----------|--------------:|
-| `.c`     |          2184 |
-| `.h`     |           315 |
+| `.c`     |          2195 |
+| `.h`     |           323 |
 | `.sh`     |           125 |
 | Makefile |            82 |
-| **TOTAL**|        **2706** |
+| **TOTAL**|        **2725** |
 
 ## Instructions
 
@@ -39,10 +39,10 @@ with an existing *.cub file.
 The game speed can be adjusted using:
 
 ```c
-# define MOVE_SPEED 0.0892
-# define ROT_SPEED  0.0397
-# define FPS 60
-# define MOUSE_SENS 0.0025
+# define MOVE_SPEED 0.1493
+# define ROT_SPEED  0.0689
+# define FPS 24
+# define MOUSE_SENS 0.0021
 ```
 
 The default configuration works nice for the 42 computers at 03/09/2026. 
