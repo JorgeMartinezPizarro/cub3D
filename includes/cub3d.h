@@ -29,7 +29,7 @@
 # define WIDTH 1904
 # define HEIGHT 1000
 # define MAX_MAP_SIZE 200
-# define FONT_SIZE 2.1
+# define FONT_SIZE 2.0
 # define WALL_TEX_REPEAT 1
 
 // GAME SPEED
@@ -46,8 +46,8 @@
 // PLAYER
 // hand sprite-sheet is always a 2x2 grid of frames (any resolution);
 // HAND_SCALE is how many times bigger than its native size it is drawn
-# define HAND_SCALE 3.3
-# define PLAYER_RADIUS 0.2
+# define HAND_SCALE 3.5
+# define PLAYER_RADIUS 0.3
 
 // KEYS
 # define KEY_W 119
@@ -65,9 +65,9 @@
 // and the two things worth spotting at a glance (doors, the player/spawn
 // dot) get the only bright colors on the map
 # define MM_SCALE 6
-# define MINIMAP_RADIUS 18
-# define MM_OFFSET_X 10
-# define MM_OFFSET_Y 10
+# define MINIMAP_RADIUS 25
+# define MM_OFFSET_X 12
+# define MM_OFFSET_Y 12
 # define COLOR_WALL   0x00000000
 # define COLOR_EMPTY  0x00333333
 # define COLOR_DOOR   0x00FFFF00

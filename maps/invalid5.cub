@@ -3,8 +3,8 @@ C 50
 
 NO ./textures/128_papel.xpm
 SO ./textures/128_roca.xpm
-WE ./textures/128_slate.xpm
-EA ./textures/128_rayos.xpm
+WE ./textures/128_textura.xpm
+EA ./textures/128_madera.xpm
 
 111111111111111111111111111111
 100000000000000000000000000001
