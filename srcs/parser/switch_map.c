@@ -14,12 +14,11 @@
 
 static char	*level_path(int idx)
 {
-	static char	*names[SCORE_MAP_COUNT] = {
-		"maps/level1.cub", "maps/level2.cub", "maps/level3.cub",
-		"maps/level4.cub", "maps/level5.cub", "maps/level6.cub",
-		"maps/level7.cub", "maps/level8.cub", "maps/level9.cub"};
+	static char	path[32];
 
-	return (names[idx]);
+	ft_strlcpy(path, "maps/", sizeof(path));
+	ft_strlcat(path, ft_level_name(idx), sizeof(path));
+	return (path);
 }
 
 void	ft_switch_map(t_game *g, int dir)

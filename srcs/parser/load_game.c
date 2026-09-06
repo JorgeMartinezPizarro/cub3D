@@ -24,12 +24,19 @@ int	load_tex(t_game *g, t_img *t, char *path)
 	return (1);
 }
 
-static int	load_textures(t_game *g, t_config *config)
+int	load_wall_texture_set(t_game *g, t_config *config)
 {
 	if (!load_tex(g, &g->wall_north, config->no_texture)
 		|| !load_tex(g, &g->wall_south, config->so_texture)
 		|| !load_tex(g, &g->wall_east, config->ea_texture)
-		|| !load_tex(g, &g->wall_west, config->we_texture)
+		|| !load_tex(g, &g->wall_west, config->we_texture))
+		return (0);
+	return (1);
+}
+
+static int	load_textures(t_game *g, t_config *config)
+{
+	if (!load_wall_texture_set(g, config)
 		|| !load_tex(g, &g->hand_sheet, "textures/arms.xpm")
 		|| !load_tex(g, &g->key_sheet, "textures/arms_key.xpm")
 		|| !load_tex(g, &g->door_closed, "textures/puerta_cerrada.xpm")
@@ -47,7 +54,7 @@ static void	init_keys(t_game *game)
 	int	i;
 
 	i = 0;
-	while (i < 65536)
+	while (i < KEY_TABLE_SIZE)
 	{
 		game->keys[i] = 0;
 		i++;

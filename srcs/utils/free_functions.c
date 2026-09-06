@@ -12,14 +12,8 @@
 
 #include "cub3d.h"
 
-static void	free_images(t_game *game)
+void	destroy_wall_images(t_game *game)
 {
-	if (game->hand_sheet.img)
-		mlx_destroy_image(game->mlx, game->hand_sheet.img);
-	if (game->key_sheet.img)
-		mlx_destroy_image(game->mlx, game->key_sheet.img);
-	if (game->frame.img)
-		mlx_destroy_image(game->mlx, game->frame.img);
 	if (game->wall_north.img)
 		mlx_destroy_image(game->mlx, game->wall_north.img);
 	if (game->wall_south.img)
@@ -28,6 +22,17 @@ static void	free_images(t_game *game)
 		mlx_destroy_image(game->mlx, game->wall_east.img);
 	if (game->wall_west.img)
 		mlx_destroy_image(game->mlx, game->wall_west.img);
+}
+
+static void	free_images(t_game *game)
+{
+	if (game->hand_sheet.img)
+		mlx_destroy_image(game->mlx, game->hand_sheet.img);
+	if (game->key_sheet.img)
+		mlx_destroy_image(game->mlx, game->key_sheet.img);
+	if (game->frame.img)
+		mlx_destroy_image(game->mlx, game->frame.img);
+	destroy_wall_images(game);
 }
 
 static void	free_door_images(t_game *game)

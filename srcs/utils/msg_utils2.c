@@ -58,3 +58,25 @@ char	*ft_build_size_message(t_game *g)
 	buf[i] = '\0';
 	return (ft_strdup(buf));
 }
+
+void	ft_set_map_messages(t_game *g, char *path, long long load_ms)
+{
+	char	*path_copy;
+
+	path_copy = ft_strdup(path);
+	g->load_ms = load_ms;
+	free(g->load_msg);
+	g->load_msg = ft_build_load_message(load_ms);
+	free(g->map_msg);
+	g->map_msg = ft_build_map_message(path);
+	free(g->title_msg);
+	g->title_msg = ft_build_title_message(path);
+	free(g->map_path);
+	g->map_path = path_copy;
+	g->map_hash = ft_hash_file(g->map_path);
+	g->map_idx = ft_find_map_index(g->map_path);
+	free(g->size_msg);
+	g->size_msg = ft_build_size_message(g);
+	free(g->best_msg);
+	g->best_msg = ft_build_record_message(g);
+}

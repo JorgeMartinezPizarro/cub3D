@@ -21,11 +21,7 @@ char	*ft_build_win_message(t_game *g, int min, int sec, int ms)
 	append_str(buf, &i, "You opened all ");
 	append_pad(buf, &i, g->door_total, 1);
 	append_str(buf, &i, " doors in ");
-	append_pad(buf, &i, min, 2);
-	append_str(buf, &i, ":");
-	append_pad(buf, &i, sec, 2);
-	append_str(buf, &i, ".");
-	append_pad(buf, &i, ms, 3);
+	append_clock(buf, &i, min, sec, ms);
 	append_str(buf, &i, ".");
 	buf[i] = '\0';
 	return (ft_strdup(buf));

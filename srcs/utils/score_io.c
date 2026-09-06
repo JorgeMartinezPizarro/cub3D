@@ -43,29 +43,25 @@ static int	score_decode_line(char *hexline, t_score *out)
 	return (free_strarr(tok, 3), 1);
 }
 
-static void	score_init_defaults(t_score *scores, char **names)
+static void	score_init_defaults(t_score *scores)
 {
 	int	i;
 
 	i = 0;
 	while (i < SCORE_MAP_COUNT)
 	{
-		score_default(&scores[i], names[i]);
+		score_default(&scores[i], ft_level_name(i));
 		i++;
 	}
 }
 
 void	ft_load_scores(t_score *scores)
 {
-	static char	*names[SCORE_MAP_COUNT] = {
-		"level1.cub", "level2.cub", "level3.cub", "level4.cub",
-		"level5.cub", "level6.cub", "level7.cub", "level8.cub",
-		"level9.cub"};
-	int			fd;
-	char		*line;
-	int			i;
+	int		fd;
+	char	*line;
+	int		i;
 
-	score_init_defaults(scores, names);
+	score_init_defaults(scores);
 	fd = open(SCORES_PATH, O_RDONLY);
 	if (fd < 0)
 		return ;

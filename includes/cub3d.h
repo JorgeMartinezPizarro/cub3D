@@ -56,7 +56,15 @@
 # define HAND_SCALE 3.5
 # define PLAYER_RADIUS 0.3
 
+// KEY USE ANIMATION: the "using a key" hand animation steps through the
+// 2x2 sprite-sheet grid above, one frame every KEY_ANIM_FRAME_MS, until
+// all KEY_ANIM_FRAME_COUNT frames have played
+# define KEY_ANIM_FRAME_MS 75
+# define KEY_ANIM_FRAME_COUNT 4
+
 // KEYS
+// size of t_game.keys[], indexed directly by X11 keysym/keycode values
+# define KEY_TABLE_SIZE 65536
 # define KEY_W 119
 # define KEY_S 115
 # define KEY_A 97
@@ -232,7 +240,7 @@ typedef struct s_game
 	int			height;
 	int			width;
 	int			current_hand_frame;
-	int			keys[65536];
+	int			keys[KEY_TABLE_SIZE];
 	int			mouse_x_diff;
 	int			mouse_lock;
 	int			mouse_x;
@@ -337,6 +345,7 @@ int			ray_step(t_ray *r);
 int			ray_door_open(t_game *g, t_ray *r, int side, t_img *tex);
 t_img		*door_tile_tex(t_game *g, int tile);
 void		free_game(t_game *game);
+void		destroy_wall_images(t_game *game);
 void		free_world(t_game *game);
 void		free_strarr(char **res, int i);
 void		ft_free_config(t_config *config);
@@ -374,6 +383,7 @@ void		load_handlers(t_game *g);
 int			load_game(char *filename, t_game *g);
 void		resolve_win_size(t_game *g, int *win_w, int *win_h);
 int			load_tex(t_game *g, t_img *t, char *path);
+int			load_wall_texture_set(t_game *g, t_config *config);
 int			reload_map(t_game *g, char *path);
 void		ft_switch_map(t_game *g, int dir);
 void		ft_restart_map(t_game *g);
@@ -400,6 +410,8 @@ char		*ft_build_map_message(char *path);
 char		*ft_build_title_message(char *path);
 void		append_str(char *buf, int *i, char *s);
 void		append_pad(char *buf, int *i, int n, int width);
+void		ft_ms_to_clock(long long ms, int *min, int *sec, int *msec);
+void		append_clock(char *buf, int *i, int min, int sec, int msec);
 int			load_font(t_game *g);
 void		free_font(t_game *g);
 void		render_hud(t_game *g);
@@ -419,9 +431,11 @@ char		*ft_score_encode(t_score *s);
 void		ft_load_scores(t_score *scores);
 void		ft_save_scores(t_score *scores);
 
+char		*ft_level_name(int idx);
 int			ft_find_map_index(char *path);
 void		ft_check_score(t_game *g, long long elapsed);
 char		*ft_build_record_message(t_game *g);
 char		*ft_build_size_message(t_game *g);
+void		ft_set_map_messages(t_game *g, char *path, long long load_ms);
 
 #endif

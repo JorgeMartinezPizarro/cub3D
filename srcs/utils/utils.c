@@ -48,14 +48,14 @@ int	key_press(int k, t_game *g)
 	}
 	else if (k == KEY_M)
 		toggle_mouse(g, !g->mouse_enable);
-	else if (k < 65536)
+	else if (k < KEY_TABLE_SIZE)
 		g->keys[k] = 1;
 	return (0);
 }
 
 int	key_release(int k, t_game *g)
 {
-	if (k < 65536)
+	if (k < KEY_TABLE_SIZE)
 		g->keys[k] = 0;
 	return (0);
 }

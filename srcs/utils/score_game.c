@@ -12,14 +12,22 @@
 
 #include "cub3d.h"
 
-int	ft_find_map_index(char *path)
+char	*ft_level_name(int idx)
 {
 	static char	*names[SCORE_MAP_COUNT] = {
 		"level1.cub", "level2.cub", "level3.cub", "level4.cub",
 		"level5.cub", "level6.cub", "level7.cub", "level8.cub",
 		"level9.cub"};
-	char		*base;
-	int			i;
+
+	if (idx < 0 || idx >= SCORE_MAP_COUNT)
+		return (NULL);
+	return (names[idx]);
+}
+
+int	ft_find_map_index(char *path)
+{
+	char	*base;
+	int		i;
 
 	base = ft_strrchr(path, '/');
 	if (base)
@@ -29,7 +37,7 @@ int	ft_find_map_index(char *path)
 	i = 0;
 	while (i < SCORE_MAP_COUNT)
 	{
-		if (ft_strcmp(base, names[i]) == 0)
+		if (ft_strcmp(base, ft_level_name(i)) == 0)
 			return (i);
 		i++;
 	}
@@ -42,16 +50,12 @@ static char	*build_time_msg(char *prefix, long long ms)
 	int		i;
 	int		min;
 	int		sec;
+	int		msec;
 
-	min = (int)(ms / 60000);
-	sec = (int)((ms / 1000) % 60);
+	ft_ms_to_clock(ms, &min, &sec, &msec);
 	i = 0;
 	append_str(buf, &i, prefix);
-	append_pad(buf, &i, min, 2);
-	append_str(buf, &i, ":");
-	append_pad(buf, &i, sec, 2);
-	append_str(buf, &i, ".");
-	append_pad(buf, &i, (int)(ms % 1000), 3);
+	append_clock(buf, &i, min, sec, msec);
 	buf[i] = '\0';
 	return (ft_strdup(buf));
 }

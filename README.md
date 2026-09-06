@@ -17,11 +17,11 @@ Code summary:
 
 | File type | Lines of Code |
 |----------|--------------:|
-| `.c`     |          2195 |
-| `.h`     |           323 |
+| `.c`     |          2235 |
+| `.h`     |           341 |
 | `.sh`     |           125 |
-| Makefile |            82 |
-| **TOTAL**|        **2725** |
+| Makefile |            83 |
+| **TOTAL**|        **2784** |
 
 ## Instructions
 

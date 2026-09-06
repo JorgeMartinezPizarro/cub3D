@@ -22,11 +22,11 @@ void	ft_update_key_anim(t_game *g)
 {
 	if (g->key_anim_frame < 0)
 		return ;
-	if (get_time() - g->key_anim_time >= 75)
+	if (get_time() - g->key_anim_time >= KEY_ANIM_FRAME_MS)
 	{
 		g->key_anim_frame++;
 		g->key_anim_time = get_time();
-		if (g->key_anim_frame >= 4)
+		if (g->key_anim_frame >= KEY_ANIM_FRAME_COUNT)
 			g->key_anim_frame = -1;
 	}
 }
