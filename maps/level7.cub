@@ -1,7 +1,7 @@
-NO ./textures/128_green.xpm
+NO ./textures/128_arena.xpm
 SO ./textures/128_piedra.xpm
 WE ./textures/128_plantas.xpm
-EA ./textures/128_purple.xpm
+EA ./textures/128_roca.xpm
 
 F 255,100,100
 C 50,50,80

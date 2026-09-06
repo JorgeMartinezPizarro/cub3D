@@ -37,7 +37,7 @@
 # define WIN_FRAME_H 40
 # define MAX_MAP_SIZE 200
 # define FONT_SIZE 2.0
-# define WALL_TEX_REPEAT 1
+# define WALL_TEX_REPEAT 2
 
 // GAME SPEED
 # define MOVE_SPEED 0.1493
