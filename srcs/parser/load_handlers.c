@@ -17,6 +17,7 @@ static int	mouse_move(int x, int y, t_game *g)
 	int	center_x;
 	int	center_y;
 	int	delta_x;
+	int	abs_delta;
 
 	if (!g->mouse_enable)
 		return (0);
@@ -25,7 +26,10 @@ static int	mouse_move(int x, int y, t_game *g)
 	if (x == center_x && y == center_y)
 		return (0);
 	delta_x = x - center_x;
-	if (abs(delta_x) > 1 && abs(delta_x) < 200)
+	abs_delta = delta_x;
+	if (abs_delta < 0)
+		abs_delta = -abs_delta;
+	if (abs_delta > 1 && abs_delta < 200)
 	{
 		g->p.angle += delta_x * MOUSE_SENS;
 		normalize_angle(&g->p.angle);

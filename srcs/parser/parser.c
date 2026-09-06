@@ -30,7 +30,8 @@ int	ft_print_errors(t_error err)
 		"Error\nMap not closed\n",
 		"Error\nInvalid line in file\n",
 		"Error\nMap too large (max 200x200)\n",
-		"Error\nNot all doors are reachable\n"
+		"Error\nNot all doors are reachable\n",
+		"Error\nMap cannot contain blank lines\n"
 	};
 
 	if (err >= 0 && err < ERR_COUNT)
@@ -68,7 +69,13 @@ static int	ft_parse_line(t_config *config, char *line)
 	while (line[i] && ft_isspace(line[i]))
 		i++;
 	if (line[i] == '\n' || line[i] == '\0')
+	{
+		if (config->map != NULL)
+			config->map_closed = 1;
 		return (0);
+	}
+	if (config->map_closed)
+		return (ft_print_errors(ERR_MAP_BLANK_LINE));
 	result = ft_compare_symbols(config, line, i);
 	if (result != -1)
 		return (result);

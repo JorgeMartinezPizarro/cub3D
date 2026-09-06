@@ -40,6 +40,8 @@ int	key_press(int k, t_game *g)
 	if (g->finished || !g->started)
 		return (key_press_menu(k, g));
 	if (k == KEY_ESC)
+		exit_program(g);
+	else if (k == KEY_BACKSPACE)
 		ft_return_to_menu(g);
 	else if (k == KEY_E)
 	{

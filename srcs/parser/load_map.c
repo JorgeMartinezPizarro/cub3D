@@ -12,24 +12,12 @@
 
 #include "cub3d.h"
 
-static int	ft_is_border_or_space(t_config *config, int x, int y)
+// relies on ft_fill_row (parser_map.c) walling off ragged rows/spaces
+static int	ft_is_map_edge(t_config *config, int x, int y)
 {
-	int	len;
-
 	if (x == 0 || y == 0)
 		return (1);
-	if (y >= config->height - 1)
-		return (1);
-	len = ft_strlen(config->map[y]);
-	if (x >= len - 1)
-		return (1);
-	if (config->map[y][x + 1] == '\0' || config->map[y][x + 1] == ' ')
-		return (1);
-	if (config->map[y][x - 1] == ' ')
-		return (1);
-	if ((int)ft_strlen(config->map[y - 1]) <= x || config->map[y - 1][x] == ' ')
-		return (1);
-	if ((int)ft_strlen(config->map[y + 1]) <= x || config->map[y + 1][x] == ' ')
+	if (y >= config->height - 1 || x >= config->width - 1)
 		return (1);
 	return (0);
 }
@@ -62,7 +50,7 @@ int	ft_check_cell(t_config *config, int x, int y, int *spawn_count)
 		return (ft_print_errors(ERR_INVALID_CHAR));
 	if (c == '0' || ft_strchr("NSEWD", c))
 	{
-		if (ft_is_border_or_space(config, x, y))
+		if (ft_is_map_edge(config, x, y))
 			return (ft_print_errors(ERR_MAP_NOT_CLOSED));
 	}
 	if (ft_strchr("NSEW", c))

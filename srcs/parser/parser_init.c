@@ -78,5 +78,6 @@ t_config	*ft_init_config(void)
 	config->ea_flag = 0;
 	config->f_flag = 0;
 	config->c_flag = 0;
+	config->map_closed = 0;
 	return (config);
 }

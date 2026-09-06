@@ -75,6 +75,7 @@
 # define KEY_E 101
 # define KEY_M 109
 # define KEY_ENTER 65293
+# define KEY_BACKSPACE 65288
 
 // MINIMAP: walls fade into the black background, floor is a muted gray,
 // and the two things worth spotting at a glance (doors, the player/spawn
@@ -169,6 +170,7 @@ typedef enum e_error
 	ERR_INVALID_LINE,
 	ERR_MAP_TOO_LONG,
 	ERR_DOOR_UNREACHABLE,
+	ERR_MAP_BLANK_LINE,
 	ERR_COUNT
 }	t_error;
 
@@ -192,6 +194,7 @@ typedef struct s_config
 	int		ea_flag;
 	int		f_flag;
 	int		c_flag;
+	int		map_closed;
 }	t_config;
 
 typedef struct s_score

@@ -35,12 +35,14 @@ static void	ft_fill_row(t_config *config, t_game *game, int y)
 	x = 0;
 	while (x < config->width)
 	{
-		if (x < len && config->map[y][x] == '1')
-			game->world[y][x] = TILE_WALL;
+		if (x < len && config->map[y][x] == '0')
+			game->world[y][x] = TILE_EMPTY;
 		else if (x < len && config->map[y][x] == 'D')
 			game->world[y][x] = TILE_DOOR;
-		else
+		else if (x < len && ft_strchr("NSEW", config->map[y][x]))
 			game->world[y][x] = TILE_EMPTY;
+		else
+			game->world[y][x] = TILE_WALL;
 		x++;
 	}
 }
