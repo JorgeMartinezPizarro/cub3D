@@ -76,6 +76,7 @@ int	game_loop(t_game *g)
 	long long	now;
 
 	now = get_time();
+	ft_apply_pending_switch(g);
 	if (now - g->last_time < 1000 / FPS)
 		return (0);
 	g->last_time = now;

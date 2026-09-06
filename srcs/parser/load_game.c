@@ -39,6 +39,8 @@ static void	init_keys(t_game *game)
 	}
 	game->door_x = -1;
 	game->key_anim_frame = -1;
+	game->pending_switch_dir = 0;
+	game->pending_switch_time = 0;
 }
 
 static int	load_images(t_game *g)

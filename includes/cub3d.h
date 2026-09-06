@@ -44,6 +44,7 @@
 # define ROT_SPEED  0.0689
 # define FPS 24
 # define MOUSE_SENS 0.0021
+# define MAP_SWITCH_DEBOUNCE_MS 30
 
 ///////////////////////////////////////////////////////////
 // INTERNAL GAME VALUES
@@ -285,6 +286,8 @@ typedef struct s_game
 	int			map_hash;
 	int			map_idx;
 	t_img		font;
+	int			pending_switch_dir;
+	long long	pending_switch_time;
 }	t_game;
 
 typedef struct s_charview
@@ -389,6 +392,7 @@ int			load_tex(t_game *g, t_img *t, char *path);
 int			load_wall_texture_set(t_game *g, t_config *config);
 int			reload_map(t_game *g, char *path);
 void		ft_switch_map(t_game *g, int dir);
+void		ft_apply_pending_switch(t_game *g);
 void		ft_restart_map(t_game *g);
 void		ft_return_to_menu(t_game *g);
 

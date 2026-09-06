@@ -33,6 +33,17 @@ void	ft_switch_map(t_game *g, int dir)
 		exit_program(g);
 }
 
+void	ft_apply_pending_switch(t_game *g)
+{
+	if (g->pending_switch_dir == 0)
+		return ;
+	if (get_time() - g->pending_switch_time < MAP_SWITCH_DEBOUNCE_MS)
+		return ;
+	if (!g->started && !g->finished)
+		ft_switch_map(g, g->pending_switch_dir);
+	g->pending_switch_dir = 0;
+}
+
 void	ft_restart_map(t_game *g)
 {
 	free(g->win_msg);
