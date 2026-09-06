@@ -17,11 +17,11 @@ Code summary:
 
 | File type | Lines of Code |
 |----------|--------------:|
-| `.c`     |          2235 |
-| `.h`     |           341 |
-| `.sh`     |           125 |
+| `.c`     |          2236 |
+| `.h`     |           344 |
+| `.sh`     |           126 |
 | Makefile |            83 |
-| **TOTAL**|        **2784** |
+| **TOTAL**|        **2789** |
 
 ## Instructions
 
@@ -57,11 +57,15 @@ Pressing `ESC` will close the game. Using `Backspace` will return from the game 
 
 - [minilibx](https://harm-smits.github.io/42docs/libs/minilibx)
 
+- [Ray casting](https://en.wikipedia.org/wiki/Ray_casting)
+
+- [DDA Algorithm](https://www.geeksforgeeks.org/computer-graphics/dda-line-generation-algorithm-computer-graphics/)
+
 - We used [chatgpt](https://chatgpt.com) to get an overview of the classical algorithms used typically. The game is created using the Ray Casting and DDA algorithms, based on the projective geometry.
 
 ## Shortcuts
 
-In windows, you can capture with Win + G and then use the mp4 as follows to create a gif:
+In windows, you can capture with `Win + G` and then use the `mp4` as follows to create a gif:
 
 ```powershell
 ffmpeg -i './cube.mp4' -vf "fps=15,scale=800:-1:flags=lanczos,palettegen" palette.png
