@@ -44,8 +44,13 @@ void	ft_ms_to_clock(long long ms, int *min, int *sec, int *msec)
 	*msec = (int)(ms % 1000);
 }
 
-void	append_clock(char *buf, int *i, int min, int sec, int msec)
+void	append_clock(char *buf, int *i, long long ms)
 {
+	int	min;
+	int	sec;
+	int	msec;
+
+	ft_ms_to_clock(ms, &min, &sec, &msec);
 	append_pad(buf, i, min, 2);
 	append_str(buf, i, ":");
 	append_pad(buf, i, sec, 2);
@@ -57,14 +62,10 @@ char	*ft_build_load_message(long long load_ms)
 {
 	char	buf[64];
 	int		i;
-	int		min;
-	int		sec;
-	int		msec;
 
-	ft_ms_to_clock(load_ms, &min, &sec, &msec);
 	i = 0;
 	append_str(buf, &i, "Game loaded in ");
-	append_clock(buf, &i, min, sec, msec);
+	append_clock(buf, &i, load_ms);
 	append_str(buf, &i, ".");
 	buf[i] = '\0';
 	return (ft_strdup(buf));

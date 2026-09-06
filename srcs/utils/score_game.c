@@ -48,14 +48,10 @@ static char	*build_time_msg(char *prefix, long long ms)
 {
 	char	buf[64];
 	int		i;
-	int		min;
-	int		sec;
-	int		msec;
 
-	ft_ms_to_clock(ms, &min, &sec, &msec);
 	i = 0;
 	append_str(buf, &i, prefix);
-	append_clock(buf, &i, min, sec, msec);
+	append_clock(buf, &i, ms);
 	buf[i] = '\0';
 	return (ft_strdup(buf));
 }
