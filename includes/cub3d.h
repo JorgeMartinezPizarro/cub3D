@@ -32,21 +32,21 @@
 // means "use the full usable screen size" for that axis. The resolved size
 // ends up in g->frame.w / g->frame.h, which the rest of the game reads.
 //
-# define WANTED_WIDTH 0
-# define WANTED_HEIGHT 0
-# define WIN_FRAME_W 10
+# define WANTED_WIDTH 1800
+# define WANTED_HEIGHT 1000
+# define WIN_FRAME_W 12
 # define WIN_FRAME_H 40
 # define MAX_MAP_SIZE 200
 # define FONT_SIZE 2.5
-# define WALL_TEX_REPEAT 8
-# define RAY_MAX_STEPS 128
+# define WALL_TEX_REPEAT 10
+# define RAY_MAX_STEPS 200
 
 // GAME SPEED: MOVE_SPEED/ROT_SPEED are per-tick deltas, pre-divided for
 // FPS above (3.112 and 1.213 units/sec respectively) so real-world speed
 // stays the same if FPS changes; the norm forbids computed defines, so
 // recompute both by hand (unit/sec divided by FPS) whenever FPS changes
 # define FPS 30
-# define MOVE_SPEED 0.14966
+# define MOVE_SPEED 0.13766
 # define ROT_SPEED  0.05654
 # define MOUSE_SENS 0.00211
 

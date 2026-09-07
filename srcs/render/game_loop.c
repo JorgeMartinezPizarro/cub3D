@@ -86,6 +86,5 @@ int	game_loop(t_game *g)
 		ft_update_key_anim(g);
 	}
 	render(g);
-	g->last_time = get_time();
 	return (0);
 }
