@@ -47,7 +47,7 @@ The default configuration works nice for the 42 computers at 03/09/2026.
 
 ## Gameplay
 
-The game consists on opening all the doors as fast as posible. Best scores will be saved to `scores.dat`.
+The game consists on opening all the doors as fast as posible. Best scores will be saved.
 
 Use `W` `A` `S` y `D` to move the player across the map. To rotate the view angle, use `left arrow` and `right arrow`.
 
