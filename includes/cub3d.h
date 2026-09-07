@@ -140,7 +140,7 @@
 // trivially editable in a plain text editor
 # define SCORES_PATH		"scores.dat"
 # define SCORE_XOR_KEY		0x5A
-# define SCORE_MAP_COUNT	9
+# define SCORE_MAP_COUNT	10
 
 // START SCREEN: miniature map preview box + the 4 corner key icons
 # define START_PREVIEW_MAX_W	480

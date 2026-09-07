@@ -17,7 +17,7 @@ char	*ft_level_name(int idx)
 	static char	*names[SCORE_MAP_COUNT] = {
 		"level1.cub", "level2.cub", "level3.cub", "level4.cub",
 		"level5.cub", "level6.cub", "level7.cub", "level8.cub",
-		"level9.cub"};
+		"level9.cub", "level10.cub"};
 
 	if (idx < 0 || idx >= SCORE_MAP_COUNT)
 		return (NULL);
