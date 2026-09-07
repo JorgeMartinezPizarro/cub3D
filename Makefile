@@ -98,7 +98,7 @@ clean-san:
 test: all
 	@./scripts/test.sh
 
-debug: 
+debug: all
 	@./scripts/debug.sh
 
 -include $(DEPENDENCIES)

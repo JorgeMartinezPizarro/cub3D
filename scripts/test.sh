@@ -2,7 +2,6 @@ NAME=cub3D
 VALGRIND="valgrind \
   --leak-check=full \
   --show-leak-kinds=all \
-  --suppressions=./scripts/mlx.supp \
   --track-origins=yes \
   --num-callers=30 \
   --track-fds=yes \
