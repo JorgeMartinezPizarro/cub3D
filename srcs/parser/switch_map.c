@@ -12,36 +12,19 @@
 
 #include "cub3d.h"
 
-static char	*level_path(int idx)
-{
-	static char	path[32];
-
-	ft_strlcpy(path, "maps/", sizeof(path));
-	ft_strlcat(path, ft_level_name(idx), sizeof(path));
-	return (path);
-}
-
 void	ft_switch_map(t_game *g, int dir)
 {
-	int	idx;
+	int		idx;
+	char	path[32];
 
 	idx = g->map_idx;
 	if (idx < 0)
 		idx = 0;
 	idx = (idx + dir + SCORE_MAP_COUNT) % SCORE_MAP_COUNT;
-	if (!reload_map(g, level_path(idx)))
+	ft_strlcpy(path, "maps/", sizeof(path));
+	ft_strlcat(path, ft_level_name(idx), sizeof(path));
+	if (!reload_map(g, path))
 		exit_program(g);
-}
-
-void	ft_apply_pending_switch(t_game *g)
-{
-	if (g->pending_switch_dir == 0)
-		return ;
-	if (get_time() - g->pending_switch_time < MAP_SWITCH_DEBOUNCE_MS)
-		return ;
-	if (!g->started && !g->finished)
-		ft_switch_map(g, g->pending_switch_dir);
-	g->pending_switch_dir = 0;
 }
 
 void	ft_restart_map(t_game *g)

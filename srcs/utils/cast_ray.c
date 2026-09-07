@@ -23,6 +23,7 @@ static void	ray_init(t_game *g, t_ray *r)
 	r->delta_y = fabs(1.0 / r->dir_y);
 	r->hit_type = TILE_WALL;
 	r->has_door = 0;
+	r->no_hit = 0;
 }
 
 static void	ray_steps(t_game *g, t_ray *r)
@@ -53,11 +54,18 @@ static int	ray_dda(t_game *g, t_ray *r)
 {
 	int		side;
 	int		tile;
+	int		steps;
 	t_img	*door_tex;
 
+	steps = 0;
 	while (1)
 	{
 		side = ray_step(r);
+		if (++steps > RAY_MAX_STEPS)
+		{
+			r->no_hit = 1;
+			return (side);
+		}
 		tile = g->world[r->map_y][r->map_x];
 		door_tex = door_tile_tex(g, tile);
 		if (door_tex && ray_door_open(g, r, side, door_tex))

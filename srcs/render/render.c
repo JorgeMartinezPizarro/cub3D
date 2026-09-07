@@ -12,21 +12,6 @@
 
 #include "cub3d.h"
 
-void	clear_frame(t_img *img, int color)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < img->h)
-	{
-		x = 0;
-		while (x < img->w)
-			put_pixel(img, x++, y, color);
-		y++;
-	}
-}
-
 static void	compute_ray(t_game *g, int x, t_ray *ray)
 {
 	double	fov;
@@ -42,14 +27,9 @@ static void	compute_ray(t_game *g, int x, t_ray *ray)
 		ray->door_cam_dist = ray->door_dist * cos(ray->angle - g->p.angle);
 }
 
-static void	setup_column(t_game *g, t_ray *ray, t_column *col)
+static void	setup_column_wall(t_game *g, t_ray *ray, t_column *col,
+		t_img **walls)
 {
-	t_img	*walls[4];
-
-	walls[0] = &g->wall_north;
-	walls[1] = &g->wall_south;
-	walls[2] = &g->wall_east;
-	walls[3] = &g->wall_west;
 	col->wall_h = (int)(g->frame.h / ray->cam_dist);
 	col->start = g->frame.h / 2 - col->wall_h / 2;
 	col->end = g->frame.h / 2 + col->wall_h / 2;
@@ -69,6 +49,27 @@ static void	setup_column(t_game *g, t_ray *ray, t_column *col)
 		col->tex = &g->door_closed;
 	else if (ray->hit_type == TILE_DOOR_HALF)
 		col->tex = g->door_anim_tex;
+}
+
+static void	setup_column(t_game *g, t_ray *ray, t_column *col)
+{
+	t_img	*walls[4];
+
+	walls[0] = &g->wall_north;
+	walls[1] = &g->wall_south;
+	walls[2] = &g->wall_east;
+	walls[3] = &g->wall_west;
+	if (ray->no_hit)
+	{
+		col->wall_h = 0;
+		col->start = g->frame.h / 2;
+		col->end = col->start;
+		col->is_door = 0;
+		col->wall_x = 0;
+		col->tex = walls[0];
+		return ;
+	}
+	setup_column_wall(g, ray, col, walls);
 }
 
 static void	draw_column(t_game *g, t_column *c)

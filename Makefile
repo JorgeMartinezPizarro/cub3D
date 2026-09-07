@@ -16,7 +16,7 @@ FILES		= \
 	main \
 	render/render_minimap \
 	render/animations render/draw_hand_frame \
-	render/key_anim \
+	render/key_anim render/clear_frame \
 	render/game_loop render/render \
 	render/door_layer render/start_screen render/start_screen_preview \
 	render/end_screen render/put_text \

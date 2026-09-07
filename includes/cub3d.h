@@ -31,20 +31,24 @@
 // borders and title bar) so the window always fits on screen; a value of 0
 // means "use the full usable screen size" for that axis. The resolved size
 // ends up in g->frame.w / g->frame.h, which the rest of the game reads.
+//
 # define WANTED_WIDTH 0
 # define WANTED_HEIGHT 0
 # define WIN_FRAME_W 10
 # define WIN_FRAME_H 40
 # define MAX_MAP_SIZE 200
-# define FONT_SIZE 2.0
-# define WALL_TEX_REPEAT 10
+# define FONT_SIZE 2.5
+# define WALL_TEX_REPEAT 8
+# define RAY_MAX_STEPS 128
 
-// GAME SPEED
-# define MOVE_SPEED 0.1493
-# define ROT_SPEED  0.0689
-# define FPS 24
+// GAME SPEED: MOVE_SPEED/ROT_SPEED are per-tick deltas, pre-divided for
+// FPS above (3.112 and 1.213 units/sec respectively) so real-world speed
+// stays the same if FPS changes; the norm forbids computed defines, so
+// recompute both by hand (unit/sec divided by FPS) whenever FPS changes
+# define FPS 30
+# define MOVE_SPEED 0.129667
+# define ROT_SPEED 0.050542
 # define MOUSE_SENS 0.0021
-# define MAP_SWITCH_DEBOUNCE_MS 30
 
 ///////////////////////////////////////////////////////////
 // INTERNAL GAME VALUES
@@ -54,6 +58,7 @@
 // PLAYER
 // hand sprite-sheet is always a 2x2 grid of frames (any resolution);
 // HAND_SCALE is how many times bigger than its native size it is drawn
+// We are using now images of 256 x 140 pixels.
 # define HAND_SCALE 3.5
 # define PLAYER_RADIUS 0.3
 
@@ -124,8 +129,8 @@
 
 // DOOR ANIMATION: closed/half/open textures shown in sequence while the
 // door tile is TILE_DOOR_HALF; DOOR_FRAME_MS is how long each one is shown
-# define DOOR_FRAME_MS		75
-# define DOOR_ANIM_MS		225
+# define DOOR_FRAME_MS		100
+# define DOOR_ANIM_MS		300
 
 // WIN: once the last door finishes opening, wait this long (with the HUD
 // already showing n/n) before switching to the end screen
@@ -286,8 +291,6 @@ typedef struct s_game
 	int			map_hash;
 	int			map_idx;
 	t_img		font;
-	int			pending_switch_dir;
-	long long	pending_switch_time;
 }	t_game;
 
 typedef struct s_charview
@@ -321,6 +324,7 @@ typedef struct s_ray
 	int		step_y;
 	int		side;
 	int		hit_type;
+	int		no_hit;
 	int		has_door;
 	double	door_dist;
 	double	door_cam_dist;
@@ -392,6 +396,7 @@ int			load_tex(t_game *g, t_img *t, char *path);
 int			load_wall_texture_set(t_game *g, t_config *config);
 int			reload_map(t_game *g, char *path);
 void		ft_switch_map(t_game *g, int dir);
+void		ft_handle_switch_key(int k, t_game *g);
 void		ft_apply_pending_switch(t_game *g);
 void		ft_restart_map(t_game *g);
 void		ft_return_to_menu(t_game *g);

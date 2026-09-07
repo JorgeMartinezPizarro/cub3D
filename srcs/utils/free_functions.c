@@ -53,6 +53,7 @@ static void	free_door_images(t_game *game)
 
 static void	close_window(t_game *game)
 {
+	mlx_do_key_autorepeaton(game->mlx);
 	if (game->win)
 	{
 		mlx_clear_window(game->mlx, game->win);

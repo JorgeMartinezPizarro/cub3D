@@ -76,7 +76,6 @@ int	game_loop(t_game *g)
 	long long	now;
 
 	now = get_time();
-	ft_apply_pending_switch(g);
 	if (now - g->last_time < 1000 / FPS)
 		return (0);
 	g->last_time = now;
@@ -87,5 +86,6 @@ int	game_loop(t_game *g)
 		ft_update_key_anim(g);
 	}
 	render(g);
+	g->last_time = get_time();
 	return (0);
 }

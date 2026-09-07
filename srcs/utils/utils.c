@@ -25,9 +25,10 @@ static int	key_press_menu(int k, t_game *g)
 			ft_restart_map(g);
 		return (0);
 	}
-	if ((k == KEY_LEFT || k == KEY_RIGHT)
-		&& g->pending_switch_dir == (k == KEY_RIGHT) - (k == KEY_LEFT))
-		g->pending_switch_dir = 0;
+	if (k == KEY_LEFT)
+		ft_switch_map(g, -1);
+	else if (k == KEY_RIGHT)
+		ft_switch_map(g, 1);
 	if (k == KEY_ENTER)
 	{
 		g->started = 1;
@@ -58,11 +59,6 @@ int	key_press(int k, t_game *g)
 
 int	key_release(int k, t_game *g)
 {
-	if (!g->started && !g->finished && (k == KEY_LEFT || k == KEY_RIGHT))
-	{
-		g->pending_switch_dir = (k == KEY_RIGHT) - (k == KEY_LEFT);
-		g->pending_switch_time = get_time();
-	}
 	if (k < KEY_TABLE_SIZE)
 		g->keys[k] = 0;
 	return (0);

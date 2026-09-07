@@ -60,6 +60,7 @@ void	ft_draw_crosshair(t_game *g)
 
 void	load_handlers(t_game *g)
 {
+	mlx_do_key_autorepeatoff(g->mlx);
 	mlx_mouse_move(g->mlx, g->win, g->frame.w / 2, g->frame.h / 2);
 	mlx_hook(g->win, 2, 1L << 0, key_press, g);
 	mlx_hook(g->win, 3, 1L << 1, key_release, g);
