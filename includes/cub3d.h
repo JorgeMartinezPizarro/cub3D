@@ -46,9 +46,9 @@
 // stays the same if FPS changes; the norm forbids computed defines, so
 // recompute both by hand (unit/sec divided by FPS) whenever FPS changes
 # define FPS 30
-# define MOVE_SPEED 0.129667
-# define ROT_SPEED 0.050542
-# define MOUSE_SENS 0.0021
+# define MOVE_SPEED 0.14966
+# define ROT_SPEED  0.05654
+# define MOUSE_SENS 0.00211
 
 ///////////////////////////////////////////////////////////
 // INTERNAL GAME VALUES
