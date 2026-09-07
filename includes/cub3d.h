@@ -91,7 +91,7 @@
 # define MM_OFFSET_X 12
 # define MM_OFFSET_Y 12
 # define COLOR_WALL   0x00000000
-# define COLOR_EMPTY  0x00333333
+# define COLOR_EMPTY  0x00223344
 # define COLOR_DOOR   0x00FFFF00
 
 // TEXT: put_centered() blits glyphs from a monospaced spritesheet
