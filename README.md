@@ -51,9 +51,7 @@ The game consists on opening all the doors as fast as posible. Best scores will 
 
 Use `W` `A` `S` y `D` to move the player across the map. To rotate the view angle, use `left arrow` and `right arrow`.
 
-Alternately, you can use the mouse, to toggle mouse usage on/off, press `m`.
-
-To open the doors, you may press `e`. The game consists on opening all the doors.
+Alternately, you can use the mouse, to toggle mouse usage on/off, press `m`. To open the doors, you may press `e`.
 
 Pressing `ESC` will close the game. Using `Backspace` will return from the game to the map selector menu.
 
