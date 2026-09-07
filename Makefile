@@ -22,7 +22,7 @@ FILES		= \
 	render/end_screen render/put_text \
 	render/end_screen_layout render/hud \
 	utils/free_functions utils/free_config utils/utils \
-	utils/msg_utils utils/msg_utils2 \
+	utils/msg_utils utils/map_messages \
 	utils/cast_ray utils/ray_utils utils/color \
 	utils/helpers utils/get_pixel \
 	utils/put_pixel \

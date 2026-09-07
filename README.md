@@ -17,11 +17,11 @@ Code summary:
 
 | File type | Lines of Code |
 |----------|--------------:|
-| `.c`     |          2236 |
-| `.h`     |           344 |
+| `.c`     |          2253 |
+| `.h`     |           348 |
 | `.sh`     |           126 |
 | Makefile |            83 |
-| **TOTAL**|        **2789** |
+| **TOTAL**|        **2810** |
 
 ## Instructions
 
@@ -37,10 +37,10 @@ with an existing *.cub file.
 The game speed can be adjusted using:
 
 ```c
-# define MOVE_SPEED 0.1493
-# define ROT_SPEED  0.0689
-# define FPS 24
-# define MOUSE_SENS 0.0021
+# define FPS 30
+# define MOVE_SPEED 0.13766
+# define ROT_SPEED  0.05654
+# define MOUSE_SENS 0.00211
 ```
 
 The default configuration works nice for the 42 computers at 03/09/2026. 
@@ -238,7 +238,7 @@ The array is first filled with defaults (no record) for all 9 levels, so that a 
 
 ### 3. Map hash: invalidating a record when the map changes
 
-Each `.cub` file is hashed on load (`msg_utils2.c`):
+Each `.cub` file is hashed on load (`map_messages.c`):
 
 ```c
 g->map_hash = ft_hash_file(g->map_path);
