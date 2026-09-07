@@ -39,7 +39,7 @@
 # define MAX_MAP_SIZE 200
 # define FONT_SIZE 2.5
 # define WALL_TEX_REPEAT 10
-# define RAY_MAX_STEPS 200
+# define RAY_MAX_STEPS 512
 
 // GAME SPEED: MOVE_SPEED/ROT_SPEED are per-tick deltas, pre-divided for
 // FPS above (3.112 and 1.213 units/sec respectively) so real-world speed
