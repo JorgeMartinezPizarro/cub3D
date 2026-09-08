@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/08/31 16:57:43 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/09/08 16:37:45 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,23 @@
 // means "use the full usable screen size" for that axis. The resolved size
 // ends up in g->frame.w / g->frame.h, which the rest of the game reads.
 //
-# define WANTED_WIDTH 1800
-# define WANTED_HEIGHT 1000
+# define WANTED_WIDTH 1200
+# define WANTED_HEIGHT 800
 # define WIN_FRAME_W 12
-# define WIN_FRAME_H 40
+# define WIN_FRAME_H 80
 # define MAX_MAP_SIZE 200
-# define FONT_SIZE 2.5
+# define FONT_SIZE 2
 # define WALL_TEX_REPEAT 10
-# define RAY_MAX_STEPS 512
+# define RAY_MAX_STEPS 280
 
 // GAME SPEED: MOVE_SPEED/ROT_SPEED are per-tick deltas, pre-divided for
 // FPS above (3.112 and 1.213 units/sec respectively) so real-world speed
 // stays the same if FPS changes; the norm forbids computed defines, so
 // recompute both by hand (unit/sec divided by FPS) whenever FPS changes
-# define FPS 30
-# define MOVE_SPEED 0.13766
-# define ROT_SPEED  0.05654
-# define MOUSE_SENS 0.00211
+# define FPS 12
+# define MOVE_SPEED 0.00394
+# define ROT_SPEED  0.00135
+# define MOUSE_SENS 0.00181
 
 ///////////////////////////////////////////////////////////
 // INTERNAL GAME VALUES
@@ -59,8 +59,8 @@
 // hand sprite-sheet is always a 2x2 grid of frames (any resolution);
 // HAND_SCALE is how many times bigger than its native size it is drawn
 // We are using now images of 256 x 140 pixels.
-# define HAND_SCALE 3.5
-# define PLAYER_RADIUS 0.3
+# define HAND_SCALE 3
+# define PLAYER_RADIUS 0.1
 
 // KEY USE ANIMATION: the "using a key" hand animation steps through the
 // 2x2 sprite-sheet grid above, one frame every KEY_ANIM_FRAME_MS, until

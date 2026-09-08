@@ -6,7 +6,7 @@
 #    By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:27:12 by jomarti3          #+#    #+#              #
-#    Updated: 2026/09/02 14:57:40 by jomarti3         ###   ########.fr        #
+#    Updated: 2026/09/08 15:38:42 by jomarti3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ MLX_DIR		= minilibx
 MLX			= $(MLX_DIR)/libmlx_Linux.a
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -MMD -MP
+CFLAGS		= -Wall -Wextra -Werror -MMD -MP -O3
 CPPFLAGS	= -I./includes -I./$(LIBFT_DIR)/src -I./$(MLX_DIR)
 LDFLAGS := -L$(LIBFT_DIR) -L$(MLX_DIR) -L/usr/lib
 LDLIBS  := -lft -lmlx_Linux -lXext -lX11 -lm

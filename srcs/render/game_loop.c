@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:25:41 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/02/23 14:06:28 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/09/08 16:57:08 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,28 @@ static void	move_player(t_game *g, double dx, double dy)
 		g->p.y += dy;
 }
 
-static void	apply_movement(t_game *g)
+static void	apply_movement(t_game *g, int time_ms)
 {
 	if (g->keys[KEY_W])
-		move_player(g, cos(g->p.angle) * MOVE_SPEED,
-			sin(g->p.angle) * MOVE_SPEED);
+		move_player(g, cos(g->p.angle) * MOVE_SPEED * time_ms,
+			sin(g->p.angle) * MOVE_SPEED * time_ms);
 	if (g->keys[KEY_S])
-		move_player(g, -cos(g->p.angle) * MOVE_SPEED,
-			-sin(g->p.angle) * MOVE_SPEED);
+		move_player(g, -cos(g->p.angle) * MOVE_SPEED * time_ms,
+			-sin(g->p.angle) * MOVE_SPEED * time_ms);
 	if (g->keys[KEY_A])
-		move_player(g, sin(g->p.angle) * MOVE_SPEED,
-			-cos(g->p.angle) * MOVE_SPEED);
+		move_player(g, sin(g->p.angle) * MOVE_SPEED * time_ms,
+			-cos(g->p.angle) * MOVE_SPEED * time_ms);
 	if (g->keys[KEY_D])
-		move_player(g, -sin(g->p.angle) * MOVE_SPEED,
-			cos(g->p.angle) * MOVE_SPEED);
+		move_player(g, -sin(g->p.angle) * MOVE_SPEED * time_ms,
+			cos(g->p.angle) * MOVE_SPEED * time_ms);
 	if (g->keys[KEY_LEFT])
 	{
-		g->p.angle -= ROT_SPEED;
+		g->p.angle -= ROT_SPEED * time_ms;
 		update_hand_animation(g);
 	}
 	if (g->keys[KEY_RIGHT])
 	{
-		g->p.angle += ROT_SPEED;
+		g->p.angle += ROT_SPEED * time_ms;
 		update_hand_animation(g);
 	}
 	normalize_angle(&g->p.angle);
@@ -76,15 +76,16 @@ int	game_loop(t_game *g)
 	long long	now;
 
 	now = get_time();
-	if (now - g->last_time < 1000 / FPS)
+	if (now - g->last_time < 1000 / FPS) {
 		return (0);
-	g->last_time = now;
+	}
 	if (g->started && !g->finished)
 	{
-		apply_movement(g);
+		apply_movement(g, now - g->last_time);
 		ft_update_doors(g);
 		ft_update_key_anim(g);
 	}
+	g->last_time = now;
 	render(g);
 	return (0);
 }
