@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/09/08 16:37:45 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/09/08 17:34:24 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 // FPS above (3.112 and 1.213 units/sec respectively) so real-world speed
 // stays the same if FPS changes; the norm forbids computed defines, so
 // recompute both by hand (unit/sec divided by FPS) whenever FPS changes
-# define FPS 12
+# define FPS 30
 # define MOVE_SPEED 0.00394
 # define ROT_SPEED  0.00135
 # define MOUSE_SENS 0.00181
@@ -60,7 +60,7 @@
 // HAND_SCALE is how many times bigger than its native size it is drawn
 // We are using now images of 256 x 140 pixels.
 # define HAND_SCALE 3
-# define PLAYER_RADIUS 0.1
+# define PLAYER_RADIUS 0.2
 
 // KEY USE ANIMATION: the "using a key" hand animation steps through the
 // 2x2 sprite-sheet grid above, one frame every KEY_ANIM_FRAME_MS, until
