@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/09/08 18:28:54 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/09/08 19:18:10 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@
 //
 # define WANTED_WIDTH 0
 # define WANTED_HEIGHT 0
-# define WIN_FRAME_W 12
-# define WIN_FRAME_H 80
+# define WIN_FRAME_W 4
+# define WIN_FRAME_H 120
 # define MAX_MAP_SIZE 200
 # define FONT_SIZE 2
 # define WALL_TEX_REPEAT 10
