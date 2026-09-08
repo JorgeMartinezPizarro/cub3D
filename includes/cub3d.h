@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/09/08 17:34:24 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/09/08 18:28:54 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 // means "use the full usable screen size" for that axis. The resolved size
 // ends up in g->frame.w / g->frame.h, which the rest of the game reads.
 //
-# define WANTED_WIDTH 1200
-# define WANTED_HEIGHT 800
+# define WANTED_WIDTH 0
+# define WANTED_HEIGHT 0
 # define WIN_FRAME_W 12
 # define WIN_FRAME_H 80
 # define MAX_MAP_SIZE 200
@@ -41,10 +41,6 @@
 # define WALL_TEX_REPEAT 10
 # define RAY_MAX_STEPS 280
 
-// GAME SPEED: MOVE_SPEED/ROT_SPEED are per-tick deltas, pre-divided for
-// FPS above (3.112 and 1.213 units/sec respectively) so real-world speed
-// stays the same if FPS changes; the norm forbids computed defines, so
-// recompute both by hand (unit/sec divided by FPS) whenever FPS changes
 # define FPS 30
 # define MOVE_SPEED 0.00394
 # define ROT_SPEED  0.00135
