@@ -33,7 +33,6 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	ft_set_map_messages(&game, argv[1], get_time() - t0);
-	setup_signals();
 	load_handlers(&game);
 	return (0);
 }

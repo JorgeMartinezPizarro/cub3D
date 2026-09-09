@@ -13,8 +13,6 @@
 #include "cub3d.h"
 #include <signal.h>
 
-static volatile sig_atomic_t	g_sigint = 0;
-
 int	exit_program(t_game *g)
 {
 	ft_printf("Clean up game.\n");
@@ -33,25 +31,4 @@ void	drain_fd(int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
-}
-
-static void	handle_sigint(int signum)
-{
-	(void)signum;
-	g_sigint = 1;
-}
-
-void	setup_signals(void)
-{
-	struct sigaction	sa;
-
-	sa.sa_handler = handle_sigint;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
-	sigaction(SIGINT, &sa, NULL);
-}
-
-int	sigint_received(void)
-{
-	return (g_sigint);
 }

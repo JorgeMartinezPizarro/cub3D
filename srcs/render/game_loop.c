@@ -86,8 +86,6 @@ int	game_loop(t_game *g)
 {
 	long long	now;
 
-	if (sigint_received())
-		exit_program(g);
 	now = get_time();
 	if (now - g->last_time < 1000 / FPS)
 	{
