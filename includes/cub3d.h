@@ -41,9 +41,9 @@
 # define WALL_TEX_REPEAT 10
 # define RAY_MAX_STEPS 280
 
-# define FPS 30
-# define MOVE_SPEED 0.00394
-# define ROT_SPEED  0.00135
+# define FPS 60
+# define MOVE_SPEED 0.00404
+# define ROT_SPEED  0.00137
 # define MOUSE_SENS 0.00181
 
 ///////////////////////////////////////////////////////////
@@ -380,6 +380,8 @@ void		normalize_angle(double *angle);
 int			get_pixel(t_img *tex, int x, int y);
 int			rgb_to_hex(int *rgb);
 int			exit_program(t_game *g);
+void		setup_signals(void);
+int			sigint_received(void);
 
 double		cast_ray(t_game *g, t_ray *ray);
 void		draw_hand_frame(t_game *g, t_img *sheet, int frame_idx);

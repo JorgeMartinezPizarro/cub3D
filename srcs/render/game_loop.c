@@ -21,6 +21,11 @@ static void	update_hand_animation(t_game *g)
 	}
 }
 
+static int	in_bounds(t_game *g, double x, double y)
+{
+	return (x >= 0 && x < g->width && y >= 0 && y < g->height);
+}
+
 static void	move_player(t_game *g, double dx, double dy)
 {
 	double	margin_x;
@@ -36,12 +41,18 @@ static void	move_player(t_game *g, double dx, double dy)
 		margin_y = PLAYER_RADIUS;
 	else
 		margin_y = -PLAYER_RADIUS;
-	tile = g->world[(int)g->p.y][(int)(g->p.x + dx + margin_x)];
-	if (tile == TILE_EMPTY || tile == TILE_DOOR_OPEN)
-		g->p.x += dx;
-	tile = g->world[(int)(g->p.y + dy + margin_y)][(int)g->p.x];
-	if (tile == TILE_EMPTY || tile == TILE_DOOR_OPEN)
-		g->p.y += dy;
+	if (in_bounds(g, g->p.x + dx + margin_x, g->p.y))
+	{
+		tile = g->world[(int)g->p.y][(int)(g->p.x + dx + margin_x)];
+		if (tile == TILE_EMPTY || tile == TILE_DOOR_OPEN)
+			g->p.x += dx;
+	}
+	if (in_bounds(g, g->p.x, g->p.y + dy + margin_y))
+	{
+		tile = g->world[(int)(g->p.y + dy + margin_y)][(int)g->p.x];
+		if (tile == TILE_EMPTY || tile == TILE_DOOR_OPEN)
+			g->p.y += dy;
+	}
 }
 
 static void	apply_movement(t_game *g, double distance, double angle)
@@ -75,6 +86,8 @@ int	game_loop(t_game *g)
 {
 	long long	now;
 
+	if (sigint_received())
+		exit_program(g);
 	now = get_time();
 	if (now - g->last_time < 1000 / FPS)
 	{
