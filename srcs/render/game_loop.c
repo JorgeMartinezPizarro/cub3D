@@ -44,28 +44,28 @@ static void	move_player(t_game *g, double dx, double dy)
 		g->p.y += dy;
 }
 
-static void	apply_movement(t_game *g, int time_ms)
+static void	apply_movement(t_game *g, double distance, double angle)
 {
 	if (g->keys[KEY_W])
-		move_player(g, cos(g->p.angle) * MOVE_SPEED * time_ms,
-			sin(g->p.angle) * MOVE_SPEED * time_ms);
+		move_player(g, cos(g->p.angle) * distance,
+			sin(g->p.angle) * distance);
 	if (g->keys[KEY_S])
-		move_player(g, -cos(g->p.angle) * MOVE_SPEED * time_ms,
-			-sin(g->p.angle) * MOVE_SPEED * time_ms);
+		move_player(g, -cos(g->p.angle) * distance,
+			-sin(g->p.angle) * distance);
 	if (g->keys[KEY_A])
-		move_player(g, sin(g->p.angle) * MOVE_SPEED * time_ms,
-			-cos(g->p.angle) * MOVE_SPEED * time_ms);
+		move_player(g, sin(g->p.angle) * distance,
+			-cos(g->p.angle) * distance);
 	if (g->keys[KEY_D])
-		move_player(g, -sin(g->p.angle) * MOVE_SPEED * time_ms,
-			cos(g->p.angle) * MOVE_SPEED * time_ms);
+		move_player(g, -sin(g->p.angle) * distance,
+			cos(g->p.angle) * distance);
 	if (g->keys[KEY_LEFT])
 	{
-		g->p.angle -= ROT_SPEED * time_ms;
+		g->p.angle -= angle;
 		update_hand_animation(g);
 	}
 	if (g->keys[KEY_RIGHT])
 	{
-		g->p.angle += ROT_SPEED * time_ms;
+		g->p.angle += angle;
 		update_hand_animation(g);
 	}
 	normalize_angle(&g->p.angle);
@@ -77,10 +77,14 @@ int	game_loop(t_game *g)
 
 	now = get_time();
 	if (now - g->last_time < 1000 / FPS)
+	{
 		return (0);
+	}
 	if (g->started && !g->finished)
 	{
-		apply_movement(g, now - g->last_time);
+		apply_movement(g,
+			MOVE_SPEED * (now - g->last_time),
+			ROT_SPEED * (now - g->last_time));
 		ft_update_doors(g);
 		ft_update_key_anim(g);
 		g->last_time = now;
