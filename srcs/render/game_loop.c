@@ -76,9 +76,8 @@ int	game_loop(t_game *g)
 	long long	now;
 
 	now = get_time();
-	if (now - g->last_time < 1000 / FPS) {
+	if (now - g->last_time < 1000 / FPS)
 		return (0);
-	}
 	if (g->started && !g->finished)
 	{
 		apply_movement(g, now - g->last_time);
