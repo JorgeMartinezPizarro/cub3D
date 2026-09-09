@@ -100,16 +100,12 @@ static void	draw_column(t_game *g, t_column *c)
 		draw_door_layer(g, c);
 }
 
-void	render(t_game *g)
+void	render_game(t_game *g)
 {
 	int			x;
 	t_ray		ray;
 	t_column	col;
 
-	if (g->finished)
-		return (render_end_screen(g));
-	if (!g->started)
-		return (render_start_screen(g));
 	x = 0;
 	while (x < g->frame.w)
 	{

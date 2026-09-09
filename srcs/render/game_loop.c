@@ -88,9 +88,7 @@ int	game_loop(t_game *g)
 
 	now = get_time();
 	if (now - g->last_time < 1000 / FPS)
-	{
 		return (0);
-	}
 	if (g->started && !g->finished)
 	{
 		apply_movement(g,
@@ -100,6 +98,13 @@ int	game_loop(t_game *g)
 		ft_update_key_anim(g);
 		g->last_time = now;
 	}
-	render(g);
+	if (g->finished)
+		render_end_screen(g);
+	else if (!g->started)
+		render_start_screen(g);
+	else  {
+		render_game(g);
+		printf("Frame rendered in %lldms\n", get_time() - now);
+	}
 	return (0);
 }

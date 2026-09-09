@@ -61,7 +61,7 @@
 // KEY USE ANIMATION: the "using a key" hand animation steps through the
 // 2x2 sprite-sheet grid above, one frame every KEY_ANIM_FRAME_MS, until
 // all KEY_ANIM_FRAME_COUNT frames have played
-# define KEY_ANIM_FRAME_MS 75
+# define KEY_ANIM_FRAME_MS 100
 # define KEY_ANIM_FRAME_COUNT 4
 
 // KEYS
@@ -125,12 +125,12 @@
 
 // DOOR ANIMATION: closed/half/open textures shown in sequence while the
 // door tile is TILE_DOOR_HALF; DOOR_FRAME_MS is how long each one is shown
-# define DOOR_FRAME_MS		100
-# define DOOR_ANIM_MS		300
+# define DOOR_FRAME_MS		133
+# define DOOR_ANIM_MS		399
 
 // WIN: once the last door finishes opening, wait this long (with the HUD
 // already showing n/n) before switching to the end screen
-# define WIN_DELAY_MS		300
+# define WIN_DELAY_MS		400
 
 // SCORE: best times are stored XOR'd and hex-encoded so the file is not
 // trivially editable in a plain text editor
@@ -398,7 +398,7 @@ void		ft_restart_map(t_game *g);
 void		ft_return_to_menu(t_game *g);
 
 int			game_loop(t_game *g);
-void		render(t_game *g);
+void		render_game(t_game *g);
 void		setup_door(t_game *g, t_ray *ray, t_column *col);
 void		draw_door_layer(t_game *g, t_column *c);
 void		clear_frame(t_img *img, int color);
