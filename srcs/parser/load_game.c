@@ -75,6 +75,7 @@ int	load_game(char *filename, t_game *g)
 	g->win = mlx_new_window(g->mlx, g->frame.w, g->frame.h, "Cub3D");
 	if (!g->win)
 		return (ft_free_config(config), 0);
+	g->last_time = get_time();
 	ft_free_config(config);
 	return (1);
 }

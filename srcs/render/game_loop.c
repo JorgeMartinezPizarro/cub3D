@@ -84,8 +84,8 @@ int	game_loop(t_game *g)
 		apply_movement(g, now - g->last_time);
 		ft_update_doors(g);
 		ft_update_key_anim(g);
+		g->last_time = now;
 	}
-	g->last_time = now;
 	render(g);
 	return (0);
 }

@@ -110,7 +110,6 @@ void	render(t_game *g)
 		return (render_end_screen(g));
 	if (!g->started)
 		return (render_start_screen(g));
-	clear_frame(&g->frame, 0x000000);
 	x = 0;
 	while (x < g->frame.w)
 	{
