@@ -39,7 +39,7 @@
 # define MAX_MAP_SIZE 200
 # define FONT_SIZE 2
 # define WALL_TEX_REPEAT 10
-# define RAY_MAX_STEPS 280
+# define RAY_MAX_STEPS 400
 
 # define FPS 24
 # define MOVE_SPEED 0.00404

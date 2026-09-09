@@ -37,10 +37,9 @@ with an existing *.cub file.
 The game speed can be adjusted using:
 
 ```c
-# define FPS 30
-# define MOVE_SPEED 0.13766
-# define ROT_SPEED  0.05654
-# define MOUSE_SENS 0.00211
+# define MOVE_SPEED 0.00404
+# define ROT_SPEED  0.00137
+# define MOUSE_SENS 0.00181
 ```
 
 The default configuration works nice for the 42 computers at 03/09/2026. 
