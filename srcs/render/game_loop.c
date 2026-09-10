@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:25:41 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/09/10 13:17:05 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/09/10 13:30:53 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ int	game_loop(t_game *g)
 	else
 	{
 		render_game(g);
-		printf("Frame rendered in %lldms\n", get_time() - now);
+		if (get_time() - now > 1000 / FPS)
+			printf("Slow frame rendered in %lldms\n", get_time() - now);
 	}
 	return (0);
 }
