@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:25:41 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/09/08 16:57:08 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/09/10 13:17:05 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ int	game_loop(t_game *g)
 		render_end_screen(g);
 	else if (!g->started)
 		render_start_screen(g);
-	else  {
+	else
+	{
 		render_game(g);
 		printf("Frame rendered in %lldms\n", get_time() - now);
 	}
