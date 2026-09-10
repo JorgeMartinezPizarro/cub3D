@@ -1,6 +1,6 @@
 NO ./textures/128_baldosas.xpm
 SO ./textures/128_textura.xpm
-WE ./textures/128_industrial.xpm
+WE ./textures/128_azulejos.xpm
 EA ./textures/128_marble.xpm
 
 F 255,100,100

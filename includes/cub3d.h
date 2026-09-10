@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/09/10 13:29:34 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/09/10 13:35:23 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define WIN_FRAME_H 140
 # define MAX_MAP_SIZE 200
 # define FONT_SIZE 2
-# define WALL_TEX_REPEAT 8
+# define WALL_TEX_REPEAT 4
 # define RAY_MAX_STEPS 400
 
 # define FPS 24
