@@ -6,14 +6,11 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:05:00 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/03/12 21:12:04 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/09/10 14:30:03 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <math.h>
-#include <stdlib.h>
-#include <sys/time.h>
 
 int	main(int argc, char **argv)
 {
