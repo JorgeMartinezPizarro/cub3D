@@ -38,7 +38,7 @@
 # define WIN_FRAME_H 140
 # define MAX_MAP_SIZE 200
 # define FONT_SIZE 2
-# define WALL_TEX_REPEAT 4
+# define WALL_TEX_REPEAT 8
 # define RAY_MAX_STEPS 400
 
 # define FPS 24
@@ -56,7 +56,7 @@
 // HAND_SCALE is how many times bigger than its native size it is drawn
 // We are using now images of 256 x 140 pixels.
 # define HAND_SCALE 4
-# define PLAYER_RADIUS 0.2
+# define PLAYER_RADIUS 0.25
 
 // KEY USE ANIMATION: the "using a key" hand animation steps through the
 // 2x2 sprite-sheet grid above, one frame every KEY_ANIM_FRAME_MS, until

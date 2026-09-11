@@ -21,8 +21,8 @@ static void	compute_ray(t_game *g, int x, t_ray *ray)
 		+ (double)x / g->frame.w * fov;
 	ray->dist = cast_ray(g, ray);
 	ray->cam_dist = ray->dist * cos(ray->angle - g->p.angle);
-	if (ray->cam_dist <= 0.1)
-		ray->cam_dist = 0.1;
+	if (ray->cam_dist < PLAYER_RADIUS)
+		ray->cam_dist = PLAYER_RADIUS;
 	if (ray->has_door)
 		ray->door_cam_dist = ray->door_dist * cos(ray->angle - g->p.angle);
 }
