@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:26:51 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/09/11 19:35:29 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/09/23 14:39:47 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,21 @@ void	load_handlers(t_game *g)
 	mlx_loop(g->mlx);
 }
 
+/*
+
+This code show / hide the mouse but also generate memory leaks. 
+
 void	toggle_mouse(t_game *g, int enable)
 {
-	/*if (enable)
+	if (enable)
 		mlx_mouse_hide(g->mlx, g->win);
 	else
-		mlx_mouse_show(g->mlx, g->win);*/
+		mlx_mouse_show(g->mlx, g->win);
+}
+		
+*/
+void	toggle_mouse(t_game *g, int enable)
+{
 	g->mouse_enable = enable;
 }
 
