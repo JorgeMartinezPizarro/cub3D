@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:36:37 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/09/11 19:14:05 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/09/23 16:00:53 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@
 # define RAY_MAX_STEPS 400
 
 # define FPS 24
-# define MOVE_SPEED 0.00404
-# define ROT_SPEED  0.00137
+# define MOVE_SPEED 0.00574
+# define ROT_SPEED  0.00157
 # define MOUSE_SENS 0.00181
 
 ///////////////////////////////////////////////////////////
