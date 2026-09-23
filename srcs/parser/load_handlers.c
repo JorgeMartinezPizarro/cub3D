@@ -6,7 +6,7 @@
 /*   By: jomarti3 <jomarti3@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:26:51 by jomarti3          #+#    #+#             */
-/*   Updated: 2026/09/08 15:36:40 by jomarti3         ###   ########.fr       */
+/*   Updated: 2026/09/11 19:35:29 by jomarti3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ void	load_handlers(t_game *g)
 
 void	toggle_mouse(t_game *g, int enable)
 {
-	if (enable)
+	/*if (enable)
 		mlx_mouse_hide(g->mlx, g->win);
 	else
-		mlx_mouse_show(g->mlx, g->win);
+		mlx_mouse_show(g->mlx, g->win);*/
 	g->mouse_enable = enable;
 }
 
