@@ -1,10 +1,8 @@
-*This project has been created as part of the 42 curriculum by `jomarti3` and `guigonza`.*
-
 ![Demo de Cub3D](assets/Cub3D.gif)
 
 ## Description
 
-The goal is to render a ray casting 2.5D wolfestein-like maze game in `c` using the `minilibx`.
+The goal is to render a ray casting wolfestein-like (1992) maze game in `c` using the `minilibx`. We are following the [Permadi's tutorial](https://permadi.com/1996/05/ray-casting-tutorial-table-of-contents/).
 
 The project includes:
 
@@ -37,9 +35,9 @@ with an existing *.cub file.
 The game speed can be adjusted using:
 
 ```c
-# define MOVE_SPEED 0.00404
-# define ROT_SPEED  0.00137
-# define MOUSE_SENS 0.00181
+# define MOVE_SPEED 0.00404 (cubes / millisecond)
+# define ROT_SPEED  0.00137 (radians / millisecond)
+# define MOUSE_SENS 0.00181  (radians / millisecond)
 ```
 
 The default configuration works nice for the 42 computers at 03/09/2026. 
